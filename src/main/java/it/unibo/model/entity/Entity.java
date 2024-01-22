@@ -29,9 +29,9 @@ public interface Entity {
 
     /**
      * Updates the status.
-     * @param delta delta time
+     * 
      */
-    void update(double delta);
+    void update();
 
     /**
      * 
