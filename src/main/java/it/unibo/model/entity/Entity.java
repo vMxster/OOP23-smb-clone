@@ -1,5 +1,7 @@
 package it.unibo.model.entity;
 
+import java.awt.Graphics2D;
+
 /**
  * Entity
  */
@@ -31,4 +33,9 @@ public interface Entity {
      */
     void update(double delta);
 
+    /**
+     * 
+     * @param g
+     */
+    void draw(Graphics2D g);
 }

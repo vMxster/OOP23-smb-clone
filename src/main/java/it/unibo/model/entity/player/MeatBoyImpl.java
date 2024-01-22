@@ -1,5 +1,8 @@
 package it.unibo.model.entity.player;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+
 public class MeatBoyImpl implements MeatBoy {
 
     private double x;
@@ -50,6 +53,12 @@ public class MeatBoyImpl implements MeatBoy {
     public boolean isTouchingSide() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isTouchingSide'");
+    }
+
+    @Override
+    public void draw(Graphics2D g) {
+        g.setColor(Color.BLACK);
+        g.fillRect((int)this.x, (int)this.y, (int)this.width, (int)this.height);
     }
 
 }
