@@ -6,23 +6,17 @@ import java.awt.Graphics2D;
 import it.unibo.model.hitbox.CircularHitbox;
 import it.unibo.model.hitbox.CircularHitboxImpl;
 
-public class CircularSawImpl implements CircularSaw{
+import it.unibo.model.entity.AbstractEntityImpl;
 
-    private double x;
-    private double y;
-    private double width;
-    private double height;
+public class CircularSawImpl extends AbstractEntityImpl implements CircularSaw{
+
     private double radius;
 
     private CircularHitbox hitbox;
 
     public CircularSawImpl(final double x, final double y, final double width, final double height, final double radius) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        super(x, y, width, height);
         this.radius = radius;
-        this.hitbox = new CircularHitboxImpl(x, y, radius);
     }
 
     @Override
