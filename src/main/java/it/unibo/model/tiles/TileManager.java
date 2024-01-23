@@ -9,6 +9,9 @@ import javax.xml.xpath.XPathExpressionException;
 import org.xml.sax.SAXException;
 
 import it.unibo.commons.Point2D;
+import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.entity.target.BandageGirl;
 
 /**
  * The TileManager interface represents a manager for handling tiles in a game.
