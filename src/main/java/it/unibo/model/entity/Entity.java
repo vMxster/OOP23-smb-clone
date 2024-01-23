@@ -8,34 +8,27 @@ import java.awt.Graphics2D;
 public interface Entity {
 
     /**
-     * @return X coordinate
+     * @return X coordinate.
      */
     double getX();
 
     /**
-     * @return Y coordinate
+     * @return Y coordinate.
      */
     double getY();
 
     /**
-     * @return the width of the entity
+     * @return the width of the entity.
      */
     double getWidth();
 
     /**
-     * @return the height of the entity
+     * @return the height of the entity.
      */
     double getHeight();
 
     /**
-     * Updates the status.
-     * 
-     */
-    void update();
-
-    /**
-     * 
-     * @param g
+     * @param g graphic to draw.
      */
     void draw(Graphics2D g);
 }
