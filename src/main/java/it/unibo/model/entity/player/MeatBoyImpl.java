@@ -4,14 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
-public class MeatBoyImpl implements MeatBoy {
+import it.unibo.model.entity.AbstractEntityImpl;
+
+public class MeatBoyImpl extends AbstractEntityImpl implements MeatBoy {
 
     private static final double SPEED = 4;
 
-    private double x;
-    private double y;
-    private double width;
-    private double height;
     private double speedMul;
 
     //moves
@@ -20,31 +18,8 @@ public class MeatBoyImpl implements MeatBoy {
     private boolean jump;
 
     public MeatBoyImpl(final double x, final double y, final double width, final double height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        super(x, y, width, height);
         this.speedMul = 1;
-    }
-
-    @Override
-    public double getX() {
-        return this.x;
-    }
-
-    @Override
-    public double getY() {
-        return this.y;
-    }
-
-    @Override
-    public double getWidth() {
-        return this.width;
-    }
-
-    @Override
-    public double getHeight() {
-        return this.height;
     }
 
     @Override

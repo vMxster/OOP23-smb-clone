@@ -10,18 +10,34 @@ import java.util.TimerTask;
 
 import javax.swing.JPanel;
 
+import it.unibo.commons.Constants;
+import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.CircularSawImpl;
+import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.entity.obstacles.PlatformImpl;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.player.MeatBoyImpl;
+import it.unibo.model.entity.target.BandageGirl;
+import it.unibo.model.entity.target.BandageGirlImpl;
 
 public class GamePanel extends JPanel implements ActionListener {
 
     MeatBoy meatBoy;
 
+    BandageGirl bandageGirl;
+
+    CircularSaw saw;
+
+    Platform platform;
+
     Timer gameTimer;
 
     public GamePanel() {
-        meatBoy = new MeatBoyImpl(200, 200, 20, 20);
+        
         gameTimer = new Timer();
+        saw = new CircularSawImpl(400, 500, 50, 50, 3);
+        platform = new PlatformImpl(600, 600, 80, 20);
+
         gameTimer.schedule(new TimerTask() {
 
             @Override
@@ -40,6 +56,12 @@ public class GamePanel extends JPanel implements ActionListener {
         Graphics2D gtd = (Graphics2D) g;
 
         meatBoy.draw(gtd);
+
+        saw.draw(gtd);
+
+        platform.draw(gtd);
+
+        bandageGirl.draw(gtd);
     }
 
     @Override
