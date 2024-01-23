@@ -10,6 +10,7 @@ import java.util.TimerTask;
 
 import javax.swing.JPanel;
 
+import it.unibo.commons.Constants;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.CircularSawImpl;
 import it.unibo.model.entity.obstacles.Platform;
@@ -32,8 +33,9 @@ public class GamePanel extends JPanel implements ActionListener {
     Timer gameTimer;
 
     public GamePanel() {
-        meatBoy = new MeatBoyImpl(200, 200, 20, 20);
-        bandageGirl = new BandageGirlImpl(300, 300, 20, 20);
+        
+        meatBoy = new MeatBoyImpl(200, 200, Constants.MEATBOY_WIDTH, Constants.MEATBOY_HEIGHT);
+        bandageGirl = new BandageGirlImpl(250, 200, Constants.MEATBOY_WIDTH, Constants.MEATBOY_HEIGHT);
         gameTimer = new Timer();
         saw = new CircularSawImpl(400, 500, 50, 50, 3);
         platform = new PlatformImpl(600, 600, 80, 20);
