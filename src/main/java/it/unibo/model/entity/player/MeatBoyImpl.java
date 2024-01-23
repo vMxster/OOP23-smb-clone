@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
+import it.unibo.commons.Constants;
 import it.unibo.model.entity.AbstractEntityImpl;
+import it.unibo.model.hitbox.RectangleHitboxImpl;
 
 public class MeatBoyImpl extends AbstractEntityImpl implements MeatBoy {
 
@@ -17,9 +19,12 @@ public class MeatBoyImpl extends AbstractEntityImpl implements MeatBoy {
     private boolean moveRight;
     private boolean jump;
 
+    private RectangleHitboxImpl hitbox;
+
     public MeatBoyImpl(final double x, final double y, final double width, final double height) {
         super(x, y, width, height);
         this.speedMul = 1;
+        this.hitbox = new RectangleHitboxImpl(x, y, Constants.MEATBOY_WIDTH, Constants.MEATBOY_HEIGHT);
     }
 
     @Override
@@ -28,6 +33,7 @@ public class MeatBoyImpl extends AbstractEntityImpl implements MeatBoy {
         if (!moveLeft && moveRight) this.x += SPEED * speedMul;
         if (jump) this.y -= 17;
         if (!this.isOnGround()) this.y += 7;
+        this.hitbox.updatePosition(x, y);
     }
 
     @Override
@@ -45,6 +51,7 @@ public class MeatBoyImpl extends AbstractEntityImpl implements MeatBoy {
     public void draw(Graphics2D g) {
         g.setColor(Color.BLACK);
         g.fillRect((int)this.x, (int)this.y, (int)this.width, (int)this.height);
+        this.hitbox.draw(g);
     }
 
     public void move(int k) {
