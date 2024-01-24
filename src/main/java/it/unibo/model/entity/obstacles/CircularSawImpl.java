@@ -2,21 +2,22 @@ package it.unibo.model.entity.obstacles;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 
 import it.unibo.model.hitbox.CircularHitbox;
-import it.unibo.model.hitbox.CircularHitboxImpl;
+import it.unibo.model.hitbox.Hitbox;
 import it.unibo.model.entity.AbstractEntityImpl;
 
 public class CircularSawImpl extends AbstractEntityImpl implements CircularSaw{
 
     private double radius;
 
-    private CircularHitbox hitbox;
+    private Hitbox<Ellipse2D> hitbox;
 
     public CircularSawImpl(final double x, final double y, final double width, final double height, final double radius) {
         super(x, y, width, height);
         this.radius = radius;
-        this.hitbox = new CircularHitboxImpl(x, y, radius);
+        this.hitbox = new CircularHitbox(x, y, radius);
     }
 
     @Override
