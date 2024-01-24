@@ -4,14 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 
-public class CircularHitbox<T extends Ellipse2D> implements Hitbox<T> {
+public class CircularHitbox implements Hitbox<Ellipse2D> {
 
-    private T hitbox;
+    private final Ellipse2D hitbox;
     private final double radius;
-
-    @SuppressWarnings("unchecked")
+    
     public CircularHitbox(final double x, final double y, final double radius) {
-        this.hitbox = (T) new Ellipse2D.Double(x, y, radius, radius);
+        this.hitbox = new Ellipse2D.Double(x, y, radius, radius);
         this.radius = radius;
     }
 
@@ -21,7 +20,7 @@ public class CircularHitbox<T extends Ellipse2D> implements Hitbox<T> {
     }
 
     @Override
-    public T getHitbox() {
+    public Ellipse2D getHitbox() {
         return this.hitbox;
     }
 

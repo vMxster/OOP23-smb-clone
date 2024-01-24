@@ -4,12 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-public class RectangleHitbox<T extends Rectangle> implements Hitbox<T> {
+public class RectangleHitbox implements Hitbox<Rectangle> {
 
-    private final T hitbox;
+    private final Rectangle hitbox;
 
     public RectangleHitbox(final double x, final double y, final double width, final double height) {
-        this.hitbox = (T) new Rectangle((int) x, (int) y, (int) width, (int) height);
+        this.hitbox = new Rectangle((int) x, (int) y, (int) width, (int) height);
     }
 
     @Override
@@ -17,7 +17,7 @@ public class RectangleHitbox<T extends Rectangle> implements Hitbox<T> {
         this.hitbox.setLocation((int) x, (int) y);
     }
 
-    public T getHitbox() {
+    public Rectangle getHitbox() {
         return this.hitbox;
     }
 
