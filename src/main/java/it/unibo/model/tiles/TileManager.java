@@ -2,13 +2,14 @@ package it.unibo.model.tiles;
 
 import java.io.IOException;
 import java.util.List;
-
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
-
 import org.xml.sax.SAXException;
+import org.w3c.dom.Document;
 
 import it.unibo.commons.Point2D;
+import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.entity.target.BandageGirl;
 
 /**
  * The TileManager interface represents a manager for handling tiles in a game.
@@ -22,12 +23,11 @@ public interface TileManager {
      * This method is responsible for initializing the internal state of the TileManager based on the
      * contents of the TMX file.
      *
-     * @throws XPathExpressionException if an XPath expression error occurs during parsing.
      * @throws SAXException if a SAX parsing error occurs during the document parsing.
      * @throws ParserConfigurationException if a configuration error occurs while creating the DocumentBuilder.
      * @throws IOException if an I/O error occurs while reading the TMX file.
      */
-    void loadMap() throws XPathExpressionException, SAXException, ParserConfigurationException, IOException;
+    void loadMap() throws SAXException, ParserConfigurationException, IOException;
 
     /**
      * Returns the ArrayList of Platforms parsed from the TMX file.
@@ -70,5 +70,34 @@ public interface TileManager {
      * @return The BandageGirl object parsed from the TMX file.
      */
     BandageGirl getBandageGirl();
-    
+
+    /**
+     * Returns the Document object linked to the TMX file.
+     *
+     * @return The Document object linked to the TMX file.
+     */
+    Document getDocument();
+
+    /**
+     * Retrieves a two-dimensional list representing stationary tiles in the game.
+     * Each inner list corresponds to a row of stationary tiles in the game level.
+     *
+     * @return A two-dimensional list of stationary tiles.
+     */
+    List<List<Tile>> getStationary();
+
+    /**
+     * Retrieves a list of all tiles in the game.
+     *
+     * @return A list containing all tiles in the game.
+     */
+    List<Tile> getTiles();
+
+    /**
+     * Sets the BandageGirl object for this instance.
+     *
+     * @param bandageGirl The BandageGirl object to be set.
+     */
+    void setBandageGirl(BandageGirl bandageGirl);
+
 }
