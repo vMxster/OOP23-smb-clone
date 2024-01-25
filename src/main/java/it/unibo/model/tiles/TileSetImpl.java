@@ -14,7 +14,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
-public class TileSetImpl implements TileSet{
+public class TileSetImpl implements TileSet {
 
 	private final URL tmx;
 	private final List<Tile> tiles;
@@ -33,6 +33,7 @@ public class TileSetImpl implements TileSet{
 		}
 	}
 
+	@Override
     public void read() throws ParserConfigurationException, SAXException, IOException {
 		DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document document = documentBuilder.parse(tmx.getPath());
@@ -46,19 +47,19 @@ public class TileSetImpl implements TileSet{
                 Integer.parseInt(Objects.requireNonNull(tilesetElement.getElementsByTagName("image").item(0)).getAttributes().getNamedItem("height").getTextContent()), 
 				Objects.requireNonNull(tilesetElement.getElementsByTagName("image").item(0)).getAttributes().getNamedItem("source").getTextContent());
         }
-		
 	}
 
+	@Override
 	public void divideSpriteSheet(int width, int height, String srcImage) throws IOException {
 		for( int row=0 ; row<height ; row+=20 ) {
 			for( int column=0 ; column<width ; column+=20 ) {	
-				Tile tile = new TileImpl(row, column, srcImage);
-				tiles.add(tile);
+				tiles.add(new TileImpl(row, column));
 			}
 		}
 	}
 
-	public List<Tile> getTiles(){
+	@Override
+	public List<Tile> getTiles() {
 		return this.tiles;
 	}
 
