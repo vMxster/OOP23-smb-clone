@@ -2,18 +2,20 @@ package it.unibo.model.entity;
 
 import java.awt.Graphics2D;
 
-public abstract class AbstractEntityImpl implements Entity {
+public abstract class AbstractEntityImpl<T> implements Entity {
 
     protected double x;
     protected double y;
     protected double width;
     protected double height;
+    protected T hitbox;
 
-    public AbstractEntityImpl(final double x, final double y, final double width, final double height) {
+    public AbstractEntityImpl(final double x, final double y, final double width, final double height, final T hitbox) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.hitbox = hitbox;
     }
 
     @Override
