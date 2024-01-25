@@ -6,9 +6,9 @@ import java.awt.event.KeyEvent;
 
 import it.unibo.commons.Constants;
 import it.unibo.model.entity.AbstractEntityImpl;
-import it.unibo.model.hitbox.RectangleHitboxImpl;
+import it.unibo.model.hitbox.RectangleHitbox;
 
-public class MeatBoyImpl extends AbstractEntityImpl implements MeatBoy {
+public class MeatBoyImpl extends AbstractEntityImpl<RectangleHitbox> implements MeatBoy {
 
     private static final double SPEED = 4;
 
@@ -19,12 +19,9 @@ public class MeatBoyImpl extends AbstractEntityImpl implements MeatBoy {
     private boolean moveRight;
     private boolean jump;
 
-    private RectangleHitboxImpl hitbox;
-
     public MeatBoyImpl(final double x, final double y, final double width, final double height) {
-        super(x, y, width, height);
+        super(x, y, width, height, new RectangleHitbox(x, y, Constants.MEATBOY_WIDTH, Constants.MEATBOY_HEIGHT));
         this.speedMul = 1;
-        this.hitbox = new RectangleHitboxImpl(x, y, Constants.MEATBOY_WIDTH, Constants.MEATBOY_HEIGHT);
     }
 
     @Override

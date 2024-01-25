@@ -37,9 +37,8 @@ public class GamePanel extends JPanel implements ActionListener {
         meatBoy = new MeatBoyImpl(200, 200, Constants.MEATBOY_WIDTH, Constants.MEATBOY_HEIGHT);
         bandageGirl = new BandageGirlImpl(250, 200, Constants.MEATBOY_WIDTH, Constants.MEATBOY_HEIGHT);
         gameTimer = new Timer();
-        saw = new CircularSawImpl(400, 500, 50, 50, 3);
-        platform = new PlatformImpl(600, 600, 80, 20);
-
+        saw = new CircularSawImpl(100, 150, 50, 50, 50);
+        platform = new PlatformImpl(150, 150, 80, 20);
         gameTimer.schedule(new TimerTask() {
 
             @Override

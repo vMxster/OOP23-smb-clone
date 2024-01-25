@@ -29,7 +29,8 @@ public class Point2D<X, Y> {
         this.x = x;
         this.y = y;
     }
-
+    
+    @SuppressWarnings("unchecked")
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {
