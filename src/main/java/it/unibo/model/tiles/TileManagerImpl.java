@@ -127,6 +127,16 @@ public class TileManagerImpl implements TileManager{
 	}
 
 	@Override
+	public List<List<Tile>> getForeground() {
+		return this.foreground;
+	}
+
+	@Override
+	public List<List<Tile>> getBackground() {
+		return this.background;
+	}
+
+	@Override
 	public List<List<Tile>> getStationary() {
 		return this.stationary;
 	}
