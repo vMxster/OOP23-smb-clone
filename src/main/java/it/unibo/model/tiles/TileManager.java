@@ -100,4 +100,8 @@ public interface TileManager {
      */
     void setBandageGirl(BandageGirl bandageGirl);
 
+    List<List<Tile>> getForeground();
+
+    List<List<Tile>> getBackground();
+
 }
