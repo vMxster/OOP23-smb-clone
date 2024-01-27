@@ -4,6 +4,7 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -17,13 +18,11 @@ import it.unibo.model.tiles.Tile;
 
 public class GameWindow extends JFrame {
 
-    private final BufferedImage baseImage;
     private final Controller controller;
     private final int numRows;
     private final int numCols;
 
     public GameWindow(final Controller controller) throws IOException {
-        this.baseImage = ImageIO.read(getClass().getClassLoader().getResource(controller.getTmxURL()));
         this.controller = controller;
         this.numRows = controller.getNumRow();
         this.numCols = controller.getNumCols();
@@ -38,7 +37,7 @@ public class GameWindow extends JFrame {
     }
 
     // draws all the Map (bg,fg,platforms)
-    public BufferedImage drawMap(){
+    public BufferedImage drawMap() throws IOException{
         BufferedImage image = new BufferedImage(
                 numCols*Constants.TILE_SIZE,
                 numRows*Constants.TILE_SIZE,
@@ -49,7 +48,9 @@ public class GameWindow extends JFrame {
                 Tile tile = controller.getBackground().get(row).get(column);
 				if( !Objects.isNull(tile) ) {
                     g.drawImage(
-                        getSubImageByIdentifier(baseImage, tile.getSrcImage()),
+                        getSubImageByIdentifier(
+                            ImageIO.read(new File("./src/main/resources/" + tile.getSrcImage())),
+                            tile.getIdentifier()),
                         column*Constants.TILE_SIZE,
                         row*Constants.TILE_SIZE,
                         Constants.TILE_SIZE,
@@ -64,7 +65,9 @@ public class GameWindow extends JFrame {
                 Tile tile = controller.getForeground().get(row).get(column);
 				if( !Objects.isNull(tile) ) {
 				    g.drawImage(
-                        getSubImageByIdentifier(baseImage, tile.getSrcImage()),
+                        getSubImageByIdentifier(
+                            ImageIO.read(new File("./src/main/resources/" + tile.getSrcImage())),
+                            tile.getIdentifier()),
                         column*Constants.TILE_SIZE,
                         row*Constants.TILE_SIZE,
                         Constants.TILE_SIZE,
@@ -79,7 +82,9 @@ public class GameWindow extends JFrame {
                 Tile tile = controller.getStationary().get(row).get(column);
 				if( !Objects.isNull(tile) ) {
 				    g.drawImage(
-                        getSubImageByIdentifier(baseImage, tile.getSrcImage()),
+                        getSubImageByIdentifier(
+                            ImageIO.read(new File("./src/main/resources/" + tile.getSrcImage())),
+                            tile.getIdentifier()),
                         column*Constants.TILE_SIZE,
                         row*Constants.TILE_SIZE,
                         Constants.TILE_SIZE,
