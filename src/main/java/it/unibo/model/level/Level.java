@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.tiles.TileManager;
 
 /**
  *  Interface that reads a tmx file and creates a level from it
@@ -42,5 +43,13 @@ public interface Level {
      * @return An integer representing the height level of the platform.
      */
     int getHeightLevel();
+
+    /**
+     * Retrieves the TileManager of this Level.
+     *
+     * @return The TileManager instance of this Level.
+     */
+    TileManager getTileManager();
+
 
 }
