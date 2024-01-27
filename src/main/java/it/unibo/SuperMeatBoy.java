@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 public class SuperMeatBoy {
 
     public static void main(String[] args) throws IOException {
-        URL urlMap = new URL("resources/factory1.tmx");
+        URL urlMap = new URL(Constants.STRING_MAP);
         GameWindow frame = new GameWindow(new ControllerImpl(urlMap));
 
         frame.setSize(Constants.SW / Constants.PROPORTION, Constants.SH / Constants.PROPORTION);
