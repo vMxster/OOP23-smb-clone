@@ -26,6 +26,13 @@ public interface Tile {
      * @return The string path of the image.
      */
     String getSrcImage();
+
+    /**
+     * Retrieves the identifier associated with this Tile.
+     *
+     * @return The identifier of the object.
+     */
+    String getIdentifier();
     
 }
 
