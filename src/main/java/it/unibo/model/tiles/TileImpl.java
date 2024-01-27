@@ -4,6 +4,7 @@ public class TileImpl implements Tile {
 
     private final int x;
     private final int y;
+    private final String identifier;
     private final String srcImage;
     
     /**
@@ -12,10 +13,11 @@ public class TileImpl implements Tile {
      * @param x The x-coordinate of the Tile.
      * @param y The y-coordinate of the Tile.
      */
-    public TileImpl(int x, int y) {
+    public TileImpl(final int x, final int y, final String srcImage) {
         this.x = x;
         this.y = y;
-        this.srcImage = generateImageIdentifier();
+        this.srcImage = srcImage;
+        this.identifier = generateImageIdentifier();
     }
 
     @Override
@@ -31,6 +33,11 @@ public class TileImpl implements Tile {
     @Override
     public String getSrcImage() {
         return this.srcImage;
+    }
+
+    @Override
+    public String getIdentifier() {
+        return this.identifier;
     }
 
     /**
