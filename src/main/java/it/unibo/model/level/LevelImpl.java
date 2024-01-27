@@ -1,17 +1,14 @@
 package it.unibo.model.level;
 
-import java.io.File;
+import java.net.URL;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Optional;
 
 import it.unibo.commons.Constants;
-import it.unibo.commons.Point2D;
 import it.unibo.model.entity.player.MeatBoyImpl;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.TileManager;
 import it.unibo.model.tiles.TileManagerImpl;
+import it.unibo.model.GameModel;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
@@ -40,10 +37,9 @@ public class LevelImpl implements Level{
 	
 	@Override
 	public void update() {
-		if(player.getHitbox().intersects(bandageGirl.getHitbox())) {
-			model.finished();
-		}
-		player.move();
+		//if(meatBoy.getHitbox().intersects(bandageGirl.getHitbox())) {
+		//	model.finished();
+		//}
 	}
 
 	@Override
@@ -64,6 +60,11 @@ public class LevelImpl implements Level{
 	@Override
 	public int getHeightLevel() {
 		return this.heightLevel;
+	}
+
+	@Override
+	public TileManager getTileManager() {
+		return this.tileManager;
 	}
 
 }
