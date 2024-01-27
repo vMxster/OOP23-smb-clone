@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import it.unibo.commons.Constants;
@@ -32,45 +33,69 @@ public class TileLoaderImpl implements TileLoader {
 		this.document = tileManager.getDocument();
     }
     
-	public void loadTiles(final List<List<Tile>> tileList) {
-		NodeList tileNodes = tileManager.getDocument().getElementsByTagName("tile");
-		int gidNumber = 1;
-	
-		for (int row = 0; row < this.numRows; row++) {
-			for (int column = 0; column < this.numColumns; column++) {
-				int whichTile = Integer.parseInt(tileNodes.item(gidNumber).getAttributes().getNamedItem("gid").getTextContent());
-				if (whichTile > 0) {
-					tileList.get(row).add(column, this.tileManager.getTiles().get(whichTile - 1));
+	public void loadTiles(final List<List<Tile>> tileList, final String layerNameToParse) {
+		NodeList layerList = this.document.getElementsByTagName("layer");
+		int gidNumber = 0;
+
+		for (int i = 0; i < layerList.getLength(); i++) {
+			Node layerNode = layerList.item(i);
+			if (layerNode.getNodeType() == Node.ELEMENT_NODE) {
+				Element layerElement = (Element) layerNode;
+				String layerName = layerElement.getAttribute("name");
+
+				if (layerName.equals(layerNameToParse)) {
+					NodeList dataNodeList = layerElement.getElementsByTagName("tile");
+
+					for (int row = 0; row < this.numRows; row++) {
+						for (int column = 0; column < this.numColumns; column++) {
+							int whichTile = Integer.parseInt(dataNodeList.item(gidNumber).getAttributes().getNamedItem("gid").getTextContent());
+							if (whichTile > 0) {
+								tileList.get(row).add(column, this.tileManager.getTiles().get(whichTile - 1));
+							}
+							gidNumber++;
+						}
+					}
+					return;
 				}
-				gidNumber++;
 			}
 		}
 	}
 
 	public void loadStationaryTiles() {
-		NodeList tileNodes = document.getElementsByTagName("tile");
-		int gidNumber = 1;
-	
-		for (int row = 0; row < this.numRows; row++) {
-			for (int column = 0; column < this.numColumns; column++) {
-				Element tileElement = (Element) tileNodes.item(gidNumber - 1);
-				int whichTile = Integer.parseInt(tileElement.getAttribute("gid"));
-	
-				if (whichTile > 0) {
-					if (whichTile == 2) {
-						this.tileManager.setBandageGirl(
-							new BandageGirlImpl(
-								Double.valueOf(column * Constants.TILE_SIZE),
-								Double.valueOf(row * Constants.TILE_SIZE),
-								Double.valueOf(Constants.TILE_SIZE),
-								Double.valueOf(Constants.TILE_SIZE)));
-						this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(whichTile - 1));
-					} else if (whichTile == 1) {
-						this.tileManager.getPlayerCoordStart().set(column * Constants.TILE_SIZE, row * Constants.TILE_SIZE);
-					} else {
-						this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(whichTile - 1));
+		NodeList layerList = this.document.getElementsByTagName("layer");
+		int gidNumber = 0;
+
+		for (int i = 0; i < layerList.getLength(); i++) {
+			Node layerNode = layerList.item(i);
+			if (layerNode.getNodeType() == Node.ELEMENT_NODE) {
+				Element layerElement = (Element) layerNode;
+				String layerName = layerElement.getAttribute("name");
+
+				if (layerName.equals("stationary")) {
+					NodeList dataNodeList = layerElement.getElementsByTagName("tile");
+
+					for (int row = 0; row < this.numRows; row++) {
+						for (int column = 0; column < this.numColumns; column++) {
+							int whichTile = Integer.parseInt(dataNodeList.item(gidNumber).getAttributes().getNamedItem("gid").getTextContent());
+							if (whichTile > 0) {
+								if (whichTile == 2) {
+									this.tileManager.setBandageGirl(
+										new BandageGirlImpl(
+											Double.valueOf(column * Constants.TILE_SIZE),
+											Double.valueOf(row * Constants.TILE_SIZE),
+											Double.valueOf(Constants.TILE_SIZE),
+											Double.valueOf(Constants.TILE_SIZE)));
+									this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(whichTile - 1));
+								} else if (whichTile == 1) {
+									this.tileManager.getPlayerCoordStart().set(column * Constants.TILE_SIZE, row * Constants.TILE_SIZE);
+								} else {
+									this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(whichTile - 1));
+								}
+							}
+							gidNumber++;
+						}
 					}
-					gidNumber++;
+					return;
 				}
 			}
 		}
