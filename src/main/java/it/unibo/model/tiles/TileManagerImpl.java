@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.IllegalArgumentException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -25,16 +26,16 @@ public class TileManagerImpl implements TileManager{
 	private final List<List<Tile>> stationary;
 	private final List<Platform> platforms;
 	private final List<CircularSaw> circularSaws;
+	private final Point2D<Integer,Integer> playerCoordStart;
+	private final TileSet tileSet;
+	private final List<Tile> tiles;
 	private final URL tmxfile;
-	private final TileLoader tileLoader;
-	private TileSet tileSet;
-	private List<Tile> tiles;
+	private TileLoader tileLoader;
 	private DocumentBuilder builder;
 	private Document document;
 	private int numRows;
 	private int numColumns;
     private BandageGirl bandageGirl;
-	private Point2D<Integer,Integer> playerCoordStart;
 
 	/**
  	 * Constructs a new TileManager object by parsing a specified tmx file.
@@ -47,9 +48,10 @@ public class TileManagerImpl implements TileManager{
 		this.background = new ArrayList<>();
 		this.stationary = new ArrayList<>();
 		this.foreground = new ArrayList<>();
-		this.tileLoader = new TileLoaderImpl(this);
+		this.tileSet = new TileSetImpl(urlMap);
+		this.tiles = tileSet.getTiles();
+		this.playerCoordStart = new Point2D<Integer,Integer>(0, 0);
 		this.tmxfile = urlMap;
-		init();
 	
 		try {
 			this.builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -62,8 +64,8 @@ public class TileManagerImpl implements TileManager{
 				this.numColumns = Integer.parseInt(mapElement.getAttribute("width"));
 			}
 	
-			this.tileSet = new TileSetImpl(this.tmxfile);
-			this.tiles = tileSet.getTiles();
+			this.tileLoader = new TileLoaderImpl(this);
+			init();
 			loadMap();
 		} catch (SAXException | ParserConfigurationException | IOException exception) {
 			exception.printStackTrace();
@@ -80,8 +82,8 @@ public class TileManagerImpl implements TileManager{
 			String layerName = layerElement.getAttribute("name");
 	
 			switch (layerName) {
-				case "background" -> tileLoader.loadTiles(this.background);
-				case "foreground" -> tileLoader.loadTiles(this.foreground);
+				case "background" -> tileLoader.loadTiles(this.background, "background");
+				case "foreground" -> tileLoader.loadTiles(this.foreground, "foreground");
 				case "stationary" -> tileLoader.loadStationaryTiles();
 				default -> throw new IllegalArgumentException("You entered an unrecognizable layer. Known layers: \nStationary\nForeground\nBackground");
 			}
@@ -158,9 +160,9 @@ public class TileManagerImpl implements TileManager{
  	 */
 	  private void init() {
 		for (int i = 0 ; i<this.numRows ; i++) {
-			background.add(new ArrayList<>());
-			stationary.add(new ArrayList<>());
-			foreground.add(new ArrayList<>());
+			background.add(new ArrayList<>(Collections.nCopies(this.numColumns, new TileImpl(0, 0, "null"))));
+			stationary.add(new ArrayList<>(Collections.nCopies(this.numColumns, new TileImpl(0, 0, "null"))));
+			foreground.add(new ArrayList<>(Collections.nCopies(this.numColumns, new TileImpl(0, 0, "null"))));
 		}
 	}
 
