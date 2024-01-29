@@ -1,9 +1,6 @@
 package it.unibo.model.tiles;
 
-import java.io.IOException;
 import java.util.List;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
 
 import it.unibo.commons.Point2D;
@@ -18,28 +15,24 @@ import it.unibo.model.entity.target.BandageGirl;
 public interface TileManager {
 
     /**
-     * Parses the TMX file and populates the tile map with background, foreground, stationary objects,
+     * Parses the TMX file and populates the tile map with stationary objects,
      * and additional game elements such as platforms, circular saws, and player starting coordinates.
-     * This method is responsible for initializing the internal state of the TileManager based on the
-     * contents of the TMX file.
-     *
-     * @throws SAXException if a SAX parsing error occurs during the document parsing.
-     * @throws ParserConfigurationException if a configuration error occurs while creating the DocumentBuilder.
-     * @throws IOException if an I/O error occurs while reading the TMX file.
+     * This method is responsible for initializing the internal state of the loading map based on the
+     * contents of the TMX file delegated to the TileLoader.
      */
-    void loadMap() throws SAXException, ParserConfigurationException, IOException;
+    void loadMap();
 
     /**
-     * Returns the ArrayList of Platforms parsed from the TMX file.
+     * Returns the List of Platforms parsed from the TMX file.
      *
-     * @return The ArrayList of Platforms parsed from the TMX file.
+     * @return The List of Platforms parsed from the TMX file.
      */
     List<Platform> getPlatforms();
 
     /**
-     * Returns the ArrayList of CircularSaws parsed from the TMX file.
+     * Returns the List of CircularSaws parsed from the TMX file.
      *
-     * @return The ArrayList of CircularSaws parsed from the TMX file.
+     * @return The List of CircularSaws parsed from the TMX file.
      */
     List<CircularSaw> getSaws();
 
@@ -99,9 +92,5 @@ public interface TileManager {
      * @param bandageGirl The BandageGirl object to be set.
      */
     void setBandageGirl(BandageGirl bandageGirl);
-
-    List<List<Tile>> getForeground();
-
-    List<List<Tile>> getBackground();
 
 }
