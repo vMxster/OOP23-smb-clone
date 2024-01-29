@@ -7,24 +7,14 @@ import it.unibo.model.tiles.Tile;
 import it.unibo.model.tiles.TileManager;
 import it.unibo.model.tiles.TileManagerImpl;
 
-public class ControllerImpl implements Controller {
+public class GameControllerImpl implements GameController {
 
     private final TileManager tileManager;
     private final URL urlMap;
 
-    public ControllerImpl(final URL urlMap) {
+    public GameControllerImpl(final URL urlMap) {
         this.tileManager = new TileManagerImpl(urlMap);
         this.urlMap = urlMap;
-    }
-
-    @Override
-    public List<List<Tile>> getBackground() {
-        return tileManager.getBackground();
-    }
-
-    @Override
-    public List<List<Tile>> getForeground() {
-        return tileManager.getForeground();
     }
 
     @Override
@@ -38,7 +28,7 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public int getNumRow() {
+    public int getNumRows() {
         return this.tileManager.getNumRows();
     }
 
