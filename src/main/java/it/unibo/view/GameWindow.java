@@ -1,7 +1,6 @@
 package it.unibo.view;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,74 +12,46 @@ import javax.swing.JFrame;
 
 import it.unibo.commons.Constants;
 import it.unibo.commons.input.KeyboardInput;
-import it.unibo.controller.Controller;
+import it.unibo.controller.GameController;
 import it.unibo.model.tiles.Tile;
 
 public class GameWindow extends JFrame {
 
-    private final Controller controller;
+    private final GameController controller;
     private final int numRows;
     private final int numCols;
 
-    public GameWindow(final Controller controller) throws IOException {
+    public GameWindow(final GameController controller) throws IOException {
         this.controller = controller;
-        this.numRows = controller.getNumRow();
+        this.numRows = controller.getNumRows();
         this.numCols = controller.getNumCols();
+
         GamePanel panel = new GamePanel();
         panel.setLocation(0,0);
-        panel.setSize(this.getSize());
-        panel.setBackground(Color.CYAN);
+        panel.setSize(new Dimension(600,800));
+        panel.setBackgroundImage(getBackGround());
+        
+        //getStationary(); (FIX REQUIRED)
         this.setContentPane(panel);
-
         addKeyListener(new KeyboardInput(panel));
-        BufferedImage background = drawMap();   // TBD the position
     }
 
-    // draws all the Map (bg,fg,platforms)
-    public BufferedImage drawMap() throws IOException{
+    // draws background
+    public BufferedImage getBackGround() throws IOException {
+        return ImageIO.read(new File("./src/main/resources/background.png"));
+    }
+
+    // draws stationary (FIX REQUIRED)
+    public BufferedImage getStationary() throws IOException {
         BufferedImage image = new BufferedImage(
                 numCols*Constants.TILE_SIZE,
                 numRows*Constants.TILE_SIZE,
                 BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g = (Graphics2D) image.getGraphics();
-		for(int row=0 ; row<numRows ; row++) {
-			for(int column=0 ; column<numCols ; column++) {
-                Tile tile = controller.getBackground().get(row).get(column);
-				if( !Objects.isNull(tile) ) {
-                    g.drawImage(
-                        getSubImage(
-                            ImageIO.read(new File("./src/main/resources/" + tile.getSrcImage())),
-                            tile),
-                        column*Constants.TILE_SIZE,
-                        row*Constants.TILE_SIZE,
-                        Constants.TILE_SIZE,
-                        Constants.TILE_SIZE,
-                        null);
-                }
-			}
-		}
-		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.6f));
-		for(int row=0 ; row<numRows ; row++) {
-			for(int column=0 ; column<numCols ; column++) {
-                Tile tile = controller.getForeground().get(row).get(column);
-				if( !Objects.isNull(tile) ) {
-				    g.drawImage(
-                        getSubImage(
-                            ImageIO.read(new File("./src/main/resources/" + tile.getSrcImage())),
-                            tile),
-                        column*Constants.TILE_SIZE,
-                        row*Constants.TILE_SIZE,
-                        Constants.TILE_SIZE,
-                        Constants.TILE_SIZE,
-                        null);
-                }
-			}
-		}
-		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+        Graphics2D g = (Graphics2D) image.getGraphics();
 		for(int row=0 ; row<numRows ; row++) {
 			for(int column=0 ; column<numCols ; column++) {
                 Tile tile = controller.getStationary().get(row).get(column);
-				if( !Objects.isNull(tile) ) {
+				if( !Objects.isNull(tile) && !tile.getSrcImage().equals("null") ) {
 				    g.drawImage(
                         getSubImage(
                             ImageIO.read(new File("./src/main/resources/" + tile.getSrcImage())),
@@ -94,15 +65,18 @@ public class GameWindow extends JFrame {
 			}
 		}
 		g.dispose();
-		return image;
+        return image;
 	}
 
     /**
-     * Returns the subimage associated with an identifier from the baseImage.
+     * Returns a subimage from the provided base image based on the specified tile.
+     * This method extracts a subimage from the given base image using the provided Tile object,
+     * which includes information about the subimage's position.
      *
      * @param baseImage The base image from which to extract the subimage.
-     * @param identifier The identifier of the subimage in the format "subImage_row_col".
-     * @return The subimage corresponding to the identifier.
+     * @param tile The Tile object representing the position of the subimage in the format "subImage_row_col".
+     * @return The subimage corresponding to the specified Tile.
+     * 
      */
     private BufferedImage getSubImage(BufferedImage baseImage, Tile tile) {
         return baseImage.getSubimage(
