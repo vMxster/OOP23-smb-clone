@@ -48,9 +48,9 @@ public class GameWindow extends JFrame {
                 Tile tile = controller.getBackground().get(row).get(column);
 				if( !Objects.isNull(tile) ) {
                     g.drawImage(
-                        getSubImageByIdentifier(
+                        getSubImage(
                             ImageIO.read(new File("./src/main/resources/" + tile.getSrcImage())),
-                            tile.getIdentifier()),
+                            tile),
                         column*Constants.TILE_SIZE,
                         row*Constants.TILE_SIZE,
                         Constants.TILE_SIZE,
@@ -65,9 +65,9 @@ public class GameWindow extends JFrame {
                 Tile tile = controller.getForeground().get(row).get(column);
 				if( !Objects.isNull(tile) ) {
 				    g.drawImage(
-                        getSubImageByIdentifier(
+                        getSubImage(
                             ImageIO.read(new File("./src/main/resources/" + tile.getSrcImage())),
-                            tile.getIdentifier()),
+                            tile),
                         column*Constants.TILE_SIZE,
                         row*Constants.TILE_SIZE,
                         Constants.TILE_SIZE,
@@ -82,9 +82,9 @@ public class GameWindow extends JFrame {
                 Tile tile = controller.getStationary().get(row).get(column);
 				if( !Objects.isNull(tile) ) {
 				    g.drawImage(
-                        getSubImageByIdentifier(
+                        getSubImage(
                             ImageIO.read(new File("./src/main/resources/" + tile.getSrcImage())),
-                            tile.getIdentifier()),
+                            tile),
                         column*Constants.TILE_SIZE,
                         row*Constants.TILE_SIZE,
                         Constants.TILE_SIZE,
@@ -104,12 +104,10 @@ public class GameWindow extends JFrame {
      * @param identifier The identifier of the subimage in the format "subImage_row_col".
      * @return The subimage corresponding to the identifier.
      */
-    private BufferedImage getSubImageByIdentifier(BufferedImage baseImage, String identifier) {
-        String[] parts = identifier.split("_");
-
+    private BufferedImage getSubImage(BufferedImage baseImage, Tile tile) {
         return baseImage.getSubimage(
-                Integer.parseInt(parts[1]), 
-                Integer.parseInt(parts[2]),
+                tile.getX(), 
+                tile.getY(),
                 Constants.TILE_SIZE,
                 Constants.TILE_SIZE);
     }
