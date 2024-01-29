@@ -13,28 +13,6 @@ import it.unibo.model.tiles.Tile;
  */
 public interface GameModel {
 
-    /**
-     * Retrieves the foreground tiles represented as a two-dimensional list.
-     *
-     * The foreground tiles are organized in a grid structure, where each inner list
-     * corresponds to a row, and the elements within the inner lists represent tiles
-     * in that specific row.
-     *
-     * @return A two-dimensional list containing foreground tiles.
-     */
-    List<List<Tile>> getForeground();
-
-    /**
-     * Retrieves the background tiles represented as a two-dimensional list.
-     *
-     * The background tiles are organized in a grid structure, where each inner list
-     * corresponds to a row, and the elements within the inner lists represent tiles
-     * in that specific row.
-     *
-     * @return A two-dimensional list containing background tiles.
-     */
-    List<List<Tile>> getBackground();
-
      /**
      * Retrieves the stationary tiles represented as a two-dimensional list.
      *
