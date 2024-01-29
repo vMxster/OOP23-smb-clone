@@ -1,7 +1,6 @@
 package it.unibo.model.tiles;
 
 import java.io.IOException;
-import java.lang.IllegalArgumentException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,9 +19,7 @@ import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.target.BandageGirl;
 
 public class TileManagerImpl implements TileManager{
-    
-	private final List<List<Tile>> background;
-	private final List<List<Tile>> foreground;
+
 	private final List<List<Tile>> stationary;
 	private final List<Platform> platforms;
 	private final List<CircularSaw> circularSaws;
@@ -45,9 +42,7 @@ public class TileManagerImpl implements TileManager{
 	public TileManagerImpl(final URL urlMap) {
 		this.platforms = new ArrayList<Platform>();
 		this.circularSaws = new ArrayList<CircularSaw>();
-		this.background = new ArrayList<>();
 		this.stationary = new ArrayList<>();
-		this.foreground = new ArrayList<>();
 		this.tileSet = new TileSetImpl(urlMap);
 		this.tiles = tileSet.getTiles();
 		this.playerCoordStart = new Point2D<Integer,Integer>(0, 0);
@@ -73,24 +68,10 @@ public class TileManagerImpl implements TileManager{
 	}
 
 	@Override
-	public void loadMap() throws SAXException, ParserConfigurationException, IOException {
-		NodeList layers = document.getElementsByTagName("layer");
-		int numLayers = layers.getLength();
-	
-		for (int i = 0; i < numLayers; i++) {
-			Element layerElement = (Element) layers.item(i);
-			String layerName = layerElement.getAttribute("name");
-	
-			switch (layerName) {
-				case "background" -> tileLoader.loadTiles(this.background, "background");
-				case "foreground" -> tileLoader.loadTiles(this.foreground, "foreground");
-				case "stationary" -> tileLoader.loadStationaryTiles();
-				default -> throw new IllegalArgumentException("You entered an unrecognizable layer. Known layers: \nStationary\nForeground\nBackground");
-			}
-		}
-	
-		tileLoader.loadPlatforms();
-		tileLoader.loadCircularSaws();
+	public void loadMap() {
+		this.tileLoader.loadStationaryTiles();
+		this.tileLoader.loadPlatforms();
+		this.tileLoader.loadCircularSaws();
 	}
 
 	@Override
@@ -129,16 +110,6 @@ public class TileManagerImpl implements TileManager{
 	}
 
 	@Override
-	public List<List<Tile>> getForeground() {
-		return this.foreground;
-	}
-
-	@Override
-	public List<List<Tile>> getBackground() {
-		return this.background;
-	}
-
-	@Override
 	public List<List<Tile>> getStationary() {
 		return this.stationary;
 	}
@@ -154,15 +125,12 @@ public class TileManagerImpl implements TileManager{
 	}
 
 	/**
- 	 * Initializes the background, stationary, and foreground lists.
- 	 * This method is called during the construction of the TileManagerImpl object.
- 	 * Each list corresponds to a layer in the Tiled Map (background, stationary, and foreground).
+ 	 * Initializes the stationary list.
+ 	 * This method is called during the construction of the TileManager object.
  	 */
-	  private void init() {
+	private void init() {
 		for (int i = 0 ; i<this.numRows ; i++) {
-			background.add(new ArrayList<>(Collections.nCopies(this.numColumns, new TileImpl(0, 0, "null"))));
 			stationary.add(new ArrayList<>(Collections.nCopies(this.numColumns, new TileImpl(0, 0, "null"))));
-			foreground.add(new ArrayList<>(Collections.nCopies(this.numColumns, new TileImpl(0, 0, "null"))));
 		}
 	}
 
