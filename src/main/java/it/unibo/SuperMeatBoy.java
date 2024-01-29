@@ -12,12 +12,11 @@ import javax.swing.JFrame;
 public class SuperMeatBoy {
 
     public static void main(String[] args) throws IOException {
-        URL urlMap = new URL(Constants.STRING_MAP);
-        GameWindow frame = new GameWindow(new ControllerImpl(urlMap));
+        GameWindow frame = new GameWindow(new ControllerImpl(new URL(Constants.SOURCE_MAP)));
 
-        frame.setSize(Constants.SW / Constants.PROPORTION, Constants.SH / Constants.PROPORTION);
+        frame.setSize(Constants.SW, Constants.SH);
+        frame.setResizable(false);
         frame.setLocationByPlatform(true);
-
         frame.setTitle("Super Meat Boy Clone");
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
