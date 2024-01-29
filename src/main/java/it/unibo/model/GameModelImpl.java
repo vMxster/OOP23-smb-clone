@@ -25,11 +25,6 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
-    public List<List<Tile>> getBackground() {
-        return tileManager.getBackground();
-    }
-
-    @Override
     public List<List<Tile>> getStationary() {
         return tileManager.getStationary();
     }
@@ -42,11 +37,6 @@ public class GameModelImpl implements GameModel {
     @Override
     public int getNumCols() {
         return tileManager.getNumCols();
-    }
-
-    @Override
-    public List<List<Tile>> getForeground() {
-        return tileManager.getForeground();
     }
     
 }
