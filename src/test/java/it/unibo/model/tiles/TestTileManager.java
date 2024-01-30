@@ -1,31 +1,25 @@
 package it.unibo.model.tiles;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import it.unibo.commons.Point2D;
-import it.unibo.model.entity.obstacles.CircularSaw;
-import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.commons.Constants;
 import it.unibo.model.entity.target.BandageGirl;
-import it.unibo.model.tiles.Tile;
+import it.unibo.model.entity.target.BandageGirlImpl;
 
 public class TestTileManager {
 
-    private final TileManagerImpl tileManager;
-    private final URL urlMap;
+    private TileManagerImpl tileManager;
+    private URL urlMap;
 
     @BeforeEach
-    public void init() {
-        this.urlMap = getClass().getResource("/testMap.xml");
+    public void init() throws MalformedURLException {
+        this.urlMap = new URL("file:./src/main/resources/factory1.tmx");
         assertNotNull(this.urlMap);
         this.tileManager = new TileManagerImpl(urlMap);
         assertNotNull(this.tileManager);
@@ -38,7 +32,7 @@ public class TestTileManager {
             assertNotNull(tileManager.getStationary());
             assertNotNull(tileManager.getPlatforms());
             assertNotNull(tileManager.getSaws());
-        } catch (SAXException | IllegalArgumentException | NullPointerException exception) {
+        } catch (IllegalArgumentException | NullPointerException exception) {
             fail("Exception not expected: " + exception.getMessage());
         }
     }
@@ -60,7 +54,7 @@ public class TestTileManager {
 
     @Test
     public void testGetBandageGirl() {
-        assertNull(tileManager.getBandageGirl());
+        assertNotNull(tileManager.getBandageGirl());
     }
 
     @Test
@@ -75,7 +69,7 @@ public class TestTileManager {
 
     @Test
     public void testSetBandageGirl() {
-        BandageGirl bandageGirl = mock(BandageGirl.class);
+        BandageGirl bandageGirl = new BandageGirlImpl(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
         tileManager.setBandageGirl(bandageGirl);
         assertEquals(bandageGirl, tileManager.getBandageGirl());
     }
