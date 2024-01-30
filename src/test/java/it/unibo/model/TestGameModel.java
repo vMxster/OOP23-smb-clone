@@ -2,23 +2,24 @@ package it.unibo.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import it.unibo.model.GameModel;
-import it.unibo.model.GameModelImpl;
 import it.unibo.model.tiles.Tile;
 
-public class GameModelImplTest {
+public class TestGameModel {
 
-    private final URL urlMap;
-    private final GameModel gameModel;
+    private URL urlMap;
+    private GameModel gameModel;
 
     @BeforeEach
-    public void init() {
-        this.urlMap = getClass().getResource("/testMap.txt");
+    public void init() throws MalformedURLException {
+        this.urlMap = new URL("file:./src/main/resources/factory1.tmx");
         assertNotNull(this.urlMap);
         this.gameModel = new GameModelImpl(urlMap);
         assertNotNull(this.gameModel);
