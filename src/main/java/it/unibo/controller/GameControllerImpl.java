@@ -3,6 +3,8 @@ package it.unibo.controller;
 import java.net.URL;
 import java.util.List;
 
+import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.tiles.Tile;
 import it.unibo.model.tiles.TileManager;
 import it.unibo.model.tiles.TileManagerImpl;
@@ -20,6 +22,16 @@ public class GameControllerImpl implements GameController {
     @Override
     public List<List<Tile>> getStationary() {
         return tileManager.getStationary();
+    }
+
+    @Override
+    public List<CircularSaw> getSaws() {
+        return tileManager.getSaws();
+    }
+
+    @Override
+    public List<Platform> getPlatforms() {
+        return tileManager.getPlatforms();
     }
 
     @Override
