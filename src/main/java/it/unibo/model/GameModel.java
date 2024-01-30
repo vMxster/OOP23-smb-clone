@@ -2,6 +2,8 @@ package it.unibo.model;
 
 import java.util.List;
 
+import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.tiles.Tile;
 
 /**
@@ -23,6 +25,20 @@ public interface GameModel {
      * @return A two-dimensional list containing stationary tiles.
      */
     List<List<Tile>> getStationary();
+
+    /**
+     * Returns the List of CircularSaws parsed from the TMX file.
+     *
+     * @return The List of CircularSaws parsed from the TMX file.
+     */
+    List<CircularSaw> getSaws();
+    
+    /**
+     * Returns the List of Platforms parsed from the TMX file.
+     *
+     * @return The List of Platforms parsed from the TMX file.
+     */
+    List<Platform> getPlatforms();
 
      /**
      * Retrieves the total number of rows in the grid of tiles.
