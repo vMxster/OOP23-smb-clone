@@ -8,7 +8,6 @@ import org.w3c.dom.NodeList;
 import it.unibo.commons.Constants;
 import it.unibo.model.entity.obstacles.CircularSawImpl;
 import it.unibo.model.entity.obstacles.PlatformImpl;
-import it.unibo.model.entity.target.BandageGirlImpl;
 
 public class TileLoaderImpl implements TileLoader {
 
@@ -31,6 +30,7 @@ public class TileLoaderImpl implements TileLoader {
 		this.document = tileManager.getDocument();
     }
 
+	@Override
 	public void loadStationaryTiles() {
 		NodeList tileNodeList = document.getElementsByTagName("tile");
 		int gidNumber = 0;
@@ -40,15 +40,12 @@ public class TileLoaderImpl implements TileLoader {
 				int idTile = Integer.parseInt(tilesetElement.getAttributes().getNamedItem("gid").getTextContent());
 				if (idTile > Constants.ID_TILE_NULL) {
 					if (idTile == Constants.ID_TILE_BANDAGEGIRL) {
-						this.tileManager.setBandageGirl(
-							new BandageGirlImpl(
-								Double.valueOf(column * Constants.TILE_SIZE),
-								Double.valueOf(row * Constants.TILE_SIZE),
-								Double.valueOf(Constants.TILE_SIZE),
-								Double.valueOf(Constants.TILE_SIZE)));
+						this.tileManager.getBandageGirl().setX(Double.valueOf(column * Constants.TILE_SIZE));
+						this.tileManager.getBandageGirl().setX(Double.valueOf(row * Constants.TILE_SIZE));
 						this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(idTile - 1));
 					} else if (idTile == Constants.ID_TILE_MEATBOY) {
-						this.tileManager.getPlayerCoordStart().set(column * Constants.TILE_SIZE, row * Constants.TILE_SIZE);
+						this.tileManager.getMeatBoy().setX(Double.valueOf(column * Constants.TILE_SIZE));
+						this.tileManager.getMeatBoy().setY(Double.valueOf(row * Constants.TILE_SIZE));
 					} else {
 						this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(idTile - 1));
 					}
@@ -58,6 +55,7 @@ public class TileLoaderImpl implements TileLoader {
 		}
 	}
 	
+	@Override
 	public void loadPlatforms() {
 		NodeList rectangleObjects = this.document.getElementsByTagName("objectgroup");
 		int numPlatforms = 0;
@@ -84,6 +82,7 @@ public class TileLoaderImpl implements TileLoader {
 		}
 	}
 
+	@Override
 	public void loadCircularSaws() {
 		NodeList sawObjects = this.document.getElementsByTagName("objectgroup");
 		int numsaws = 0;
