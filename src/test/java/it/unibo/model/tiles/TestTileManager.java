@@ -38,40 +38,37 @@ public class TestTileManager {
     }
 
     @Test
-    public void testGetNumCols() {
+    public void testNumCols() {
         assertEquals(36, tileManager.getNumCols());
     }
 
     @Test
-    public void testGetNumRows() {
+    public void testNumRows() {
         assertEquals(30, tileManager.getNumRows());
     }
 
     @Test
-    public void testGetPlayerCoordStart() {
-        assertNotNull(tileManager.getPlayerCoordStart());
+    public void testMeatBoy() {
+        assertNotNull(tileManager.getMeatBoy());
     }
 
     @Test
-    public void testGetBandageGirl() {
-        assertNotNull(tileManager.getBandageGirl());
-    }
-
-    @Test
-    public void testGetDocument() {
+    public void testDocument() {
         assertNotNull(tileManager.getDocument());
     }
 
     @Test
-    public void testGetTiles() {
+    public void testTiles() {
         assertNotNull(tileManager.getTiles());
     }
 
     @Test
-    public void testSetBandageGirl() {
+    public void testBandageGirl() {
         BandageGirl bandageGirl = new BandageGirlImpl(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
-        tileManager.setBandageGirl(bandageGirl);
-        assertEquals(bandageGirl, tileManager.getBandageGirl());
+        bandageGirl.setX(1);
+        assertEquals(1, bandageGirl.getX());
+        bandageGirl.setY(2);
+        assertEquals(2, bandageGirl.getY());
     }
 }
 
