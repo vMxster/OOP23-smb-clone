@@ -13,26 +13,29 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.w3c.dom.Element;
 
-import it.unibo.commons.Point2D;
+import it.unibo.commons.Constants;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.entity.player.MeatBoy;
+import it.unibo.model.entity.player.MeatBoyImpl;
 import it.unibo.model.entity.target.BandageGirl;
+import it.unibo.model.entity.target.BandageGirlImpl;
 
 public class TileManagerImpl implements TileManager{
 
 	private final List<List<Tile>> stationary;
 	private final List<Platform> platforms;
 	private final List<CircularSaw> circularSaws;
-	private final Point2D<Integer,Integer> playerCoordStart;
 	private final TileSet tileSet;
 	private final List<Tile> tiles;
+	private final MeatBoy meatBoy;
+	private final BandageGirl bandageGirl;
 	private final URL tmxfile;
 	private TileLoader tileLoader;
 	private DocumentBuilder builder;
 	private Document document;
 	private int numRows;
 	private int numColumns;
-    private BandageGirl bandageGirl;
 
 	/**
  	 * Constructs a new TileManager object by parsing a specified tmx file.
@@ -45,7 +48,8 @@ public class TileManagerImpl implements TileManager{
 		this.stationary = new ArrayList<>();
 		this.tileSet = new TileSetImpl(urlMap);
 		this.tiles = tileSet.getTiles();
-		this.playerCoordStart = new Point2D<Integer,Integer>(0, 0);
+		this.meatBoy = new MeatBoyImpl(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
+		this.bandageGirl = new BandageGirlImpl(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
 		this.tmxfile = urlMap;
 	
 		try {
@@ -95,8 +99,8 @@ public class TileManagerImpl implements TileManager{
 	}
 
 	@Override
-	public Point2D<Integer,Integer> getPlayerCoordStart() {
-		return this.playerCoordStart;
+	public MeatBoy getMeatBoy() {
+		return this.meatBoy;
 	}
 
 	@Override
@@ -117,11 +121,6 @@ public class TileManagerImpl implements TileManager{
 	@Override
 	public List<Tile> getTiles() {
 		return this.tiles;
-	}
-
-	@Override
-	public void setBandageGirl(BandageGirl bandageGirl) {
-		this.bandageGirl = bandageGirl;
 	}
 
 	/**
