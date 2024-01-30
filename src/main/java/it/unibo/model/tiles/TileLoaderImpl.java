@@ -37,20 +37,20 @@ public class TileLoaderImpl implements TileLoader {
 		for (int row = 0; row < this.numRows; row++) {
 			for (int column = 0; column < this.numColumns; column++) {
 				Element tilesetElement = (Element) Objects.requireNonNull(tileNodeList.item(gidNumber));
-				int whichTile = Integer.parseInt(tilesetElement.getAttributes().getNamedItem("gid").getTextContent());
-				if (whichTile > 0) {
-					if (whichTile == 2) {
+				int idTile = Integer.parseInt(tilesetElement.getAttributes().getNamedItem("gid").getTextContent());
+				if (idTile > Constants.ID_TILE_NULL) {
+					if (idTile == Constants.ID_TILE_BANDAGEGIRL) {
 						this.tileManager.setBandageGirl(
 							new BandageGirlImpl(
 								Double.valueOf(column * Constants.TILE_SIZE),
 								Double.valueOf(row * Constants.TILE_SIZE),
 								Double.valueOf(Constants.TILE_SIZE),
 								Double.valueOf(Constants.TILE_SIZE)));
-						this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(whichTile - 1));
-					} else if (whichTile == 1) {
+						this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(idTile - 1));
+					} else if (idTile == Constants.ID_TILE_MEATBOY) {
 						this.tileManager.getPlayerCoordStart().set(column * Constants.TILE_SIZE, row * Constants.TILE_SIZE);
 					} else {
-						this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(whichTile - 1));
+						this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(idTile - 1));
 					}
 				}
 				gidNumber++;
@@ -102,9 +102,7 @@ public class TileLoaderImpl implements TileLoader {
             		int height = Integer.parseInt(trim(sawElement.getAttribute("height")));
 					int radius = width/2;
 
-            		if (width != height) {
-                		System.out.println("You entered a lopsided saw. Failure.");
-            		} else {
+            		if (width == height) {
                 		this.tileManager.getSaws().add(
 							new CircularSawImpl(
 								Integer.parseInt(trim(sawElement.getAttribute("x"))),
@@ -112,7 +110,7 @@ public class TileLoaderImpl implements TileLoader {
 								width,
 								height,
 								radius));
-        			}
+            		}
 				}
 				return;
 			}
