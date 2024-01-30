@@ -20,7 +20,7 @@ public class MeatBoyImpl extends AbstractEntityImpl<RectangleHitbox> implements 
     private boolean jump;
 
     public MeatBoyImpl(final double x, final double y, final double width, final double height) {
-        super(x, y, width, height, new RectangleHitbox(x, y, Constants.MEATBOY_WIDTH, Constants.MEATBOY_HEIGHT));
+        super(x, y, width, height, new RectangleHitbox(x, y, Constants.TILE_SIZE, Constants.TILE_SIZE));
         this.speedMul = 1;
     }
 
