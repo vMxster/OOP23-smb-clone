@@ -2,6 +2,8 @@ package it.unibo.controller;
 
 import java.util.List;
 
+import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.tiles.Tile;
 
 /**
@@ -15,6 +17,20 @@ public interface GameController {
      * @return A list of lists of tiles, where each list represents a row of tiles.
      */
     List<List<Tile>> getStationary();
+
+    /**
+     * Retrieves a list of CircularSaw present in the game.
+     *
+     * @return A list of CircularSaw.
+     */
+    List<CircularSaw> getSaws();
+
+    /**
+     * Retrieves a list of Platform present in the game.
+     *
+     * @return A list of Platform.
+     */
+    List<Platform> getPlatforms();
 
     /**
      * Retrieves the URL of the TMX file associated with the Game Map.
@@ -36,5 +52,6 @@ public interface GameController {
      * @return The number of columns.
      */
     int getNumCols();
+
 }
 
