@@ -3,9 +3,9 @@ package it.unibo.model.tiles;
 import java.util.List;
 import org.w3c.dom.Document;
 
-import it.unibo.commons.Point2D;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
 
 /**
@@ -51,11 +51,11 @@ public interface TileManager {
     int getNumRows();
 
     /**
-     * Returns the starting position of the player.
+     * Returns the MeatBoy object parsed from the TMX file.
      *
-     * @return The starting position of the player.
+     * @return The MeatBoy object parsed from the TMX file.
      */
-    Point2D<Integer, Integer> getPlayerCoordStart();
+    MeatBoy getMeatBoy();
 
     /**
      * Returns the BandageGirl object parsed from the TMX file.
@@ -85,12 +85,5 @@ public interface TileManager {
      * @return A list containing all tiles in the game.
      */
     List<Tile> getTiles();
-
-    /**
-     * Sets the BandageGirl object for this instance.
-     *
-     * @param bandageGirl The BandageGirl object to be set.
-     */
-    void setBandageGirl(BandageGirl bandageGirl);
 
 }
