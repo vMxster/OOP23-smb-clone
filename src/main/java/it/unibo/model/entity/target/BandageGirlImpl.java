@@ -12,7 +12,7 @@ public class BandageGirlImpl extends AbstractEntityImpl<RectangleHitbox> impleme
     private boolean touched = false;
 
     public BandageGirlImpl(double x, double y, double width, double height) {
-        super(x, y, width, height, new RectangleHitbox(x, y, Constants.MEATBOY_WIDTH, Constants.MEATBOY_HEIGHT));
+        super(x, y, width, height, new RectangleHitbox(x, y, Constants.TILE_SIZE, Constants.TILE_SIZE));
     }
 
     @Override
