@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.tiles.Tile;
 
 /**
  *  Interface that reads a tmx file and creates a level from it
@@ -16,6 +17,13 @@ public interface Level {
     void update();
 
     /**
+     * Retrieves a two-dimensional list representing stationary tiles in the game.
+     *
+     * @return A two-dimensional list of stationary tiles.
+     */
+    List<List<Tile>> getStationary();
+
+    /**
      * Retrieves a list of platforms available.
      *
      * @return A List of Platform objects representing the available platforms.
@@ -23,24 +31,24 @@ public interface Level {
     List<Platform> getPlatforms();
 
     /**
-     * Retrieves a list of circular saws available.
+     * Retrieves a list of saws.
      *
-     * @return A List of CircularSaw objects representing the available circular saws.
+     * @return A List of Saws.
      */
-    List<CircularSaw> getCircularSaws();
+    List<CircularSaw> getSaws();
 
     /**
      * Gets the width level of the platform.
      *
      * @return An integer representing the width level of the platform.
      */
-    int getWidthLevel();
+    int getNumCols();
 
     /**
      * Gets the height level of the platform.
      *
      * @return An integer representing the height level of the platform.
      */
-    int getHeightLevel();
+    int getNumRows();
 
 }

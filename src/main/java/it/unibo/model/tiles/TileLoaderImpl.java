@@ -1,6 +1,5 @@
 package it.unibo.model.tiles;
 
-import java.util.List;
 import java.util.Objects;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -9,7 +8,6 @@ import org.w3c.dom.NodeList;
 import it.unibo.commons.Constants;
 import it.unibo.model.entity.obstacles.CircularSawImpl;
 import it.unibo.model.entity.obstacles.PlatformImpl;
-import it.unibo.model.entity.target.BandageGirlImpl;
 
 public class TileLoaderImpl implements TileLoader {
 
@@ -31,51 +29,33 @@ public class TileLoaderImpl implements TileLoader {
         this.numColumns = tileManager.getNumCols();
 		this.document = tileManager.getDocument();
     }
-    
-	public void loadTiles(final List<List<Tile>> tileList) {
-		NodeList tileNodes = tileManager.getDocument().getElementsByTagName("tile");
-		int gidNumber = 1;
-	
+
+	@Override
+	public void loadStationaryTiles() {
+		NodeList tileNodeList = document.getElementsByTagName("tile");
+		int gidNumber = 0;
 		for (int row = 0; row < this.numRows; row++) {
 			for (int column = 0; column < this.numColumns; column++) {
-				int whichTile = Integer.parseInt(tileNodes.item(gidNumber).getAttributes().getNamedItem("gid").getTextContent());
-				if (whichTile > 0) {
-					tileList.get(row).add(column, this.tileManager.getTiles().get(whichTile - 1));
+				Element tilesetElement = (Element) Objects.requireNonNull(tileNodeList.item(gidNumber));
+				int idTile = Integer.parseInt(tilesetElement.getAttributes().getNamedItem("gid").getTextContent());
+				if (idTile > Constants.ID_TILE_NULL) {
+					if (idTile == Constants.ID_TILE_BANDAGEGIRL) {
+						this.tileManager.getBandageGirl().setX(Double.valueOf(column * Constants.TILE_SIZE));
+						this.tileManager.getBandageGirl().setX(Double.valueOf(row * Constants.TILE_SIZE));
+						this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(idTile - 1));
+					} else if (idTile == Constants.ID_TILE_MEATBOY) {
+						this.tileManager.getMeatBoy().setX(Double.valueOf(column * Constants.TILE_SIZE));
+						this.tileManager.getMeatBoy().setY(Double.valueOf(row * Constants.TILE_SIZE));
+					} else {
+						this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(idTile - 1));
+					}
 				}
 				gidNumber++;
 			}
 		}
 	}
-
-	public void loadStationaryTiles() {
-		NodeList tileNodes = document.getElementsByTagName("tile");
-		int gidNumber = 1;
 	
-		for (int row = 0; row < this.numRows; row++) {
-			for (int column = 0; column < this.numColumns; column++) {
-				Element tileElement = (Element) tileNodes.item(gidNumber - 1);
-				int whichTile = Integer.parseInt(tileElement.getAttribute("gid"));
-	
-				if (whichTile > 0) {
-					if (whichTile == 2) {
-						this.tileManager.setBandageGirl(
-							new BandageGirlImpl(
-								Double.valueOf(column * Constants.TILE_SIZE),
-								Double.valueOf(row * Constants.TILE_SIZE),
-								Double.valueOf(Constants.TILE_SIZE),
-								Double.valueOf(Constants.TILE_SIZE)));
-						this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(whichTile - 1));
-					} else if (whichTile == 1) {
-						this.tileManager.getPlayerCoordStart().set(column * Constants.TILE_SIZE, row * Constants.TILE_SIZE);
-					} else {
-						this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(whichTile - 1));
-					}
-					gidNumber++;
-				}
-			}
-		}
-	}
-	
+	@Override
 	public void loadPlatforms() {
 		NodeList rectangleObjects = this.document.getElementsByTagName("objectgroup");
 		int numPlatforms = 0;
@@ -102,6 +82,7 @@ public class TileLoaderImpl implements TileLoader {
 		}
 	}
 
+	@Override
 	public void loadCircularSaws() {
 		NodeList sawObjects = this.document.getElementsByTagName("objectgroup");
 		int numsaws = 0;
@@ -120,9 +101,7 @@ public class TileLoaderImpl implements TileLoader {
             		int height = Integer.parseInt(trim(sawElement.getAttribute("height")));
 					int radius = width/2;
 
-            		if (width != height) {
-                		System.out.println("You entered a lopsided saw. Failure.");
-            		} else {
+            		if (width == height) {
                 		this.tileManager.getSaws().add(
 							new CircularSawImpl(
 								Integer.parseInt(trim(sawElement.getAttribute("x"))),
@@ -130,7 +109,7 @@ public class TileLoaderImpl implements TileLoader {
 								width,
 								height,
 								radius));
-        			}
+            		}
 				}
 				return;
 			}

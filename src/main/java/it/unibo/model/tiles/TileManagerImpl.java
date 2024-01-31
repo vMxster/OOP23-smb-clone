@@ -1,9 +1,9 @@
 package it.unibo.model.tiles;
 
 import java.io.IOException;
-import java.lang.IllegalArgumentException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,28 +13,29 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.w3c.dom.Element;
 
-import it.unibo.commons.Point2D;
+import it.unibo.commons.Constants;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.entity.player.MeatBoy;
+import it.unibo.model.entity.player.MeatBoyImpl;
 import it.unibo.model.entity.target.BandageGirl;
+import it.unibo.model.entity.target.BandageGirlImpl;
 
 public class TileManagerImpl implements TileManager{
-    
-	private final List<List<Tile>> background;
-	private final List<List<Tile>> foreground;
+
 	private final List<List<Tile>> stationary;
 	private final List<Platform> platforms;
 	private final List<CircularSaw> circularSaws;
+	private final TileSet tileSet;
+	private final List<Tile> tiles;
+	private final MeatBoy meatBoy;
+	private final BandageGirl bandageGirl;
 	private final URL tmxfile;
-	private final TileLoader tileLoader;
-	private TileSet tileSet;
-	private List<Tile> tiles;
+	private TileLoader tileLoader;
 	private DocumentBuilder builder;
 	private Document document;
 	private int numRows;
 	private int numColumns;
-    private BandageGirl bandageGirl;
-	private Point2D<Integer,Integer> playerCoordStart;
 
 	/**
  	 * Constructs a new TileManager object by parsing a specified tmx file.
@@ -44,12 +45,12 @@ public class TileManagerImpl implements TileManager{
 	public TileManagerImpl(final URL urlMap) {
 		this.platforms = new ArrayList<Platform>();
 		this.circularSaws = new ArrayList<CircularSaw>();
-		this.background = new ArrayList<>();
 		this.stationary = new ArrayList<>();
-		this.foreground = new ArrayList<>();
-		this.tileLoader = new TileLoaderImpl(this);
+		this.tileSet = new TileSetImpl(urlMap);
+		this.tiles = tileSet.getTiles();
+		this.meatBoy = new MeatBoyImpl(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
+		this.bandageGirl = new BandageGirlImpl(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
 		this.tmxfile = urlMap;
-		init();
 	
 		try {
 			this.builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -62,8 +63,8 @@ public class TileManagerImpl implements TileManager{
 				this.numColumns = Integer.parseInt(mapElement.getAttribute("width"));
 			}
 	
-			this.tileSet = new TileSetImpl(this.tmxfile);
-			this.tiles = tileSet.getTiles();
+			this.tileLoader = new TileLoaderImpl(this);
+			init();
 			loadMap();
 		} catch (SAXException | ParserConfigurationException | IOException exception) {
 			exception.printStackTrace();
@@ -71,24 +72,10 @@ public class TileManagerImpl implements TileManager{
 	}
 
 	@Override
-	public void loadMap() throws SAXException, ParserConfigurationException, IOException {
-		NodeList layers = document.getElementsByTagName("layer");
-		int numLayers = layers.getLength();
-	
-		for (int i = 0; i < numLayers; i++) {
-			Element layerElement = (Element) layers.item(i);
-			String layerName = layerElement.getAttribute("name");
-	
-			switch (layerName) {
-				case "background" -> tileLoader.loadTiles(this.background);
-				case "foreground" -> tileLoader.loadTiles(this.foreground);
-				case "stationary" -> tileLoader.loadStationaryTiles();
-				default -> throw new IllegalArgumentException("You entered an unrecognizable layer. Known layers: \nStationary\nForeground\nBackground");
-			}
-		}
-	
-		tileLoader.loadPlatforms();
-		tileLoader.loadCircularSaws();
+	public void loadMap() {
+		this.tileLoader.loadStationaryTiles();
+		this.tileLoader.loadPlatforms();
+		this.tileLoader.loadCircularSaws();
 	}
 
 	@Override
@@ -112,8 +99,8 @@ public class TileManagerImpl implements TileManager{
 	}
 
 	@Override
-	public Point2D<Integer,Integer> getPlayerCoordStart() {
-		return this.playerCoordStart;
+	public MeatBoy getMeatBoy() {
+		return this.meatBoy;
 	}
 
 	@Override
@@ -127,16 +114,6 @@ public class TileManagerImpl implements TileManager{
 	}
 
 	@Override
-	public List<List<Tile>> getForeground() {
-		return this.foreground;
-	}
-
-	@Override
-	public List<List<Tile>> getBackground() {
-		return this.background;
-	}
-
-	@Override
 	public List<List<Tile>> getStationary() {
 		return this.stationary;
 	}
@@ -146,21 +123,13 @@ public class TileManagerImpl implements TileManager{
 		return this.tiles;
 	}
 
-	@Override
-	public void setBandageGirl(BandageGirl bandageGirl) {
-		this.bandageGirl = bandageGirl;
-	}
-
 	/**
- 	 * Initializes the background, stationary, and foreground lists.
- 	 * This method is called during the construction of the TileManagerImpl object.
- 	 * Each list corresponds to a layer in the Tiled Map (background, stationary, and foreground).
+ 	 * Initializes the stationary list.
+ 	 * This method is called during the construction of the TileManager object.
  	 */
-	  private void init() {
+	private void init() {
 		for (int i = 0 ; i<this.numRows ; i++) {
-			background.add(new ArrayList<>());
-			stationary.add(new ArrayList<>());
-			foreground.add(new ArrayList<>());
+			stationary.add(new ArrayList<>(Collections.nCopies(this.numColumns, new TileImpl(0, 0, "null"))));
 		}
 	}
 

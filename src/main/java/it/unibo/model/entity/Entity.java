@@ -3,32 +3,57 @@ package it.unibo.model.entity;
 import java.awt.Graphics2D;
 
 /**
- * Entity
+ * The Entity interface represents an Entity.
  */
 public interface Entity {
 
     /**
-     * @return X coordinate.
+     * Gets the X coordinate of the entity.
+     *
+     * @return The X coordinate.
      */
     double getX();
 
     /**
-     * @return Y coordinate.
+     * Gets the Y coordinate of the entity.
+     *
+     * @return The Y coordinate.
      */
     double getY();
 
     /**
-     * @return the width of the entity.
+     * Sets the X coordinate of the entity.
+     *
+     * @param x The new X coordinate.
+     */
+    void setX(final double x);
+
+    /**
+     * Sets the Y coordinate of the entity.
+     *
+     * @param y The new Y coordinate.
+     */
+    void setY(final double y);
+
+    /**
+     * Gets the width of the entity.
+     *
+     * @return The width of the entity.
      */
     double getWidth();
 
     /**
-     * @return the height of the entity.
+     * Gets the height of the entity.
+     *
+     * @return The height of the entity.
      */
     double getHeight();
 
     /**
-     * @param g graphic to draw.
+     * Draws the entity using the provided {@code Graphics2D} object.
+     *
+     * @param g The {@code Graphics2D} object to draw the entity.
      */
     void draw(Graphics2D g);
+    
 }
