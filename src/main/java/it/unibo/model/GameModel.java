@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
 
 /**
@@ -39,6 +40,13 @@ public interface GameModel {
      * @return The List of Platforms parsed from the TMX file.
      */
     List<Platform> getPlatforms();
+
+    /**
+     * Returns the BandageGirl parsed from the TMX file.
+     *
+     * @return The BandageGirl parsed from the TMX file.
+     */
+    BandageGirl getBandageGirl();
 
      /**
      * Retrieves the total number of rows in the grid of tiles.
