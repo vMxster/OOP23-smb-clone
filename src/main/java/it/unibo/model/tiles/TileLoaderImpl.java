@@ -41,7 +41,7 @@ public class TileLoaderImpl implements TileLoader {
 				if (idTile > Constants.ID_TILE_NULL) {
 					if (idTile == Constants.ID_TILE_BANDAGEGIRL) {
 						this.tileManager.getBandageGirl().setX(Double.valueOf(column * Constants.TILE_SIZE));
-						this.tileManager.getBandageGirl().setX(Double.valueOf(row * Constants.TILE_SIZE));
+						this.tileManager.getBandageGirl().setY(Double.valueOf(row * Constants.TILE_SIZE));
 						this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(idTile - 1));
 					} else if (idTile == Constants.ID_TILE_MEATBOY) {
 						this.tileManager.getMeatBoy().setX(Double.valueOf(column * Constants.TILE_SIZE));
@@ -97,19 +97,14 @@ public class TileLoaderImpl implements TileLoader {
         		for (int j = 0; j < numsaws; j++) {
             		Element sawElement = (Element) Objects.requireNonNull(objectsInGroup.item(j));
 
-            		int width = Integer.parseInt(trim(sawElement.getAttribute("width")));
-            		int height = Integer.parseInt(trim(sawElement.getAttribute("height")));
-					int radius = width/2;
+            		int radius = Integer.parseInt(trim(sawElement.getAttribute("width")));
 
-            		if (width == height) {
-                		this.tileManager.getSaws().add(
-							new CircularSawImpl(
-								Integer.parseInt(trim(sawElement.getAttribute("x"))),
-								Integer.parseInt(trim(sawElement.getAttribute("y"))),
-								width,
-								height,
-								radius));
-            		}
+					this.tileManager.getSaws().add(
+						new CircularSawImpl(
+							Integer.parseInt(trim(sawElement.getAttribute("x"))),
+							Integer.parseInt(trim(sawElement.getAttribute("y"))),
+							radius));
+            		
 				}
 				return;
 			}

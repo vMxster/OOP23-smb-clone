@@ -1,6 +1,7 @@
 package it.unibo.model.entity.player;
 
 import it.unibo.model.entity.Entity;
+import it.unibo.model.hitbox.RectangleHitbox;
 
 public interface MeatBoy extends Entity {
 
@@ -30,4 +31,6 @@ public interface MeatBoy extends Entity {
      * @param i the integer code for an actual key on the keyboard.
      */
     void stopMoving(int i);
+
+    RectangleHitbox getHitbox();
 }

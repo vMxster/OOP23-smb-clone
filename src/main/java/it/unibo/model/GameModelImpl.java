@@ -5,6 +5,7 @@ import java.util.List;
 
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.level.Level;
 import it.unibo.model.level.LevelImpl;
 import it.unibo.model.tiles.Tile;
@@ -39,6 +40,11 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
+    public BandageGirl getBandageGirl() {
+        return this.level.getBandageGirl();
+    }
+
+    @Override
     public int getNumRows() {
         return this.level.getNumRows();
     }
@@ -47,5 +53,6 @@ public class GameModelImpl implements GameModel {
     public int getNumCols() {
         return this.level.getNumCols();
     }
+
     
 }

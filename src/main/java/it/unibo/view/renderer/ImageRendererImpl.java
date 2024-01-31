@@ -77,6 +77,7 @@ public class ImageRendererImpl implements ImageRenderer{
             CircularSaw saw = saws.get(i);
 			if( !Objects.isNull(saw) ) {
 				try {
+                    saw.draw(g);
                     g.drawImage(
                         ImageIO.read(new File("./src/main/resources/buzzsaw2.png")),
                         (int) saw.getX(),

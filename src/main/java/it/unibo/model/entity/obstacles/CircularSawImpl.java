@@ -8,11 +8,8 @@ import it.unibo.model.entity.AbstractEntityImpl;
 
 public class CircularSawImpl extends AbstractEntityImpl<CircularHitbox> implements CircularSaw{
 
-    private double radius;
-
-    public CircularSawImpl(final double x, final double y, final double width, final double height, final double radius) {
-        super(x, y, width, height, new CircularHitbox(x, y, radius));
-        this.radius = radius;
+    public CircularSawImpl(final double x, final double y, final double radius) {
+        super(x, y, radius, radius, new CircularHitbox(x, y, radius));
     }
 
     @Override
@@ -44,7 +41,11 @@ public class CircularSawImpl extends AbstractEntityImpl<CircularHitbox> implemen
 
     @Override
     public double getRadius() {
-        return this.radius;
+        return this.hitbox.getHitbox().getWidth();
     }
     
+    @Override
+    public CircularHitbox getHitbox() {
+        return this.hitbox;
+    }
 }
