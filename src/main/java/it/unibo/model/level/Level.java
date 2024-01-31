@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
 
 /**
@@ -36,6 +37,13 @@ public interface Level {
      * @return A List of Saws.
      */
     List<CircularSaw> getSaws();
+
+    /**
+     * Retrieves the bandage girl.
+     *
+     * @return The bandage girl.
+     */
+    BandageGirl getBandageGirl();
 
     /**
      * Gets the width level of the platform.

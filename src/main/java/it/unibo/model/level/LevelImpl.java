@@ -9,25 +9,31 @@ import it.unibo.model.tiles.TileManagerImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 //import it.unibo.model.entity.player.MeatBoy;
-//import it.unibo.model.entity.target.BandageGirl;
+import it.unibo.model.entity.target.BandageGirl;
 
 public class LevelImpl implements Level{
 
     private final TileManager tileManager;
 	//private final MeatBoy meatBoy;
-	//private final BandageGirl bandageGirl;
+	private final BandageGirl bandageGirl;
 
+	
 	public LevelImpl(final URL urlMap) {
 		this.tileManager = new TileManagerImpl(urlMap);
 		//this.meatBoy = tileManager.getMeatBoy();
-		//this.bandageGirl = tileManager.getBandageGirl();	
+		this.bandageGirl = tileManager.getBandageGirl();	
 	}
 	
 	@Override
 	public void update() {
-		//if (meatBoy.getHitbox().win(bandageGirl)) {
+	//if (meatBoy.getHitbox().win(bandageGirl)) {
 		//	model.finish();
 		//}
+	}
+
+	@Override
+	public BandageGirl getBandageGirl() {
+		return bandageGirl;
 	}
 
 	@Override
