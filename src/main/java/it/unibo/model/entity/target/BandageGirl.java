@@ -1,6 +1,7 @@
 package it.unibo.model.entity.target;
 
 import it.unibo.model.entity.Entity;
+import it.unibo.model.hitbox.RectangleHitbox;
 
 public interface BandageGirl extends Entity {
     
@@ -13,4 +14,6 @@ public interface BandageGirl extends Entity {
      * @return true if she has been touched.
      */
     boolean isTouched();
+
+    RectangleHitbox getHitbox();
 }

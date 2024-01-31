@@ -1,31 +1,9 @@
 package it.unibo.model.entity.obstacles;
 
-import java.awt.Graphics2D;
+import it.unibo.model.entity.Entity;
+import it.unibo.model.hitbox.RectangleHitbox;
 
-public interface Platform {
-    /**
-     * @return X coordinate
-     */
-    double getX();
+public interface Platform extends Entity{
 
-    /**
-     * @return Y coordinate
-     */
-    double getY();
-
-    /**
-     * @return the width of the entity
-     */
-    double getWidth();
-
-    /**
-     * @return the height of the entity
-     */
-    double getHeight();
-
-    /**
-     * 
-     * @param g
-     */
-    void draw(Graphics2D g);
+    RectangleHitbox getHitbox();
 }

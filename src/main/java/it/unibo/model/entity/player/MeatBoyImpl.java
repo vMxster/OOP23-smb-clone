@@ -91,4 +91,9 @@ public class MeatBoyImpl extends AbstractEntityImpl<RectangleHitbox> implements 
                 break;
         }
     }
+
+    @Override
+    public RectangleHitbox getHitbox() {
+        return this.hitbox;
+    }
 }

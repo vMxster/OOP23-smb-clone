@@ -3,18 +3,13 @@ package it.unibo.model.entity.obstacles;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class PlatformImpl implements Platform{
+import it.unibo.model.entity.AbstractEntityImpl;
+import it.unibo.model.hitbox.RectangleHitbox;
 
-    private double x;
-    private double y;
-    private double width;
-    private double height;
+public class PlatformImpl extends AbstractEntityImpl<RectangleHitbox> implements Platform{
 
     public PlatformImpl(final double x, final double y, final double width, final double height){
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        super(x, y, width, height, new RectangleHitbox(x, y, width, height));
     }
 
     @Override
@@ -41,6 +36,11 @@ public class PlatformImpl implements Platform{
     public void draw(Graphics2D g) {
         g.setColor(Color.BLUE);
         g.fillRect((int)this.x, (int)this.y, (int)this.width, (int)this.height);
+    }
+
+    @Override
+    public RectangleHitbox getHitbox() {
+        return this.hitbox;
     }
     
 }
