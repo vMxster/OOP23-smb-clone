@@ -2,8 +2,11 @@ package it.unibo.controller;
 
 import java.util.List;
 
+import it.unibo.model.GameModel;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.entity.player.MeatBoy;
+import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
 
 /**
@@ -33,6 +36,20 @@ public interface GameController {
     List<Platform> getPlatforms();
 
     /**
+     * Returns the BandageGirl parsed from the TMX file.
+     *
+     * @return The BandageGirl parsed from the TMX file.
+     */
+    BandageGirl getBandageGirl();
+
+    /**
+     * Returns the MeatBoy parsed from the TMX file.
+     *
+     * @return The MeatBoy parsed from the TMX file.
+     */
+    MeatBoy getMeatBoy();
+
+    /**
      * Retrieves the URL of the TMX file associated with the Game Map.
      *
      * @return The URL of the TMX file.
@@ -52,6 +69,8 @@ public interface GameController {
      * @return The number of columns.
      */
     int getNumCols();
+
+    GameModel getGameModel();
 
 }
 
