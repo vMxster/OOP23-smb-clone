@@ -5,6 +5,7 @@ import java.util.List;
 
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.level.Level;
 import it.unibo.model.level.LevelImpl;
@@ -13,7 +14,6 @@ import it.unibo.model.tiles.Tile;
 public class GameModelImpl implements GameModel {
 
     private final Level level;
-
     /**
      * Constructs a new instance of the GameModel.
      * This constructor initializes the game model with the specified URL to the game map.
@@ -45,6 +45,11 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
+    public MeatBoy getMeatBoy() {
+        return this.level.getMeatBoy();
+    }
+
+    @Override
     public int getNumRows() {
         return this.level.getNumRows();
     }
@@ -53,6 +58,7 @@ public class GameModelImpl implements GameModel {
     public int getNumCols() {
         return this.level.getNumCols();
     }
+
 
     
 }
