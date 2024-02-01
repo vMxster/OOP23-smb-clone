@@ -37,15 +37,15 @@ public class TestHitbox {
 
     @Test
     void testCollider(){
-        assertEquals(null, this.collisionChecker.isColliding(meatBoy.getHitbox()));
+        assertEquals(CollisionState.GROUND, this.collisionChecker.isColliding());
         meatBoy.setX(660);
         meatBoy.setY(380);
-        assertEquals(CollisionState.BANDAGE_GIRL, this.collisionChecker.isColliding(meatBoy.getHitbox()));
+        assertEquals(CollisionState.BANDAGE_GIRL, this.collisionChecker.isColliding());
         meatBoy.setX(150);
         meatBoy.setY(500);
-        assertEquals(CollisionState.GROUND, this.collisionChecker.isColliding(meatBoy.getHitbox()));
+        assertEquals(CollisionState.GROUND, this.collisionChecker.isColliding());
         meatBoy.setX(400);
         meatBoy.setY(250);
-        assertEquals(CollisionState.SAW, this.collisionChecker.isColliding(meatBoy.getHitbox()));
+        assertEquals(CollisionState.SAW, this.collisionChecker.isColliding());
     }
 }
