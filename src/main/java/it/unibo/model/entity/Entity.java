@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 /**
  * The Entity interface represents an Entity.
  */
-public interface Entity {
+public interface Entity<H> {
 
     /**
      * Gets the X coordinate of the entity.
@@ -56,4 +56,5 @@ public interface Entity {
      */
     void draw(Graphics2D g);
     
+    H getHitbox();
 }
