@@ -1,4 +1,4 @@
-package it.unibo.view.renderer;
+package it.unibo.view.imageRenderer;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

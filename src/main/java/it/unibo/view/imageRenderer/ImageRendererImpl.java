@@ -1,4 +1,4 @@
-package it.unibo.view.renderer;
+package it.unibo.view.imageRenderer;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -77,7 +77,7 @@ public class ImageRendererImpl implements ImageRenderer{
             CircularSaw saw = saws.get(i);
 			if( !Objects.isNull(saw) ) {
 				try {
-                    saw.draw(g);
+                    //saw.draw(g);
                     g.drawImage(
                         ImageIO.read(new File("./src/main/resources/buzzsaw2.png")),
                         (int) saw.getX(),
