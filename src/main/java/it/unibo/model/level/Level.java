@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
 
@@ -58,5 +59,12 @@ public interface Level {
      * @return An integer representing the height level of the platform.
      */
     int getNumRows();
+
+    /**
+     * Retrieves the meat boy.
+     *
+     * @return The meat boy.
+     */
+    MeatBoy getMeatBoy();
 
 }
