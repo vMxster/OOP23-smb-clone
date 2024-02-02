@@ -13,34 +13,8 @@ public class PlatformImpl extends AbstractEntityImpl<RectangleHitbox> implements
     }
 
     @Override
-    public double getX() {
-        return this.x; 
-    }
-
-    @Override
-    public double getY() {
-        return this.y;
-    }
-
-    @Override
-    public double getWidth() {
-        return this.width;
-    }
-
-    @Override
-    public double getHeight() {
-        return this.height;
-    }
-
-    @Override
     public void draw(Graphics2D g) {
         g.setColor(Color.BLUE);
         g.fillRect((int)this.x, (int)this.y, (int)this.width, (int)this.height);
     }
-
-    @Override
-    public RectangleHitbox getHitbox() {
-        return this.hitbox;
-    }
-    
 }

@@ -4,16 +4,16 @@ import java.awt.Graphics2D;
 
 import it.unibo.model.hitbox.Hitbox;
 
-public abstract class AbstractEntityImpl<T extends Hitbox<?>> implements Entity {
+public abstract class AbstractEntityImpl<H extends Hitbox<?>> implements Entity<H> {
 
     protected double x;
     protected double y;
     protected double width;
     protected double height;
-    protected T hitbox;
+    protected H hitbox;
 
     
-    public AbstractEntityImpl(final double x, final double y, final double width, final double height, final T hitbox) {
+    public AbstractEntityImpl(final double x, final double y, final double width, final double height, final H hitbox) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -54,5 +54,10 @@ public abstract class AbstractEntityImpl<T extends Hitbox<?>> implements Entity 
     public void setY(double y) {
         this.hitbox.updatePosition(this.x, y);
         this.y = y;
+    }
+
+    @Override
+    public H getHitbox() {
+        return this.hitbox;
     }
 }

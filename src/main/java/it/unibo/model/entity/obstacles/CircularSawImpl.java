@@ -13,26 +13,6 @@ public class CircularSawImpl extends AbstractEntityImpl<CircularHitbox> implemen
     }
 
     @Override
-    public double getX() {
-        return this.x; 
-    }
-
-    @Override
-    public double getY() {
-        return this.y;
-    }
-
-    @Override
-    public double getWidth() {
-        return this.width;
-    }
-
-    @Override
-    public double getHeight() {
-        return this.height;
-    }
-
-    @Override
     public void draw(Graphics2D g) {
         g.setColor(Color.WHITE);
         g.fillOval((int)this.x, (int)this.y, (int)this.width, (int)this.height);
@@ -42,10 +22,5 @@ public class CircularSawImpl extends AbstractEntityImpl<CircularHitbox> implemen
     @Override
     public double getRadius() {
         return this.hitbox.getHitbox().getWidth();
-    }
-    
-    @Override
-    public CircularHitbox getHitbox() {
-        return this.hitbox;
     }
 }
