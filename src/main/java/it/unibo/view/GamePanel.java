@@ -69,12 +69,6 @@ public class GamePanel extends JPanel{
         for (int i=0 ; i<this.images.size() ; i++) {
             g2d.drawImage(Objects.requireNonNull(this.images.get(i)), 0, 0, this);
         }
-        for (var c : this.controller.getPlatforms()) {
-            c.draw(g2d);
-        }
-        for (var c : this.controller.getSaws()) {
-            c.draw(g2d);
-        }
         this.meatBoy.draw(g2d);
     }
 
