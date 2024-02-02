@@ -4,7 +4,7 @@ public class Constants {
     
     public static final int TILE_SIZE = 20;
     public static final int SW = 800;
-    public static final int SH = 630;
+    public static final int SH = 600;
     public static final int ID_TILE_BANDAGEGIRL = 902;
     public static final int ID_TILE_MEATBOY = 901;
     public static final int ID_TILE_NULL = 0;

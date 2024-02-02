@@ -37,11 +37,21 @@ public class GamePanel extends JPanel{
             public void run() {
                 collisionChecker.updateMeatBoy();
                 repaint();
-                if (collisionChecker.isColliding() == (CollisionChecker.CollisionState.SAW)) {
-                    System.out.println("HAI PERSO");      
-                } else if (collisionChecker.isColliding() == (CollisionChecker.CollisionState.BANDAGE_GIRL)) {
-                    System.out.println("HAI VINTO");
-                }       
+                if (collisionChecker.isInWindow() == CollisionChecker.CollisionState.FALL) {
+                    try {
+                        Thread.sleep(500);
+                        System.exit(0);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                } else {
+                    if (collisionChecker.isColliding() == (CollisionChecker.CollisionState.SAW)) {
+                        System.out.println("HAI PERSO");      
+                    } else if (collisionChecker.isColliding() == (CollisionChecker.CollisionState.BANDAGE_GIRL)) {
+                        System.out.println("HAI VINTO");
+                    }  
+                    
+                }   
             }
             
         }, 0, 17);
@@ -58,6 +68,12 @@ public class GamePanel extends JPanel{
         Graphics2D g2d = (Graphics2D) g;
         for (int i=0 ; i<this.images.size() ; i++) {
             g2d.drawImage(Objects.requireNonNull(this.images.get(i)), 0, 0, this);
+        }
+        for (var c : this.controller.getPlatforms()) {
+            c.draw(g2d);
+        }
+        for (var c : this.controller.getSaws()) {
+            c.draw(g2d);
         }
         this.meatBoy.draw(g2d);
     }

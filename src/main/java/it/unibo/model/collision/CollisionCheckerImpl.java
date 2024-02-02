@@ -2,6 +2,7 @@ package it.unibo.model.collision;
 
 import java.util.List;
 
+import it.unibo.commons.Constants;
 import it.unibo.model.GameModel;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.hitbox.CircularHitbox;
@@ -19,6 +20,10 @@ public class CollisionCheckerImpl implements CollisionChecker{
     private boolean moveLeft;
     private boolean moveRight;
     private boolean jump;
+
+    private boolean leftBound;
+    private boolean rightBound;
+    private boolean upperBound;
 
     public CollisionCheckerImpl(GameModel level) {
         this.sawsHitboxs = level.getSaws().stream().map(t -> t.getHitbox()).toList();
@@ -49,10 +54,25 @@ public class CollisionCheckerImpl implements CollisionChecker{
     }
 
     @Override
+    public CollisionState isInWindow() {
+        if (this.meatBoy.getX() < 0) leftBound = true;
+        else leftBound = false;
+        if (this.meatBoy.getX() + Constants.TILE_SIZE > Constants.SW - Constants.TILE_SIZE) rightBound = true;
+        else rightBound = false;
+        if (this.meatBoy.getY() < 0) upperBound = true;
+        else upperBound = false;    
+        return (this.meatBoy.getY() > Constants.SH) ? CollisionState.FALL : null;
+    }
+
+    @Override
     public void updateMeatBoy() {
-        if (moveLeft && !moveRight) this.meatBoy.setX(this.meatBoy.getX() - MeatBoy.SPEED * this.meatBoy.getSpeedMul());
-        if (!moveLeft && moveRight) this.meatBoy.setX(this.meatBoy.getX() + MeatBoy.SPEED * this.meatBoy.getSpeedMul());
-        if (jump) this.meatBoy.setY(this.meatBoy.getY() - 10);
+        //left
+        if (moveLeft && !moveRight && !leftBound) this.meatBoy.setX(this.meatBoy.getX() - MeatBoy.SPEED * this.meatBoy.getSpeedMul());
+        //right
+        if (!moveLeft && moveRight && !rightBound) this.meatBoy.setX(this.meatBoy.getX() + MeatBoy.SPEED * this.meatBoy.getSpeedMul());
+        //up
+        if (jump && !upperBound) this.meatBoy.setY(this.meatBoy.getY() - 10);
+        //fall
         if (!jump && this.isColliding() != CollisionState.GROUND) this.meatBoy.setY(this.meatBoy.getY() + 10);
         this.meatBoy.getHitbox().updatePosition(this.meatBoy.getX(), this.meatBoy.getY());
     }
@@ -98,5 +118,6 @@ public class CollisionCheckerImpl implements CollisionChecker{
                 break;
         }
     }
+
     
 }
