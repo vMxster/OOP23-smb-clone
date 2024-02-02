@@ -31,10 +31,5 @@ public class BandageGirlImpl extends AbstractEntityImpl<RectangleHitbox> impleme
     public void touch() {
         this.touched = true;
     }
-
-    @Override
-    public RectangleHitbox getHitbox() {
-        return this.hitbox;
-    }
     
 }

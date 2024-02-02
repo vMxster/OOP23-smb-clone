@@ -9,6 +9,4 @@ public interface CircularSaw extends Entity<CircularHitbox> {
      * @return range of action of the saw
      */
     double getRadius();
-
-    CircularHitbox getHitbox();
 }

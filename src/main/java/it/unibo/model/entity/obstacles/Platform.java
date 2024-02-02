@@ -5,5 +5,4 @@ import it.unibo.model.hitbox.RectangleHitbox;
 
 public interface Platform extends Entity<RectangleHitbox> {
 
-    RectangleHitbox getHitbox();
 }

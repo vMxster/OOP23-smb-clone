@@ -14,6 +14,4 @@ public interface BandageGirl extends Entity<RectangleHitbox> {
      * @return true if she has been touched.
      */
     boolean isTouched();
-
-    RectangleHitbox getHitbox();
 }
