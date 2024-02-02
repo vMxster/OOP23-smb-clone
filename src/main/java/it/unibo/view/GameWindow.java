@@ -8,8 +8,8 @@ import javax.swing.JFrame;
 
 import it.unibo.commons.input.KeyboardInput;
 import it.unibo.controller.GameController;
-import it.unibo.view.renderer.ImageRenderer;
-import it.unibo.view.renderer.ImageRendererImpl;
+import it.unibo.view.imageRenderer.ImageRenderer;
+import it.unibo.view.imageRenderer.ImageRendererImpl;
 
 public class GameWindow extends JFrame {
 
@@ -20,7 +20,7 @@ public class GameWindow extends JFrame {
         this.controller = controller;
         this.renderer = new ImageRendererImpl(this.controller.getNumRows(), this.controller.getNumCols());
 
-        GamePanel panel = new GamePanel();
+        GamePanel panel = new GamePanel(controller);
         panel.setLocation(0,0);
         panel.setSize(new Dimension(600,800));
         panel.setImages(

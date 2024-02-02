@@ -2,8 +2,6 @@ package it.unibo.view;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,27 +11,37 @@ import java.util.Objects;
 import javax.swing.JPanel;
 import java.awt.image.BufferedImage; 
 
-import it.unibo.commons.Constants;
+import it.unibo.controller.GameController;
+import it.unibo.model.collision.CollisionChecker;
+import it.unibo.model.collision.CollisionCheckerImpl;
 import it.unibo.model.entity.player.MeatBoy;
-import it.unibo.model.entity.player.MeatBoyImpl;
 
-public class GamePanel extends JPanel implements ActionListener {
+public class GamePanel extends JPanel{
 
     private final MeatBoy meatBoy;
     private final Timer gameTimer;
     private final List<BufferedImage> images;
+    private GameController controller;
+    private CollisionChecker collisionChecker;
 
-    public GamePanel() {
+    public GamePanel(GameController controller) {
         
-        this.meatBoy = new MeatBoyImpl(200, 200, Constants.TILE_SIZE, Constants.TILE_SIZE);
+        this.controller = controller;
+        this.meatBoy = this.controller.getMeatBoy();
+        this.collisionChecker = new CollisionCheckerImpl(controller.getGameModel());
         this.gameTimer = new Timer();
         this.images = new ArrayList<>();
         this.gameTimer.schedule(new TimerTask() {
 
             @Override
             public void run() {
-                meatBoy.update();
+                collisionChecker.updateMeatBoy();
                 repaint();
+                if (collisionChecker.isColliding() == (CollisionChecker.CollisionState.SAW)) {
+                    System.out.println("HAI PERSO");      
+                } else if (collisionChecker.isColliding() == (CollisionChecker.CollisionState.BANDAGE_GIRL)) {
+                    System.out.println("HAI VINTO");
+                }       
             }
             
         }, 0, 17);
@@ -54,18 +62,12 @@ public class GamePanel extends JPanel implements ActionListener {
         this.meatBoy.draw(g2d);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-    }
-
     public void keyPressed(KeyEvent e) {
-        this.meatBoy.move(e.getKeyCode());
+        this.collisionChecker.moveMeatBoy(e.getKeyCode());
     }
 
     public void keyReleased(KeyEvent e) {
-        this.meatBoy.stopMoving(e.getKeyCode());
+        this.collisionChecker.stopMovingMeatBoy(e.getKeyCode());
     }
 
 }
