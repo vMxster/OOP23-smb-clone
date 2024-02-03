@@ -42,12 +42,12 @@ public class TileLoaderImpl implements TileLoader {
 					if (idTile == Constants.ID_TILE_BANDAGEGIRL) {
 						this.tileManager.getBandageGirl().setX(Double.valueOf(column * Constants.TILE_SIZE));
 						this.tileManager.getBandageGirl().setY(Double.valueOf(row * Constants.TILE_SIZE));
-						this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(idTile - 1));
+						this.tileManager.getStationary().get(row).set(column, this.tileManager.getTiles().get(idTile - 1));
 					} else if (idTile == Constants.ID_TILE_MEATBOY) {
 						this.tileManager.getMeatBoy().setX(Double.valueOf(column * Constants.TILE_SIZE));
 						this.tileManager.getMeatBoy().setY(Double.valueOf(row * Constants.TILE_SIZE));
 					} else {
-						this.tileManager.getStationary().get(row).add(column, this.tileManager.getTiles().get(idTile - 1));
+						this.tileManager.getStationary().get(row).set(column, this.tileManager.getTiles().get(idTile - 1));
 					}
 				}
 				gidNumber++;
