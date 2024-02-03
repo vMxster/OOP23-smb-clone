@@ -62,8 +62,8 @@ public class TileSetImpl implements TileSet {
 	 */
 	private void divideSpriteSheet(int width, int height, String srcImage) throws IOException {
 		for( int row=0 ; row<height ; row+=20 ) {
-			for( int column=0 ; column<width ; column+=20 ) {	
-				tiles.add(new TileImpl(row, column, srcImage));
+			for( int column=0 ; column<width ; column+=20 ) {
+				tiles.add(new TileImpl(column, row, srcImage));
 			}
 		}
 	}
