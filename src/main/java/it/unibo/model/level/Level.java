@@ -14,11 +14,6 @@ import it.unibo.model.tiles.Tile;
 public interface Level {
 
     /**
-     *  Updates the status of all current entities and obstacles in the level.
-     */
-    void update();
-
-    /**
      * Retrieves a two-dimensional list representing stationary tiles in the game.
      *
      * @return A two-dimensional list of stationary tiles.
