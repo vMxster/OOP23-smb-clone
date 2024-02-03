@@ -4,6 +4,9 @@ import java.util.List;
 
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.entity.player.MeatBoy;
+import it.unibo.model.entity.target.BandageGirl;
+import it.unibo.model.tiles.Tile;
 
 /**
  *  Interface that reads a tmx file and creates a level from it
@@ -11,9 +14,11 @@ import it.unibo.model.entity.obstacles.Platform;
 public interface Level {
 
     /**
-     *  Updates the status of all current entities and obstacles in the level.
+     * Retrieves a two-dimensional list representing stationary tiles in the game.
+     *
+     * @return A two-dimensional list of stationary tiles.
      */
-    void update();
+    List<List<Tile>> getStationary();
 
     /**
      * Retrieves a list of platforms available.
@@ -23,24 +28,38 @@ public interface Level {
     List<Platform> getPlatforms();
 
     /**
-     * Retrieves a list of circular saws available.
+     * Retrieves a list of saws.
      *
-     * @return A List of CircularSaw objects representing the available circular saws.
+     * @return A List of Saws.
      */
-    List<CircularSaw> getCircularSaws();
+    List<CircularSaw> getSaws();
+
+    /**
+     * Retrieves the bandage girl.
+     *
+     * @return The bandage girl.
+     */
+    BandageGirl getBandageGirl();
 
     /**
      * Gets the width level of the platform.
      *
      * @return An integer representing the width level of the platform.
      */
-    int getWidthLevel();
+    int getNumCols();
 
     /**
      * Gets the height level of the platform.
      *
      * @return An integer representing the height level of the platform.
      */
-    int getHeightLevel();
+    int getNumRows();
+
+    /**
+     * Retrieves the meat boy.
+     *
+     * @return The meat boy.
+     */
+    MeatBoy getMeatBoy();
 
 }
