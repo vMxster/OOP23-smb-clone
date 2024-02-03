@@ -8,8 +8,8 @@ public class RectangleHitbox implements Hitbox<Rectangle> {
 
     private final Rectangle hitbox;
 
-    public RectangleHitbox(final double x, final double y, final double width, final double height) {
-        this.hitbox = new Rectangle((int) x, (int) y, (int) width, (int) height);
+    public RectangleHitbox(final double x, final double y, final int width, final int height) {
+        this.hitbox = new Rectangle((int) x, (int) y, width, height);
     }
 
     @Override

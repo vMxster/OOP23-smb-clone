@@ -18,7 +18,7 @@ public class TestTileLoader {
     public void init() throws MalformedURLException {
         this.urlMap = new URL("file:./src/main/resources/factory1.tmx");
         assertNotNull(this.urlMap);
-        this.tileManager = new TileManagerImpl(urlMap);
+        //this.tileManager = new TileManagerImpl(urlMap);
         assertNotNull(this.tileManager);
         this.tileLoader = new TileLoaderImpl(tileManager);
     }

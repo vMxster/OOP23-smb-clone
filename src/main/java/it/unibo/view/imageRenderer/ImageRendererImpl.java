@@ -82,8 +82,8 @@ public class ImageRendererImpl implements ImageRenderer{
                         ImageIO.read(new File("./src/main/resources/buzzsaw2.png")),
                         (int) saw.getX(),
                         (int) saw.getY(),
-                        (int) saw.getWidth(),
-                        (int) saw.getHeight(),
+                        (int) saw.getHitbox().getHitbox().getWidth(),
+                        (int) saw.getHitbox().getHitbox().getHeight(),
                         null);
                 } catch (IOException e) {
                     e.printStackTrace();

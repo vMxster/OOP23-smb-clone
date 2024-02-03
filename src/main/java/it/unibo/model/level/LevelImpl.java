@@ -1,6 +1,5 @@
 package it.unibo.model.level;
 
-import java.net.URL;
 import java.util.List;
 
 import it.unibo.model.tiles.Tile;
@@ -19,8 +18,8 @@ public class LevelImpl implements Level{
 	private final BandageGirl bandageGirl;
 
 	
-	public LevelImpl(final URL urlMap) {
-		this.tileManager = new TileManagerImpl(urlMap);
+	public LevelImpl(final String tmx) {
+		this.tileManager = new TileManagerImpl(tmx);
 		this.meatBoy = tileManager.getMeatBoy();
 		this.bandageGirl = tileManager.getBandageGirl();	
 	}

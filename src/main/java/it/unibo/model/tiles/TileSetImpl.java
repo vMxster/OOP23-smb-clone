@@ -1,7 +1,6 @@
 package it.unibo.model.tiles;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,14 +15,14 @@ import org.xml.sax.SAXException;
 
 public class TileSetImpl implements TileSet {
 
-	private final URL tmx;
+	private final String tmx;
 	private final List<Tile> tiles;
 
 	/**
 	 * Constructs a new TileSet object by parsing a tmx file.
 	 * @param tmx The tmx file to parse
 	 */
-	public TileSetImpl(URL tmx) {
+	public TileSetImpl(String tmx) {
 		this.tmx = tmx;
 		this.tiles = new ArrayList<>();
 		try {
@@ -36,7 +35,7 @@ public class TileSetImpl implements TileSet {
 	@Override
     public void read() throws ParserConfigurationException, SAXException, IOException {
 		DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        Document document = documentBuilder.parse(tmx.getPath());
+        Document document = documentBuilder.parse(tmx);
         NodeList tileSetNodeList = document.getElementsByTagName("tileset");
         int numTileSets = tileSetNodeList.getLength();
 		
@@ -62,8 +61,8 @@ public class TileSetImpl implements TileSet {
 	 */
 	private void divideSpriteSheet(int width, int height, String srcImage) throws IOException {
 		for( int row=0 ; row<height ; row+=20 ) {
-			for( int column=0 ; column<width ; column+=20 ) {	
-				tiles.add(new TileImpl(row, column, srcImage));
+			for( int column=0 ; column<width ; column+=20 ) {
+				tiles.add(new TileImpl(column, row, srcImage));
 			}
 		}
 	}

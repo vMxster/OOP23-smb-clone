@@ -50,13 +50,6 @@ public interface GameController {
     MeatBoy getMeatBoy();
 
     /**
-     * Retrieves the URL of the TMX file associated with the Game Map.
-     *
-     * @return The URL of the TMX file.
-     */
-    String getTmxURL();
-
-    /**
      * Retrieves the number of Map rows.
      *
      * @return The number of rows.

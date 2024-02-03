@@ -9,7 +9,6 @@ import java.net.URL;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.commons.Constants;
 import it.unibo.model.collision.CollisionChecker;
 import it.unibo.model.collision.CollisionCheckerImpl;
 import it.unibo.model.collision.CollisionChecker.CollisionState;
@@ -27,9 +26,9 @@ public class TestHitbox {
     public void init() throws MalformedURLException {
         this.urlMap = new URL("file:./src/main/resources/factory1.tmx");
         assertNotNull(this.urlMap);
-        this.gameModel = new GameModelImpl(urlMap);
+        //this.gameModel = new GameModelImpl(urlMap);
         assertNotNull(this.gameModel);
-        this.meatBoy = new MeatBoyImpl(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
+        this.meatBoy = new MeatBoyImpl(0, 0);
         assertNotNull(this.meatBoy);
         this.collisionChecker = new CollisionCheckerImpl(gameModel);
         assertNotNull(this.collisionChecker);

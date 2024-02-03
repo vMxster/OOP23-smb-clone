@@ -1,7 +1,6 @@
 package it.unibo.model.tiles;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +12,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.w3c.dom.Element;
 
-import it.unibo.commons.Constants;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
@@ -30,7 +28,7 @@ public class TileManagerImpl implements TileManager{
 	private final List<Tile> tiles;
 	private final MeatBoy meatBoy;
 	private final BandageGirl bandageGirl;
-	private final URL tmxfile;
+	private final String tmx;
 	private TileLoader tileLoader;
 	private DocumentBuilder builder;
 	private Document document;
@@ -42,19 +40,19 @@ public class TileManagerImpl implements TileManager{
  	 *
  	 * @param urlMap The URL of the tmx file to read and create the TileManager from.
  	 */
-	public TileManagerImpl(final URL urlMap) {
+	public TileManagerImpl(final String tmx) {
 		this.platforms = new ArrayList<Platform>();
 		this.circularSaws = new ArrayList<CircularSaw>();
 		this.stationary = new ArrayList<>();
-		this.tileSet = new TileSetImpl(urlMap);
+		this.tileSet = new TileSetImpl(tmx);
 		this.tiles = tileSet.getTiles();
-		this.meatBoy = new MeatBoyImpl(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
-		this.bandageGirl = new BandageGirlImpl(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
-		this.tmxfile = urlMap;
+		this.meatBoy = new MeatBoyImpl(0, 0);
+		this.bandageGirl = new BandageGirlImpl(0, 0);
+		this.tmx = tmx;
 	
 		try {
 			this.builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-			this.document = builder.parse(this.tmxfile.getPath());
+			this.document = builder.parse(this.tmx);
 	
 			NodeList mapAttributes = document.getElementsByTagName("map");
 			if (mapAttributes.getLength() > 0) {

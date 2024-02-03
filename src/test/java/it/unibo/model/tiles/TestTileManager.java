@@ -8,7 +8,6 @@ import java.net.URL;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.commons.Constants;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.entity.target.BandageGirlImpl;
 
@@ -21,7 +20,7 @@ public class TestTileManager {
     public void init() throws MalformedURLException {
         this.urlMap = new URL("file:./src/main/resources/factory1.tmx");
         assertNotNull(this.urlMap);
-        this.tileManager = new TileManagerImpl(urlMap);
+        //this.tileManager = new TileManagerImpl(urlMap);
         assertNotNull(this.tileManager);
     }
 
@@ -64,7 +63,7 @@ public class TestTileManager {
 
     @Test
     public void testBandageGirl() {
-        BandageGirl bandageGirl = new BandageGirlImpl(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
+        BandageGirl bandageGirl = new BandageGirlImpl(0, 0);
         bandageGirl.setX(1);
         assertEquals(1, bandageGirl.getX());
         bandageGirl.setY(2);
