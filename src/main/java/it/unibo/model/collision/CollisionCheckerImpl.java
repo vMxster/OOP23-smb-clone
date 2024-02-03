@@ -25,11 +25,11 @@ public class CollisionCheckerImpl implements CollisionChecker{
     private boolean rightBound;
     private boolean upperBound;
 
-    public CollisionCheckerImpl(GameModel level) {
-        this.sawsHitboxs = level.getSaws().stream().map(t -> t.getHitbox()).toList();
-        this.platformsHitboxs = level.getPlatforms().stream().map(t -> t.getHitbox()).toList();
-        this.bandageGirlHitbox = level.getBandageGirl().getHitbox();
-        this.meatBoy = level.getMeatBoy();
+    public CollisionCheckerImpl(GameModel gameModel) {
+        this.sawsHitboxs = gameModel.getSaws().stream().map(t -> t.getHitbox()).toList();
+        this.platformsHitboxs = gameModel.getPlatforms().stream().map(t -> t.getHitbox()).toList();
+        this.bandageGirlHitbox = gameModel.getBandageGirl().getHitbox();
+        this.meatBoy = gameModel.getMeatBoy();
     }
 
     @Override
@@ -67,13 +67,37 @@ public class CollisionCheckerImpl implements CollisionChecker{
     @Override
     public void updateMeatBoy() {
         //left
-        if (moveLeft && !moveRight && !leftBound) this.meatBoy.setX(this.meatBoy.getX() - MeatBoy.SPEED * this.meatBoy.getSpeedMul());
+        if (moveLeft && !moveRight && !leftBound) {
+            this.meatBoy.setX(this.meatBoy.getX() - MeatBoy.SPEED * this.meatBoy.getSpeedMul());
+            this.meatBoy.getHitbox().updatePosition(this.meatBoy.getX(), this.meatBoy.getY());
+            if (isColliding() == CollisionState.GROUND) {
+                this.meatBoy.setX(this.meatBoy.getX() + MeatBoy.SPEED * this.meatBoy.getSpeedMul());
+            }
+        }
         //right
-        if (!moveLeft && moveRight && !rightBound) this.meatBoy.setX(this.meatBoy.getX() + MeatBoy.SPEED * this.meatBoy.getSpeedMul());
+        if (!moveLeft && moveRight && !rightBound) {
+            this.meatBoy.setX(this.meatBoy.getX() + MeatBoy.SPEED * this.meatBoy.getSpeedMul());
+            this.meatBoy.getHitbox().updatePosition(this.meatBoy.getX(), this.meatBoy.getY());
+            if (isColliding() == CollisionState.GROUND) {
+                this.meatBoy.setX(this.meatBoy.getX() - MeatBoy.SPEED * this.meatBoy.getSpeedMul());
+            }
+        }
         //up
-        if (jump && !upperBound) this.meatBoy.setY(this.meatBoy.getY() - 10);
+        if (jump && !upperBound) {
+            this.meatBoy.setY(this.meatBoy.getY() - 10);
+            this.meatBoy.getHitbox().updatePosition(this.meatBoy.getX(), this.meatBoy.getY());
+            if (isColliding() == CollisionState.GROUND) {
+                this.meatBoy.setY(this.meatBoy.getY() + 10);
+            }
+        }
         //fall
-        if (!jump && this.isColliding() != CollisionState.GROUND) this.meatBoy.setY(this.meatBoy.getY() + 10);
+        if (!jump && this.isColliding() != CollisionState.GROUND) {
+            this.meatBoy.setY(this.meatBoy.getY() + 10);
+            this.meatBoy.getHitbox().updatePosition(this.meatBoy.getX(), this.meatBoy.getY());
+            if (isColliding() == CollisionState.GROUND) {
+                this.meatBoy.setY(this.meatBoy.getY() - 10);
+            }
+        }
         this.meatBoy.getHitbox().updatePosition(this.meatBoy.getX(), this.meatBoy.getY());
     }
 
@@ -87,9 +111,7 @@ public class CollisionCheckerImpl implements CollisionChecker{
                 this.moveRight = true;
                 break;
             case KeyEvent.VK_SPACE:
-                if (this.isColliding() == CollisionState.GROUND) {
-                    this.jump = true;
-                }
+                this.jump = true;
                 break;
             case KeyEvent.VK_SHIFT:
                 this.meatBoy.setSpeedMul(2);
