@@ -1,8 +1,9 @@
 package it.unibo.model;
 
-import java.net.URL;
 import java.util.List;
 
+import it.unibo.model.collision.CollisionChecker;
+import it.unibo.model.collision.CollisionCheckerImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
@@ -14,14 +15,17 @@ import it.unibo.model.tiles.Tile;
 public class GameModelImpl implements GameModel {
 
     private final Level level;
+    private final CollisionChecker collisionChecker;
+
     /**
      * Constructs a new instance of the GameModel.
      * This constructor initializes the game model with the specified URL to the game map.
      *
      * @param urlMap The URL to the game map that serves as the basis for the game model.
      */
-    public GameModelImpl(final URL urlMap) {
-        this.level = new LevelImpl(urlMap);
+    public GameModelImpl(final String tmx) {
+        this.level = new LevelImpl(tmx);
+        this.collisionChecker = new CollisionCheckerImpl(this);
     }
 
     @Override
@@ -57,6 +61,11 @@ public class GameModelImpl implements GameModel {
     @Override
     public int getNumCols() {
         return this.level.getNumCols();
+    }
+
+    @Override
+    public CollisionChecker getCollisionChecker() {
+        return this.collisionChecker;
     }
 
 
