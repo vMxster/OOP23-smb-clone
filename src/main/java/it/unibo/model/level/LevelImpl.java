@@ -14,21 +14,12 @@ public class LevelImpl implements Level{
 
     private final TileManager tileManager;
 	private final MeatBoy meatBoy;
-
 	private final BandageGirl bandageGirl;
-
 	
 	public LevelImpl(final String tmx) {
 		this.tileManager = new TileManagerImpl(tmx);
 		this.meatBoy = tileManager.getMeatBoy();
-		this.bandageGirl = tileManager.getBandageGirl();	
-	}
-	
-	@Override
-	public void update() {
-	//if (meatBoy.getHitbox().win(bandageGirl)) {
-		//	model.finish();
-		//}
+		this.bandageGirl = tileManager.getBandageGirl();
 	}
 
 	@Override
