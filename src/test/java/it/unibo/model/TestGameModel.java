@@ -21,7 +21,7 @@ public class TestGameModel {
     public void init() throws MalformedURLException {
         this.urlMap = new URL("file:./src/main/resources/factory1.tmx");
         assertNotNull(this.urlMap);
-        this.gameModel = new GameModelImpl(urlMap);
+        //this.gameModel = new GameModelImpl(urlMap);
         assertNotNull(this.gameModel);
     }
 

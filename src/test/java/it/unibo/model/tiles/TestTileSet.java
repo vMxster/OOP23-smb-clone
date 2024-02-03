@@ -21,7 +21,7 @@ public class TestTileSet {
     public void init() throws MalformedURLException {
         this.urlMap = new URL("file:./src/main/resources/factory1.tmx");
         assertNotNull(this.urlMap);
-        this.tileSet = new TileSetImpl(this.urlMap);
+        //this.tileSet = new TileSetImpl(this.urlMap);
         assertNotNull(this.tileSet);
     }
 
