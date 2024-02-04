@@ -2,9 +2,9 @@ package it.unibo.model.collision;
 
 public interface CollisionChecker {
 
-    static enum CollisionState {GROUND, WALL, SAW, BANDAGE_GIRL, LEFT_BOUND, RIGHT_BOUND, UPPER_BOUND, FALL}
+    static enum CollisionState {GROUND, WALL, AIR, SAW, BANDAGE_GIRL, LEFT_BOUND, RIGHT_BOUND, UPPER_BOUND, FALL}
 
-    CollisionState isColliding();
+    void isColliding();
 
     CollisionState isInWindow();
 
@@ -13,4 +13,6 @@ public interface CollisionChecker {
     void moveMeatBoy(int k);
 
     void stopMovingMeatBoy(int k);
+
+    CollisionState getState();
 }

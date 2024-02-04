@@ -25,6 +25,9 @@ public class CollisionCheckerImpl implements CollisionChecker{
     private boolean rightBound;
     private boolean upperBound;
 
+    private CollisionState state;
+    private int jumpHeight;
+
     public CollisionCheckerImpl(GameModel gameModel) {
         this.sawsHitboxs = gameModel.getSaws().stream().map(t -> t.getHitbox()).toList();
         this.platformsHitboxs = gameModel.getPlatforms().stream().map(t -> t.getHitbox()).toList();
@@ -33,14 +36,13 @@ public class CollisionCheckerImpl implements CollisionChecker{
     }
 
     @Override
-    public CollisionState isColliding() {
-        CollisionState state = null;
+    public void isColliding() {
         if (this.platformsHitboxs.stream()
                 .map(h -> h.getHitbox())
                 .filter(h -> h.intersects(meatBoy.getHitbox().getHitbox()))
                 .count() > 0) {
             state = CollisionState.GROUND;
-        }
+        } else state = CollisionState.AIR;
         if (this.sawsHitboxs.stream()
                 .map(h -> h.getHitbox())
                 .filter(h -> h.intersects(meatBoy.getHitbox().getHitbox()))
@@ -49,8 +51,7 @@ public class CollisionCheckerImpl implements CollisionChecker{
         }
         if (this.bandageGirlHitbox.getHitbox().intersects(meatBoy.getHitbox().getHitbox())) {
             state = CollisionState.BANDAGE_GIRL;
-        } 
-        return state;
+        }
     }
 
     @Override
@@ -69,36 +70,52 @@ public class CollisionCheckerImpl implements CollisionChecker{
         //left
         if (moveLeft && !moveRight && !leftBound) {
             this.meatBoy.setX(this.meatBoy.getX() - MeatBoy.SPEED * this.meatBoy.getSpeedMul());
-            this.meatBoy.getHitbox().updatePosition(this.meatBoy.getX(), this.meatBoy.getY());
-            if (isColliding() == CollisionState.GROUND) {
+            isColliding();
+            if (state == CollisionState.GROUND) {
+                state = CollisionState.WALL;
                 this.meatBoy.setX(this.meatBoy.getX() + MeatBoy.SPEED * this.meatBoy.getSpeedMul());
             }
         }
         //right
         if (!moveLeft && moveRight && !rightBound) {
             this.meatBoy.setX(this.meatBoy.getX() + MeatBoy.SPEED * this.meatBoy.getSpeedMul());
-            this.meatBoy.getHitbox().updatePosition(this.meatBoy.getX(), this.meatBoy.getY());
-            if (isColliding() == CollisionState.GROUND) {
+            isColliding();
+            if (state == CollisionState.GROUND) {
+                state = CollisionState.WALL;
                 this.meatBoy.setX(this.meatBoy.getX() - MeatBoy.SPEED * this.meatBoy.getSpeedMul());
             }
         }
         //up
-        if (jump && !upperBound) {
+        if (jump && !upperBound && jumpHeight < 200) {
             this.meatBoy.setY(this.meatBoy.getY() - 10);
-            this.meatBoy.getHitbox().updatePosition(this.meatBoy.getX(), this.meatBoy.getY());
-            if (isColliding() == CollisionState.GROUND) {
+            isColliding();
+            if (state == CollisionState.GROUND) {
                 this.meatBoy.setY(this.meatBoy.getY() + 10);
             }
-        }
-        //fall
-        if (!jump && this.isColliding() != CollisionState.GROUND) {
-            this.meatBoy.setY(this.meatBoy.getY() + 10);
-            this.meatBoy.getHitbox().updatePosition(this.meatBoy.getX(), this.meatBoy.getY());
-            if (isColliding() == CollisionState.GROUND) {
-                this.meatBoy.setY(this.meatBoy.getY() - 10);
+            jumpHeight += 10;
+          //fall
+        } else if (state == CollisionState.AIR || state == CollisionState.WALL) {
+            if (state == CollisionState.AIR) {
+                this.meatBoy.setY(this.meatBoy.getY() + 5);
+                isColliding();
+                if (state == CollisionState.GROUND) {
+                    this.meatBoy.setY(this.meatBoy.getY() - 5);
+                    jumpHeight = 0; 
+                }
+            } else {
+                this.meatBoy.setY(this.meatBoy.getY() + 5);
+                if(moveRight) this.meatBoy.setX(this.meatBoy.getX() + 1);
+                else if (moveLeft) this.meatBoy.setX(this.meatBoy.getX() - 1);
+                isColliding();
+                if (state == CollisionState.GROUND) {
+                    state = CollisionState.WALL;
+                    if(moveRight) this.meatBoy.setX(this.meatBoy.getX() - 1);
+                    else if (moveLeft) this.meatBoy.setX(this.meatBoy.getX() + 1);
+                    jumpHeight = 0;
+                }
             }
         }
-        this.meatBoy.getHitbox().updatePosition(this.meatBoy.getX(), this.meatBoy.getY());
+        System.out.println(state);
     }
 
     @Override
@@ -111,7 +128,9 @@ public class CollisionCheckerImpl implements CollisionChecker{
                 this.moveRight = true;
                 break;
             case KeyEvent.VK_SPACE:
-                this.jump = true;
+                if (state != CollisionState.AIR) {
+                    this.jump = true;
+                }
                 break;
             case KeyEvent.VK_SHIFT:
                 this.meatBoy.setSpeedMul(2);
@@ -139,6 +158,11 @@ public class CollisionCheckerImpl implements CollisionChecker{
             default:
                 break;
         }
+    }
+
+    @Override
+    public CollisionState getState() {
+        return state;
     }
 
     

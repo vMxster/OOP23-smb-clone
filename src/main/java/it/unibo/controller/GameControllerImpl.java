@@ -44,9 +44,9 @@ public class GameControllerImpl implements GameController {
                         Thread.currentThread().interrupt();
                     }
                 } else {
-                    if (gameModel.getCollisionChecker().isColliding() == (CollisionChecker.CollisionState.SAW)) {
-                        System.out.println("HAI PERSO");      
-                    } else if (gameModel.getCollisionChecker().isColliding() == (CollisionChecker.CollisionState.BANDAGE_GIRL)) {
+                    if (gameModel.getCollisionChecker().getState() == (CollisionChecker.CollisionState.SAW)) {
+                        System.out.println("HAI PERSO");
+                    } else if (gameModel.getCollisionChecker().getState() == (CollisionChecker.CollisionState.BANDAGE_GIRL)) {
                         System.out.println("HAI VINTO");
                     }  
                 }   
