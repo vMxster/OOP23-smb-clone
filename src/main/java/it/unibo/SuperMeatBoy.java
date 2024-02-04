@@ -1,10 +1,10 @@
 package it.unibo;
 
-import it.unibo.controller.GameControllerImpl;
+import it.unibo.view.GameMenu;
 
 public class SuperMeatBoy {
 
     public static void main(String[] args) {
-        new GameControllerImpl();
+        new GameMenu();
     }
 }
