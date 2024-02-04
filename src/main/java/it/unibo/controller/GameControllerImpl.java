@@ -14,41 +14,37 @@ import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
 import it.unibo.view.window.GameWindow;
+import it.unibo.view.window.factory.GameWindowFactoryImpl;
 
 public class GameControllerImpl implements GameController {
 
     private final GameModel gameModel;
     private final GameWindow gameWindow;
-    private final Timer gameTimer;
 
     public GameControllerImpl() {
         this.gameModel = new GameModelImpl(Constants.SOURCE_MAP);
-        this.gameWindow = new GameWindow(this);
-        this.gameTimer = new Timer();
+        this.gameWindow = new GameWindowFactoryImpl().createSwingGameWindow(this);
         this.start();
     }
 
     private void start() {
-        this.gameTimer.schedule(new TimerTask() {
+        new Timer().schedule(new TimerTask() {
 
             @Override
             public void run() {
                 gameModel.getCollisionChecker().updateMeatBoy();
-                gameWindow.repaint();
+                gameWindow.paint();
                 if (gameModel.getCollisionChecker().isInWindow() == CollisionChecker.CollisionState.FALL) {
-                    try {
-                        Thread.sleep(500);
-                        System.exit(0);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
+                    gameModel.getMeatBoy().setX(gameModel.getMeatBoyStartCoord().getX());
+                    gameModel.getMeatBoy().setY(gameModel.getMeatBoyStartCoord().getY());
                 } else {
                     if (gameModel.getCollisionChecker().getState() == (CollisionChecker.CollisionState.SAW)) {
-                        System.out.println("HAI PERSO");
+                        gameModel.getMeatBoy().setX(gameModel.getMeatBoyStartCoord().getX());
+                        gameModel.getMeatBoy().setY(gameModel.getMeatBoyStartCoord().getY());
                     } else if (gameModel.getCollisionChecker().getState() == (CollisionChecker.CollisionState.BANDAGE_GIRL)) {
-                        System.out.println("HAI VINTO");
-                    }  
-                }   
+                        gameWindow.displayVictoryMessage();
+                    }
+                }
             }
             
         }, 0, 17);
