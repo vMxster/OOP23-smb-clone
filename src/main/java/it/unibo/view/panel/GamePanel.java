@@ -14,12 +14,13 @@ import it.unibo.commons.Constants;
 import it.unibo.controller.GameController;
 import it.unibo.model.entity.player.MeatBoy;
 
-public class GamePanel extends JPanel{
+public class GamePanel extends JPanel {
+
     private final List<BufferedImage> images;
-    private GameController controller;
+    private final GameController controller;
     private final MeatBoy meatBoy;
 
-    public GamePanel(GameController controller) {
+    public GamePanel(final GameController controller) {
         this.images = new ArrayList<>();
         this.controller = controller;
         this.meatBoy = this.controller.getMeatBoy();
@@ -39,8 +40,8 @@ public class GamePanel extends JPanel{
         }
         paintMeatBoy(g2d);
     }
-
-    void paintMeatBoy(Graphics2D g2d) {
+    
+    private void paintMeatBoy(Graphics2D g2d) {
         g2d.setColor(Color.BLACK);
         g2d.fillRect((int)meatBoy.getX(), (int)meatBoy.getY(), Constants.TILE_SIZE, Constants.TILE_SIZE);
     }
