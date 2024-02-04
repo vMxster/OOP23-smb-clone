@@ -1,4 +1,4 @@
-package it.unibo.view;
+package it.unibo.view.window;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import it.unibo.commons.input.KeyboardInput;
 import it.unibo.controller.GameController;
 import it.unibo.view.imageRenderer.ImageRenderer;
 import it.unibo.view.imageRenderer.ImageRendererImpl;
+import it.unibo.view.panel.GamePanel;
 
 public class GameWindow extends JFrame {
 
