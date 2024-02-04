@@ -13,8 +13,7 @@ import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
-
-import it.unibo.view.GameWindow;
+import it.unibo.view.window.GameWindow;
 
 public class GameControllerImpl implements GameController {
 
