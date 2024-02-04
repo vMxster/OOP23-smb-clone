@@ -36,6 +36,11 @@ public class ImageRendererImpl implements ImageRenderer{
     }
 
     @Override
+    public BufferedImage getMeatBoy() throws IOException {
+        return ImageIO.read(new File("./src/main/resources/meatboystanding.png"));
+    }
+
+    @Override
     public BufferedImage getStationary(final List<List<Tile>> stationary) {
         BufferedImage image = new BufferedImage(
                 numCols*Constants.TILE_SIZE,
