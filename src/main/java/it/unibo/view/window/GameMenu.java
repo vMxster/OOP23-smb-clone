@@ -1,31 +1,33 @@
-package it.unibo.view;
+package it.unibo.view.window;
 
-import javax.swing.*;
-
-import java.awt.*;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 import it.unibo.controller.GameController;
 
-public class GameMenu extends JFrame{
+public class GameMenu extends JPanel{
 
-    public GameMenu (final GameController controller){
-        setTitle("Super Meat Boy Clone");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    JButton startButton;
+    JButton scoreboardButton;
+    JButton quitButton;
+    GameWindowSwing window;
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3,1));
-
-        JButton startButton = new JButton("Start");
-        JButton scoreboardButton = new JButton("Scoreboard");
-        JButton quitButton = new JButton("Quit");
+    public GameMenu (final GameController controller, final GameWindowSwing window){
+        this.setLayout(new GridLayout(3,1));
+        startButton = new JButton("START");
+        scoreboardButton = new JButton("SCOREBOARD");
+        quitButton = new JButton("QUIT");
+        this.window = window;
 
         startButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.startLevel();
+                window.switchPanel();
             }
         } );
 
@@ -47,11 +49,8 @@ public class GameMenu extends JFrame{
             }
         } );
 
-        panel.add(startButton);
-        panel.add(scoreboardButton);
-        panel.add(quitButton);
-
-        add(panel);
-        setVisible(true);
+        this.add(startButton);
+        this.add(scoreboardButton);
+        this.add(quitButton);
     }
 }
