@@ -46,11 +46,11 @@ public class GamePanel extends JPanel{
     }
 
     public void keyPressed(KeyEvent e) {
-        this.controller.getGameModel().getCollisionChecker().moveMeatBoy(e.getKeyCode());
+        this.controller.getGameModel().getCollisionHandler().moveMeatBoy(e.getKeyCode());
     }
 
     public void keyReleased(KeyEvent e) {
-        this.controller.getGameModel().getCollisionChecker().stopMovingMeatBoy(e.getKeyCode());
+        this.controller.getGameModel().getCollisionHandler().stopMovingMeatBoy(e.getKeyCode());
     }
 
 }
