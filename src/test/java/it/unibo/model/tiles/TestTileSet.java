@@ -3,25 +3,21 @@ package it.unibo.model.tiles;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
+import it.unibo.commons.Constants;
+
 public class TestTileSet {
 
-    private TileSetImpl tileSet;
-    private URL urlMap;
+    private TileSet tileSet;
 
     @BeforeEach
-    public void init() throws MalformedURLException {
-        this.urlMap = new URL("file:./src/main/resources/factory1.tmx");
-        assertNotNull(this.urlMap);
-        //this.tileSet = new TileSetImpl(this.urlMap);
+    public void init() {
+        this.tileSet = new TileSetImpl(Constants.SOURCE_MAP);
         assertNotNull(this.tileSet);
     }
 
@@ -30,9 +26,11 @@ public class TestTileSet {
         try {
             tileSet.read();
             assertNotNull(tileSet.getTiles());
+            assertFalse(tileSet.getTiles().isEmpty());
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
     }
-
+    
 }
+
