@@ -6,11 +6,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import it.unibo.controller.GameControllerImpl;
+import it.unibo.controller.GameController;
 
 public class GameMenu extends JFrame{
 
-    public GameMenu (){
+    public GameMenu (final GameController controller){
         setTitle("Super Meat Boy Clone");
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,7 +25,7 @@ public class GameMenu extends JFrame{
         startButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                new GameControllerImpl();
+                controller.startLevel();
             }
         } );
 
