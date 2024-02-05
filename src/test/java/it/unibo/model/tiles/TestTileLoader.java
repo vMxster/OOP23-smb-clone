@@ -7,15 +7,13 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.commons.Constants;
 
-import java.net.MalformedURLException;
-
 public class TestTileLoader {
 
     private TileManager tileManager;
     private TileLoaderImpl tileLoader;
 
     @BeforeEach
-    public void init() throws MalformedURLException {
+    public void init() {
         this.tileManager = new TileManagerImpl(Constants.SOURCE_MAP);
         assertNotNull(this.tileManager);
         this.tileLoader = new TileLoaderImpl(tileManager);
