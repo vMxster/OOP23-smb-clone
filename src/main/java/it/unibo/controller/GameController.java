@@ -8,7 +8,6 @@ import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
-import it.unibo.view.GameMenu;
 
 /**
  * Interface representing a Controller for Managing the SuperMeatBoy Game.
@@ -65,19 +64,5 @@ public interface GameController {
     int getNumCols();
 
     GameModel getGameModel();
-
-    /**
-     * Returns the main menu of the application.
-     * 
-     * @return the main menu of the application.
-     */ 
-    GameMenu getGameMenu();
-
-    /**
-     * Start the level from the main menu.
-     * 
-     */
-    void startLevel();
-
 }
 

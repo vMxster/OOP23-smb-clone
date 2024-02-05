@@ -13,20 +13,19 @@ import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
-import it.unibo.view.GameMenu;
 import it.unibo.view.window.GameWindow;
 import it.unibo.view.window.factory.GameWindowFactoryImpl;
 
 public class GameControllerImpl implements GameController {
 
-    private final GameMenu gameMenu;
-
-    private GameModel gameModel;
-    private GameWindow gameWindow;
+    private final GameWindow gameWindow;
+    private final GameModel gameModel;
     
 
     public GameControllerImpl() {
-        this.gameMenu = new GameMenu(this);
+        this.gameModel = new GameModelImpl(Constants.SOURCE_MAP);
+        this.gameWindow = new GameWindowFactoryImpl().createSwingGameWindow(this);
+        this.start();
     }
 
     private void start() {
@@ -91,17 +90,4 @@ public class GameControllerImpl implements GameController {
     public GameModel getGameModel() {
         return gameModel;
     }
-
-    @Override
-    public GameMenu getGameMenu() {
-        return gameMenu;
-    }
-
-    @Override
-    public void startLevel() {
-        this.gameModel = new GameModelImpl(Constants.SOURCE_MAP);
-        this.gameWindow = new GameWindowFactoryImpl().createSwingGameWindow(this);
-        this.start();
-    }
-
 }
