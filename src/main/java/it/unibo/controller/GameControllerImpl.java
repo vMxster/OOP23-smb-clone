@@ -7,7 +7,6 @@ import java.util.TimerTask;
 import it.unibo.commons.Constants;
 import it.unibo.model.GameModel;
 import it.unibo.model.GameModelImpl;
-import it.unibo.model.collision.CollisionChecker;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
@@ -34,22 +33,10 @@ public class GameControllerImpl implements GameController {
 
             @Override
             public void run() {
-                gameModel.getCollisionChecker().updateMeatBoy();
+                gameModel.getCollisionHandler().updateMeatBoy();
+                gameModel.getCollisionHandler().check();
                 gameWindow.repaint();
-                if (gameModel.getCollisionChecker().isInWindow() == CollisionChecker.CollisionState.FALL) {
-                    try {
-                        Thread.sleep(500);
-                        System.exit(0);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
-                } else {
-                    if (gameModel.getCollisionChecker().getState() == (CollisionChecker.CollisionState.SAW)) {
-                        System.out.println("HAI PERSO");
-                    } else if (gameModel.getCollisionChecker().getState() == (CollisionChecker.CollisionState.BANDAGE_GIRL)) {
-                        System.out.println("HAI VINTO");
-                    }  
-                }   
+                   
             }
             
         }, 0, 17);

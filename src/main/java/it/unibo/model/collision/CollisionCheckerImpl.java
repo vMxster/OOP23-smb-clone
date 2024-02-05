@@ -3,7 +3,6 @@ package it.unibo.model.collision;
 import java.util.List;
 
 import it.unibo.commons.Constants;
-import it.unibo.model.GameModel;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.hitbox.CircularHitbox;
 import it.unibo.model.hitbox.RectangleHitbox;
@@ -17,6 +16,8 @@ public class CollisionCheckerImpl implements CollisionChecker{
     private RectangleHitbox bandageGirlHitbox;
     private MeatBoy meatBoy;
 
+    private CollisionHandler collisionHandler;
+
     private boolean moveLeft;
     private boolean moveRight;
     private boolean jump;
@@ -28,11 +29,12 @@ public class CollisionCheckerImpl implements CollisionChecker{
     private CollisionState state;
     private int jumpHeight;
 
-    public CollisionCheckerImpl(GameModel gameModel) {
-        this.sawsHitboxs = gameModel.getSaws().stream().map(t -> t.getHitbox()).toList();
-        this.platformsHitboxs = gameModel.getPlatforms().stream().map(t -> t.getHitbox()).toList();
-        this.bandageGirlHitbox = gameModel.getBandageGirl().getHitbox();
-        this.meatBoy = gameModel.getMeatBoy();
+    public CollisionCheckerImpl(CollisionHandler collisionHandler) {
+        this.collisionHandler = collisionHandler;
+        this.sawsHitboxs = this.collisionHandler.getGameModel().getSaws().stream().map(t -> t.getHitbox()).toList();
+        this.platformsHitboxs = this.collisionHandler.getGameModel().getPlatforms().stream().map(t -> t.getHitbox()).toList();
+        this.bandageGirlHitbox = this.collisionHandler.getGameModel().getBandageGirl().getHitbox();
+        this.meatBoy = this.collisionHandler.getGameModel().getMeatBoy();
     }
 
     @Override
