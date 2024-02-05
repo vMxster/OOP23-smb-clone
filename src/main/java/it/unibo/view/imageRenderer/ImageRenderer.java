@@ -30,6 +30,14 @@ public interface ImageRenderer {
     BufferedImage getBackGround() throws IOException;
 
     /**
+     * Generates a BufferedImage representing the character MeatBoy in the game.
+     * 
+     * @return a BufferedImage representing Meat Boy.
+     * @throws IOException if an I/O error occurs while generating the image.
+     */
+    BufferedImage getMeatBoy() throws IOException;
+
+    /**
      * Generates a BufferedImage representing the saws of the game.
      * 
      * @return a BufferedImage representing the background.

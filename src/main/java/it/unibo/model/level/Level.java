@@ -2,6 +2,7 @@ package it.unibo.model.level;
 
 import java.util.List;
 
+import it.unibo.commons.Point2D;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
@@ -61,5 +62,12 @@ public interface Level {
      * @return The meat boy.
      */
     MeatBoy getMeatBoy();
+
+    /**
+     * Retrieves the Starting Coordinates of MeatBoy.
+     *
+     * @return The Starting Coordinates of MeatBoy.
+     */
+    Point2D<Double,Double> getMeatBoyStartCoord();
 
 }

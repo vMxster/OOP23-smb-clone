@@ -2,6 +2,7 @@ package it.unibo.model;
 
 import java.util.List;
 
+import it.unibo.commons.Point2D;
 import it.unibo.model.collision.CollisionHandler;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
@@ -56,6 +57,13 @@ public interface GameModel {
      * @return The MeatBoy parsed from the TMX file.
      */
     MeatBoy getMeatBoy();
+
+    /**
+     * Retrieves the Starting Coordinates of MeatBoy.
+     *
+     * @return The Starting Coordinates of MeatBoy.
+     */
+    Point2D<Double,Double> getMeatBoyStartCoord();
 
      /**
      * Retrieves the total number of rows in the grid of tiles.

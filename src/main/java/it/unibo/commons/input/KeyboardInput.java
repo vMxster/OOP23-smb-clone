@@ -3,7 +3,7 @@ package it.unibo.commons.input;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import it.unibo.view.GamePanel;
+import it.unibo.view.panel.GamePanel;
 
 public class KeyboardInput extends KeyAdapter{
 

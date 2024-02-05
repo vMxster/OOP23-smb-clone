@@ -12,30 +12,28 @@ import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
-
-import it.unibo.view.GameWindow;
+import it.unibo.view.window.GameWindow;
+import it.unibo.view.window.factory.GameWindowFactoryImpl;
 
 public class GameControllerImpl implements GameController {
 
     private final GameModel gameModel;
     private final GameWindow gameWindow;
-    private final Timer gameTimer;
 
     public GameControllerImpl() {
         this.gameModel = new GameModelImpl(Constants.SOURCE_MAP);
-        this.gameWindow = new GameWindow(this);
-        this.gameTimer = new Timer();
+        this.gameWindow = new GameWindowFactoryImpl().createSwingGameWindow(this);
         this.start();
     }
 
     private void start() {
-        this.gameTimer.schedule(new TimerTask() {
+        new Timer().schedule(new TimerTask() {
 
             @Override
             public void run() {
                 gameModel.getCollisionHandler().updateMeatBoy();
                 gameModel.getCollisionHandler().check();
-                gameWindow.repaint();
+                gameWindow.paint();
                    
             }
             

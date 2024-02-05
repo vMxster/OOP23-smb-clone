@@ -2,6 +2,7 @@ package it.unibo.model;
 
 import java.util.List;
 
+import it.unibo.commons.Point2D;
 import it.unibo.model.collision.CollisionHandler;
 import it.unibo.model.collision.CollisionHandlerImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
@@ -52,6 +53,11 @@ public class GameModelImpl implements GameModel {
     public MeatBoy getMeatBoy() {
         return this.level.getMeatBoy();
     }
+
+    @Override
+	public Point2D<Double,Double> getMeatBoyStartCoord() {
+		return this.level.getMeatBoyStartCoord();
+	}
 
     @Override
     public int getNumRows() {

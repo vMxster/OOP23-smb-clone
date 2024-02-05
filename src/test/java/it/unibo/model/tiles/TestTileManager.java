@@ -1,26 +1,20 @@
 package it.unibo.model.tiles;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.commons.Constants;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.entity.target.BandageGirlImpl;
 
 public class TestTileManager {
 
-    private TileManagerImpl tileManager;
-    private URL urlMap;
+    private TileManager tileManager;
 
     @BeforeEach
-    public void init() throws MalformedURLException {
-        this.urlMap = new URL("file:./src/main/resources/factory1.tmx");
-        assertNotNull(this.urlMap);
-        //this.tileManager = new TileManagerImpl(urlMap);
+    public void init() {
+        this.tileManager = new TileManagerImpl(Constants.SOURCE_MAP);
         assertNotNull(this.tileManager);
     }
 
@@ -31,18 +25,17 @@ public class TestTileManager {
             assertNotNull(tileManager.getStationary());
             assertNotNull(tileManager.getPlatforms());
             assertNotNull(tileManager.getSaws());
+            assertFalse(tileManager.getStationary().isEmpty());
+            assertFalse(tileManager.getPlatforms().isEmpty());
+            assertFalse(tileManager.getSaws().isEmpty());
         } catch (IllegalArgumentException | NullPointerException exception) {
             fail("Exception not expected: " + exception.getMessage());
         }
     }
 
     @Test
-    public void testNumCols() {
+    public void testGetNumColsAndRows() {
         assertEquals(36, tileManager.getNumCols());
-    }
-
-    @Test
-    public void testNumRows() {
         assertEquals(30, tileManager.getNumRows());
     }
 
@@ -70,4 +63,3 @@ public class TestTileManager {
         assertEquals(2, bandageGirl.getY());
     }
 }
-

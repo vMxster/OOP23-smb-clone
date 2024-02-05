@@ -5,6 +5,7 @@ import java.util.List;
 import it.unibo.model.tiles.Tile;
 import it.unibo.model.tiles.TileManager;
 import it.unibo.model.tiles.TileManagerImpl;
+import it.unibo.commons.Point2D;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
@@ -15,21 +16,28 @@ public class LevelImpl implements Level{
     private final TileManager tileManager;
 	private final MeatBoy meatBoy;
 	private final BandageGirl bandageGirl;
+	private final Point2D<Double,Double> meatBoyStartCoord;
 	
 	public LevelImpl(final String tmx) {
 		this.tileManager = new TileManagerImpl(tmx);
 		this.meatBoy = tileManager.getMeatBoy();
 		this.bandageGirl = tileManager.getBandageGirl();
+		this.meatBoyStartCoord = new Point2D<>(meatBoy.getX(), meatBoy.getY());
 	}
 
 	@Override
 	public MeatBoy getMeatBoy() {
-		return meatBoy;
+		return this.meatBoy;
+	}
+
+	@Override
+	public Point2D<Double,Double> getMeatBoyStartCoord() {
+		return this.meatBoyStartCoord;
 	}
 
 	@Override
 	public BandageGirl getBandageGirl() {
-		return bandageGirl;
+		return this.bandageGirl;
 	}
 
 	@Override
