@@ -27,7 +27,7 @@ public class LevelImpl implements Level{
 
 	@Override
 	public MeatBoy getMeatBoy() {
-		return meatBoy;
+		return this.meatBoy;
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class LevelImpl implements Level{
 
 	@Override
 	public BandageGirl getBandageGirl() {
-		return bandageGirl;
+		return this.bandageGirl;
 	}
 
 	@Override
