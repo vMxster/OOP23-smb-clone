@@ -2,7 +2,7 @@ package it.unibo.model;
 
 import java.util.List;
 
-import it.unibo.model.collision.CollisionChecker;
+import it.unibo.model.collision.CollisionHandler;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
@@ -71,6 +71,6 @@ public interface GameModel {
      */
     int getNumCols();
 
-    CollisionChecker getCollisionChecker();
+    CollisionHandler getCollisionHandler();
     
 }

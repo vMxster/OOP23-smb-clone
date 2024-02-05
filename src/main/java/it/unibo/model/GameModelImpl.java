@@ -2,8 +2,8 @@ package it.unibo.model;
 
 import java.util.List;
 
-import it.unibo.model.collision.CollisionChecker;
-import it.unibo.model.collision.CollisionCheckerImpl;
+import it.unibo.model.collision.CollisionHandler;
+import it.unibo.model.collision.CollisionHandlerImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
@@ -15,7 +15,7 @@ import it.unibo.model.tiles.Tile;
 public class GameModelImpl implements GameModel {
 
     private final Level level;
-    private final CollisionChecker collisionChecker;
+    private final CollisionHandlerImpl collisionHandler;
 
     /**
      * Constructs a new instance of the GameModel.
@@ -25,7 +25,7 @@ public class GameModelImpl implements GameModel {
      */
     public GameModelImpl(final String tmx) {
         this.level = new LevelImpl(tmx);
-        this.collisionChecker = new CollisionCheckerImpl(this);
+        this.collisionHandler = new CollisionHandlerImpl(this);
     }
 
     @Override
@@ -64,8 +64,8 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
-    public CollisionChecker getCollisionChecker() {
-        return this.collisionChecker;
+    public CollisionHandler getCollisionHandler() {
+        return this.collisionHandler;
     }
 
 
