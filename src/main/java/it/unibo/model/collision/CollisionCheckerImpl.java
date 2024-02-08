@@ -131,7 +131,7 @@ public class CollisionCheckerImpl implements CollisionChecker{
                 }
             }
             case KeyEvent.VK_SHIFT -> this.meatBoy.setSpeedMul(2);
-            default -> throw new IllegalStateException("Unexpected value: " + k);
+            default -> { }
         }
     }
 
@@ -142,7 +142,7 @@ public class CollisionCheckerImpl implements CollisionChecker{
             case KeyEvent.VK_D -> this.moveRight = false;
             case KeyEvent.VK_SPACE -> this.jump = false;
             case KeyEvent.VK_SHIFT -> this.meatBoy.setSpeedMul(1);
-            default -> throw new IllegalStateException("Unexpected value: " + k);
+            default -> { }
         }
     }
 
