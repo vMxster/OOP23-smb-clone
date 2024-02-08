@@ -19,18 +19,15 @@ public class CollisionHandlerImpl implements CollisionHandler {
     @Override
     public void check() {
         if (collisionChecker.isInWindow() == CollisionChecker.CollisionState.FALL) {
-            try {
-                Thread.sleep(500);
-                System.exit(0);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            gameModel.getMeatBoy().setX(gameModel.getMeatBoyStartCoord().getX());
+            gameModel.getMeatBoy().setY(gameModel.getMeatBoyStartCoord().getY());
         } else {
             if (collisionChecker.getState() == (CollisionChecker.CollisionState.SAW)) {
-                System.out.println("HAI PERSO");
+                gameModel.getMeatBoy().setX(gameModel.getMeatBoyStartCoord().getX());
+                gameModel.getMeatBoy().setY(gameModel.getMeatBoyStartCoord().getY());
             } else if (collisionChecker.getState() == (CollisionChecker.CollisionState.BANDAGE_GIRL)) {
-                System.out.println("HAI VINTO");
-            }  
+                //gameWindow.displayVictoryMessage();
+            }
         }
     }
 
