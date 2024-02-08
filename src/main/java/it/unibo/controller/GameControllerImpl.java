@@ -17,8 +17,9 @@ import it.unibo.view.window.factory.GameWindowFactoryImpl;
 
 public class GameControllerImpl implements GameController {
 
-    private final GameModel gameModel;
     private final GameWindow gameWindow;
+    private final GameModel gameModel;
+    
 
     public GameControllerImpl() {
         this.gameModel = new GameModelImpl(Constants.SOURCE_MAP);
@@ -79,5 +80,4 @@ public class GameControllerImpl implements GameController {
     public GameModel getGameModel() {
         return gameModel;
     }
-
 }

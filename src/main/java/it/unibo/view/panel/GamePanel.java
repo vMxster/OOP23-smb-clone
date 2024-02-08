@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
+import it.unibo.commons.input.KeyboardInput;
 import it.unibo.controller.GameController;
 import it.unibo.model.entity.player.MeatBoy;
 
@@ -31,6 +32,8 @@ public class GamePanel extends JPanel {
         this.images = new ArrayList<>();
         this.controller = controller;
         this.meatBoy = this.controller.getMeatBoy();
+        this.setFocusable(true);
+        this.addKeyListener(new KeyboardInput(this));
     }
 
     /**

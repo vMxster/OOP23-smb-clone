@@ -64,6 +64,5 @@ public interface GameController {
     int getNumCols();
 
     GameModel getGameModel();
-
 }
 

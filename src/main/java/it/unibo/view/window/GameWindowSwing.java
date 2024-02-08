@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import it.unibo.commons.Constants;
-import it.unibo.commons.input.KeyboardInput;
 import it.unibo.controller.GameController;
 import it.unibo.view.imageRenderer.ImageRenderer;
 import it.unibo.view.imageRenderer.ImageRendererImpl;
@@ -16,6 +15,8 @@ public class GameWindowSwing extends JFrame implements GameWindow {
 
     private final GameController controller;
     private final ImageRenderer renderer;
+    private final GameMenu menu;
+    private GamePanel gamePanel;
 
     /**
      * Constructs a new instance of GameWindowSwing with the specified GameController.
@@ -25,8 +26,10 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     public GameWindowSwing(final GameController controller) {
         this.controller = controller;
         this.renderer = new ImageRendererImpl(this.controller.getNumRows(), this.controller.getNumCols());
+        this.menu = new GameMenu(controller, this);
+        this.initializeGamePanel();
+        this.setContentPane(menu);
         initializeWindowProperties();
-        initializeGamePanel();
         this.setVisible(true);
     }
 
@@ -53,9 +56,8 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     @Override
     public void initializeGamePanel() {
         try {
-            GamePanel panel = createGamePanel();
-            this.setContentPane(panel);
-            addKeyListener(new KeyboardInput(panel));
+            this.gamePanel = createGamePanel();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,6 +79,12 @@ public class GameWindowSwing extends JFrame implements GameWindow {
                 this.renderer.getSaws(controller.getSaws()),
                 this.renderer.getMeatBoy()));
         return panel;
+    }
+
+    public void switchPanel() {
+        this.setContentPane(gamePanel);
+        gamePanel.requestFocus();
+        this.setVisible(true);
     }
 
 }
