@@ -123,42 +123,26 @@ public class CollisionCheckerImpl implements CollisionChecker{
     @Override
     public void moveMeatBoy(int k) {
         switch (k) {
-            case KeyEvent.VK_A:
-                this.moveLeft = true;
-                break;
-            case KeyEvent.VK_D:
-                this.moveRight = true;
-                break;
-            case KeyEvent.VK_SPACE:
+            case KeyEvent.VK_A -> this.moveLeft = true;
+            case KeyEvent.VK_D -> this.moveRight = true;
+            case KeyEvent.VK_SPACE -> {
                 if (state != CollisionState.AIR) {
                     this.jump = true;
                 }
-                break;
-            case KeyEvent.VK_SHIFT:
-                this.meatBoy.setSpeedMul(2);
-                break;
-            default:
-                break;
+            }
+            case KeyEvent.VK_SHIFT -> this.meatBoy.setSpeedMul(2);
+            default -> throw new IllegalStateException("Unexpected value: " + k);
         }
     }
 
     @Override
     public void stopMovingMeatBoy(int k) {
         switch (k) {
-            case KeyEvent.VK_A:
-                this.moveLeft = false;
-                break;
-            case KeyEvent.VK_D:
-                this.moveRight = false;
-                break;
-            case KeyEvent.VK_SPACE:
-                this.jump = false;
-                break;
-            case KeyEvent.VK_SHIFT:
-                this.meatBoy.setSpeedMul(1);
-                break;
-            default:
-                break;
+            case KeyEvent.VK_A -> this.moveLeft = false;
+            case KeyEvent.VK_D -> this.moveRight = false;
+            case KeyEvent.VK_SPACE -> this.jump = false;
+            case KeyEvent.VK_SHIFT -> this.meatBoy.setSpeedMul(1);
+            default -> throw new IllegalStateException("Unexpected value: " + k);
         }
     }
 
