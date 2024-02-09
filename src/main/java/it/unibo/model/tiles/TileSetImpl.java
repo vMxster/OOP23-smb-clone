@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
@@ -12,6 +13,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
+
+import it.unibo.commons.Constants;
 
 public class TileSetImpl implements TileSet {
 
@@ -26,27 +29,32 @@ public class TileSetImpl implements TileSet {
 		this.tmx = tmx;
 		this.tiles = new ArrayList<>();
 		try {
-			read();
-		} catch (ParserConfigurationException | SAXException | IOException exception) {
-			exception.printStackTrace();
-		}
+            read();
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        }
 	}
 
 	@Override
-    public void read() throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        Document document = documentBuilder.parse(tmx);
-        NodeList tileSetNodeList = document.getElementsByTagName("tileset");
-        int numTileSets = tileSetNodeList.getLength();
-		
-		for (int i = 0; i < numTileSets; i++) {
-            Element tilesetElement = (Element) Objects.requireNonNull(tileSetNodeList.item(i));
+	public void read() throws ParserConfigurationException, SAXException, IOException {
+    DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+    Document document = documentBuilder.parse(tmx);
+    NodeList tileSetNodeList = document.getElementsByTagName("tileset");
 
-            divideSpriteSheet(Integer.parseInt(Objects.requireNonNull(tilesetElement.getElementsByTagName("image").item(0)).getAttributes().getNamedItem("width").getTextContent()),
-                Integer.parseInt(Objects.requireNonNull(tilesetElement.getElementsByTagName("image").item(0)).getAttributes().getNamedItem("height").getTextContent()), 
-				Objects.requireNonNull(tilesetElement.getElementsByTagName("image").item(0)).getAttributes().getNamedItem("source").getTextContent());
-        }
+    IntStream.range(0, tileSetNodeList.getLength())
+            .mapToObj(i -> (Element) tileSetNodeList.item(i))
+            .forEach(tilesetElement -> {
+                try {
+					divideSpriteSheet(
+						Integer.parseInt(Objects.requireNonNull(tilesetElement.getElementsByTagName("image").item(0)).getAttributes().getNamedItem("width").getTextContent()),
+						Integer.parseInt(Objects.requireNonNull(tilesetElement.getElementsByTagName("image").item(0)).getAttributes().getNamedItem("height").getTextContent()),
+						Objects.requireNonNull(tilesetElement.getElementsByTagName("image").item(0)).getAttributes().getNamedItem("source").getTextContent());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+            });
 	}
+
 
 	@Override
 	public List<Tile> getTiles() {
@@ -59,12 +67,12 @@ public class TileSetImpl implements TileSet {
 	 * @param h The height of the TileSet image
 	 * @throws IOException
 	 */
-	private void divideSpriteSheet(int width, int height, String srcImage) throws IOException {
-		for( int row=0 ; row<height ; row+=20 ) {
-			for( int column=0 ; column<width ; column+=20 ) {
-				tiles.add(new TileImpl(column, row, srcImage));
-			}
-		}
+	private void divideSpriteSheet(final int width, final int height, final String srcImage) throws IOException {
+		IntStream.range(0, height / 20)
+				.boxed()
+				.flatMap(row -> IntStream.range(0, width / Constants.TILE_SIZE)
+				.mapToObj(column -> new TileImpl(column * Constants.TILE_SIZE, row * Constants.TILE_SIZE, srcImage)))
+				.forEach(tiles::add);
 	}
-
+	
 }
