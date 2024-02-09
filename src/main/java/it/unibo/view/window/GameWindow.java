@@ -31,6 +31,6 @@ public interface GameWindow {
      * indicating the player's victory.
      */
     void displayVictoryMessage();
-    
+
 }
 
