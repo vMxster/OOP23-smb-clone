@@ -10,6 +10,9 @@ import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+/**
+ * Implementation of the DocumentExtractor interface that extracts information from a TMX document.
+ */
 public class DocumentExtractorImpl implements DocumentExtractor {
 
     private final String tmx;
@@ -17,9 +20,14 @@ public class DocumentExtractorImpl implements DocumentExtractor {
     private int numRows;
     private int numColumns;
 
+    /**
+     * Constructs a new instance of DocumentExtractorImpl with the specified TMX file path.
+     *
+     * @param tmx The path to the TMX file.
+     */
     public DocumentExtractorImpl(final String tmx) {
         this.tmx = tmx;
-		extractDocument();
+        extractDocument();
     }
 
     private void extractDocument() {
@@ -35,16 +43,32 @@ public class DocumentExtractorImpl implements DocumentExtractor {
         }
     }
 
+    /**
+     * Retrieves the elements associated with a given TagName.
+     *
+     * @param tagName The name of the tag to search for.
+     * @return The elements associated with the specified tag name.
+     */
     @Override
-    public NodeList getElements(String tagName) {
+    public NodeList getElements(final String tagName) {
         return this.document.getElementsByTagName(tagName);
     }
 
+    /**
+     * Retrieves the number of rows in the document.
+     *
+     * @return The number of rows in the document.
+     */
     @Override
     public int getNumRows() {
         return this.numRows;
     }
 
+    /**
+     * Retrieves the number of columns in the document.
+     *
+     * @return The number of columns in the document.
+     */
     @Override
     public int getNumColumns() {
         return this.numColumns;
