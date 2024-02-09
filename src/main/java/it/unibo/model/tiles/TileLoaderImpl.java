@@ -3,6 +3,7 @@ package it.unibo.model.tiles;
 import java.util.Objects;
 import java.util.stream.IntStream;
 import java.util.stream.Collectors;
+import java.util.Optional;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -48,12 +49,12 @@ public class TileLoaderImpl implements TileLoader {
                                 if (idTile == Constants.ID_TILE_BANDAGEGIRL) {
                                     tileManager.getBandageGirl().setX(Double.valueOf(column * Constants.TILE_SIZE));
                                     tileManager.getBandageGirl().setY(Double.valueOf(row * Constants.TILE_SIZE));
-                                    tileManager.getStationary().get(row).set(column, tileManager.getTiles().get(idTile - 1));
+                                    tileManager.getStationary().get(row).set(column, Optional.of(tileManager.getTiles().get(idTile - 1)));
                                 } else if (idTile == Constants.ID_TILE_MEATBOY) {
                                     tileManager.getMeatBoy().setX(Double.valueOf(column * Constants.TILE_SIZE));
                                     tileManager.getMeatBoy().setY(Double.valueOf(row * Constants.TILE_SIZE));
                                 } else {
-                                    tileManager.getStationary().get(row).set(column, tileManager.getTiles().get(idTile - 1));
+                                    tileManager.getStationary().get(row).set(column, Optional.of(tileManager.getTiles().get(idTile - 1)));
                                 }
                             }
                         }
