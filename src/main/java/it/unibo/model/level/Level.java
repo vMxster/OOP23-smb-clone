@@ -11,7 +11,7 @@ import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
 
 /**
- *  Interface that reads a tmx file and creates a level from it
+ * Interface that reads a tmx file and creates a level from it.
  */
 public interface Level {
 
@@ -69,6 +69,6 @@ public interface Level {
      *
      * @return The Starting Coordinates of MeatBoy.
      */
-    Point2D<Double,Double> getMeatBoyStartCoord();
+    Point2D<Double, Double> getMeatBoyStartCoord();
 
 }
