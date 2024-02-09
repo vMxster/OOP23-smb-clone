@@ -35,8 +35,8 @@ public class TileLoaderImpl implements TileLoader {
     @Override
     public void load() {
         loadStationaryTiles();
-        loadPlatforms();
-        loadCircularSaws();
+        loadObjects("rectangle");
+        loadObjects("saws");
     }
 
     private void loadStationaryTiles() {
@@ -66,53 +66,37 @@ public class TileLoaderImpl implements TileLoader {
                         }));
     }
 
-
-	private void loadPlatforms() {
-    NodeList rectangleObjects = documentExtractor.getElements("objectgroup");
-	IntStream.range(0, rectangleObjects.getLength())
-    	.mapToObj(i -> (Element) rectangleObjects.item(i))
-    	.collect(Collectors.toList()).stream()
-            .filter(node -> "rectangle".equals(((Element) node).getAttribute("name")))
-            .findFirst()
-            .ifPresent(objectGroupElement -> {
-                NodeList objectsInGroup = ((Element) objectGroupElement).getElementsByTagName("object");
-				IntStream.range(0, objectsInGroup.getLength())
-    				.mapToObj(i -> (Element) objectsInGroup.item(i))
-    				.collect(Collectors.toList()).stream()
-                        .map(objectNode -> (Element) objectNode)
-                        .forEach(platformElement -> {
-                            this.tileManager.getPlatforms().add(
-								new PlatformImpl(
-									Integer.parseInt(trim(platformElement.getAttribute("x"))),
-									Integer.parseInt(trim(platformElement.getAttribute("y"))),
-									Integer.parseInt(trim(platformElement.getAttribute("width"))),
-									Integer.parseInt(trim(platformElement.getAttribute("height")))));
-                        });
-            });
-	}
-
-	private void loadCircularSaws() {
-    NodeList sawObjects = documentExtractor.getElements("objectgroup");
-	IntStream.range(0, sawObjects.getLength())
-    	.mapToObj(i -> (Element) sawObjects.item(i))
-    	.collect(Collectors.toList()).stream()
-            .filter(node -> "saws".equals(((Element) node).getAttribute("name")))
-            .findFirst()
-            .ifPresent(objectGroupElement -> {
-                NodeList objectsInGroup = ((Element) objectGroupElement).getElementsByTagName("object");
-				IntStream.range(0, objectsInGroup.getLength())
-    				.mapToObj(i -> (Element) objectsInGroup.item(i))
-    				.collect(Collectors.toList()).stream()
-                        .map(objectNode -> (Element) objectNode)
-                        .forEach(sawElement -> {
-                            this.tileManager.getSaws().add(
-								new CircularSawImpl(
-									Integer.parseInt(trim(sawElement.getAttribute("x"))),
-									Integer.parseInt(trim(sawElement.getAttribute("y"))),
-									Integer.parseInt(trim(sawElement.getAttribute("width")))));
-                        });
-            });
-	}
+    private void loadObjects(final String nameObjects) {
+        NodeList objects = documentExtractor.getElements("objectgroup");
+        IntStream.range(0, objects.getLength())
+            .mapToObj(i -> (Element) objects.item(i))
+            .collect(Collectors.toList()).stream()
+                .filter(node -> nameObjects.equals(((Element) node).getAttribute("name")))
+                .findFirst()
+                .ifPresent(objectGroupElement -> {
+                    NodeList objectsInGroup = ((Element) objectGroupElement).getElementsByTagName("object");
+                    IntStream.range(0, objectsInGroup.getLength())
+                        .mapToObj(i -> (Element) objectsInGroup.item(i))
+                        .collect(Collectors.toList()).stream()
+                            .map(objectNode -> (Element) objectNode)
+                            .forEach(objectElement -> {
+                                if (nameObjects.equals("saws")) { 
+                                    this.tileManager.getSaws().add(
+								    new CircularSawImpl(
+									    Integer.parseInt(trim(objectElement.getAttribute("x"))),
+									    Integer.parseInt(trim(objectElement.getAttribute("y"))),
+									    Integer.parseInt(trim(objectElement.getAttribute("width")))));
+                                } else {
+                                    this.tileManager.getPlatforms().add(
+								    new PlatformImpl(
+									    Integer.parseInt(trim(objectElement.getAttribute("x"))),
+									    Integer.parseInt(trim(objectElement.getAttribute("y"))),
+									    Integer.parseInt(trim(objectElement.getAttribute("width"))),
+									    Integer.parseInt(trim(objectElement.getAttribute("height")))));
+                                }
+                            });
+                });
+    }
 
     /**
  	 * Trims any extraneous space after a period in the given string.
