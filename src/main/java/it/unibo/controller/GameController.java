@@ -1,6 +1,7 @@
 package it.unibo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.model.GameModel;
 import it.unibo.model.entity.obstacles.CircularSaw;
@@ -19,7 +20,7 @@ public interface GameController {
      *
      * @return A list of lists of tiles, where each list represents a row of tiles.
      */
-    List<List<Tile>> getStationary();
+    List<List<Optional<Tile>>> getStationary();
 
     /**
      * Retrieves a list of CircularSaw present in the game.
@@ -63,6 +64,11 @@ public interface GameController {
      */
     int getNumCols();
 
+    /**
+     * Retrieves the GameModel.
+     *
+     * @return The GameModel.
+     */
     GameModel getGameModel();
 }
 

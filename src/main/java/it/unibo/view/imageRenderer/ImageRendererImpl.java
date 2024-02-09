@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.List;
+import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
@@ -41,7 +42,7 @@ public class ImageRendererImpl implements ImageRenderer{
     }
 
     @Override
-    public BufferedImage getStationary(final List<List<Tile>> stationary) {
+    public BufferedImage getStationary(final List<List<Optional<Tile>>> stationary) {
         BufferedImage image = new BufferedImage(
                 numCols*Constants.TILE_SIZE,
                 numRows*Constants.TILE_SIZE,
@@ -49,13 +50,13 @@ public class ImageRendererImpl implements ImageRenderer{
         Graphics2D g = (Graphics2D) image.getGraphics();
 		for(int row=0 ; row<numRows ; row++) {
 			for(int column=0 ; column<numCols ; column++) {
-                Tile tile = stationary.get(row).get(column);
-				if( !Objects.isNull(tile) && !tile.getSrcImage().equals("null") ) {
+                Optional<Tile> tile = stationary.get(row).get(column);
+				if( tile.isPresent() ) {
 				    try {
                         g.drawImage(
                             getSubImage(
-                                ImageIO.read(new File("./src/main/resources/" + tile.getSrcImage())),
-                                tile),
+                                ImageIO.read(new File("./src/main/resources/" + tile.get().getSrcImage())),
+                                tile.get()),
                             column*Constants.TILE_SIZE,
                             row*Constants.TILE_SIZE,
                             Constants.TILE_SIZE,

@@ -1,6 +1,7 @@
 package it.unibo.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -42,7 +43,7 @@ public class GameControllerImpl implements GameController {
     }
 
     @Override
-    public List<List<Tile>> getStationary() {
+    public List<List<Optional<Tile>>> getStationary() {
         return this.gameModel.getStationary();
     }
 

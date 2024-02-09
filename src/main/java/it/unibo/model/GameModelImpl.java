@@ -1,6 +1,7 @@
 package it.unibo.model;
 
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.commons.Point2D;
 import it.unibo.model.collision.CollisionHandler;
@@ -30,7 +31,7 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
-    public List<List<Tile>> getStationary() {
+    public List<List<Optional<Tile>>> getStationary() {
         return this.level.getStationary();
     }
 
@@ -73,7 +74,5 @@ public class GameModelImpl implements GameModel {
     public CollisionHandler getCollisionHandler() {
         return this.collisionHandler;
     }
-
-
     
 }

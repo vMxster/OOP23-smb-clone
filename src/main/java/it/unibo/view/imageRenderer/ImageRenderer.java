@@ -3,6 +3,7 @@ package it.unibo.view.imageRenderer;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.tiles.Tile;
@@ -19,7 +20,7 @@ public interface ImageRenderer {
      * @return a BufferedImage representing the stationary tiles.
      * @throws IOException if an I/O error occurs while generating the image.
      */
-    BufferedImage getStationary(final List<List<Tile>> stationary) throws IOException;
+    BufferedImage getStationary(final List<List<Optional<Tile>>> stationary) throws IOException;
 
     /**
      * Generates a BufferedImage representing the background of the game.

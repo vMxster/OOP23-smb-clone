@@ -1,6 +1,7 @@
 package it.unibo.model.level;
 
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.commons.Point2D;
 import it.unibo.model.entity.obstacles.CircularSaw;
@@ -19,7 +20,7 @@ public interface Level {
      *
      * @return A two-dimensional list of stationary tiles.
      */
-    List<List<Tile>> getStationary();
+    List<List<Optional<Tile>>> getStationary();
 
     /**
      * Retrieves a list of platforms available.

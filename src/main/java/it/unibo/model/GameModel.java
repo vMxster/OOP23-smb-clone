@@ -1,6 +1,7 @@
 package it.unibo.model;
 
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.commons.Point2D;
 import it.unibo.model.collision.CollisionHandler;
@@ -28,7 +29,7 @@ public interface GameModel {
      *
      * @return A two-dimensional list containing stationary tiles.
      */
-    List<List<Tile>> getStationary();
+    List<List<Optional<Tile>>> getStationary();
 
     /**
      * Returns the List of CircularSaws parsed from the TMX file.

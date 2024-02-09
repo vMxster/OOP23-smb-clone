@@ -1,6 +1,7 @@
 package it.unibo.model.level;
 
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.model.tiles.Tile;
 import it.unibo.model.tiles.TileManager;
@@ -41,7 +42,7 @@ public class LevelImpl implements Level{
 	}
 
 	@Override
-	public List<List<Tile>> getStationary() {
+	public List<List<Optional<Tile>>> getStationary() {
 		return this.tileManager.getStationary();
 	}
 
