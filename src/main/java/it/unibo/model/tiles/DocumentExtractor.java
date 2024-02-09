@@ -11,23 +11,23 @@ public interface DocumentExtractor {
     /**
      * Retrieves the number of rows in the document.
      *
-     * @return the number of rows in the document
+     * @return The number of rows in the document.
      */
     int getNumRows();
 
     /**
      * Retrieves the number of columns in the document.
      *
-     * @return the number of columns in the document
+     * @return The number of columns in the document.
      */
     int getNumColumns();
 
     /**
-     * Retrieves the elements associated with a TagName.
+     * Retrieves the elements associated with a given TagName.
      *
-     * @return the elements associated with a TagName.
+     * @param tagName The name of the tag to search for.
+     * @return The elements associated with the specified tag name.
      */
-    NodeList getElements(final String tagName);
+    NodeList getElements(String tagName);
 
 }
-
