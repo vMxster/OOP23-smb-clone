@@ -11,6 +11,10 @@ import it.unibo.view.imageRenderer.ImageRenderer;
 import it.unibo.view.imageRenderer.ImageRendererImpl;
 import it.unibo.view.panel.GamePanel;
 
+/**
+ * The GameWindowSwing class represents a Swing-based implementation of the GameWindow interface.
+ * It extends JFrame and provides methods for rendering the game window and handling user interaction.
+ */
 public class GameWindowSwing extends JFrame implements GameWindow {
 
     private final GameController controller;
@@ -33,17 +37,26 @@ public class GameWindowSwing extends JFrame implements GameWindow {
         this.setVisible(true);
     }
 
+    /**
+     * Paints the game window.
+     */
     @Override
     public void paint() {
         this.repaint();
     }
 
+    /**
+     * Displays a victory message dialog.
+     */
     @Override
     public void displayVictoryMessage() {
         JOptionPane.showMessageDialog(this, "WIN", "WIN", JOptionPane.INFORMATION_MESSAGE);
         this.setVisible(false);
     }
 
+    /**
+     * Initializes the properties of the game window.
+     */
     @Override
     public void initializeWindowProperties() {
         this.setSize(Constants.SW, Constants.SH);
@@ -53,11 +66,13 @@ public class GameWindowSwing extends JFrame implements GameWindow {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Initializes the game panel.
+     */
     @Override
     public void initializeGamePanel() {
         try {
             this.gamePanel = createGamePanel();
-            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,6 +96,9 @@ public class GameWindowSwing extends JFrame implements GameWindow {
         return panel;
     }
 
+    /**
+     * Switches the content pane to the game panel.
+     */
     public void switchPanel() {
         this.setContentPane(gamePanel);
         gamePanel.requestFocus();
