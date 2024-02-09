@@ -4,7 +4,6 @@ import java.util.Objects;
 import java.util.stream.IntStream;
 import java.util.stream.Collectors;
 import java.util.Optional;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -15,9 +14,9 @@ import it.unibo.model.entity.obstacles.PlatformImpl;
 public class TileLoaderImpl implements TileLoader {
 
 	private final TileManager tileManager;
-    private final int numRows;
+    private final DocumentExtractor documentExtractor;
     private final int numColumns;
-	private final Document document;
+    private final int numRows;
 
 	/**
  	 * Constructs a TileLoaderImpl instance with the specified TileManager.
@@ -26,45 +25,50 @@ public class TileLoaderImpl implements TileLoader {
  	 *
  	 * @param tileManager The TileManager providing information about the game level's tiles.
  	 */
-    public TileLoaderImpl(final TileManager tileManager) {
+    public TileLoaderImpl(final TileManager tileManager, final String tmx) {
 		this.tileManager = tileManager;
-        this.numRows = tileManager.getNumRows();
-        this.numColumns = tileManager.getNumCols();
-		this.document = tileManager.getDocument();
+        this.documentExtractor = new DocumentExtractorImpl(tmx);
+        this.numRows = documentExtractor.getNumRows();
+        this.numColumns = documentExtractor.getNumColumns();
     }
 
-	@Override
-	public void loadStationaryTiles() {
-    NodeList tileNodeList = document.getElementsByTagName("tile");
+    @Override
+    public void load() {
+        loadStationaryTiles();
+        loadPlatforms();
+        loadCircularSaws();
+    }
 
-    IntStream.range(0, numRows)
-            .forEach(row -> IntStream.range(0, numColumns)
-                    .forEach(column -> {
-                        int gidNumber = row * numColumns + column;
-                        if (gidNumber < tileNodeList.getLength()) {
-                            Element tilesetElement = (Element) Objects.requireNonNull(tileNodeList.item(gidNumber));
-                            int idTile = Integer.parseInt(tilesetElement.getAttributes().getNamedItem("gid").getTextContent());
+    private void loadStationaryTiles() {
+        NodeList tileNodeList = documentExtractor.getElements("tile");
 
-                            if (idTile > Constants.ID_TILE_NULL) {
-                                if (idTile == Constants.ID_TILE_BANDAGEGIRL) {
-                                    tileManager.getBandageGirl().setX(Double.valueOf(column * Constants.TILE_SIZE));
-                                    tileManager.getBandageGirl().setY(Double.valueOf(row * Constants.TILE_SIZE));
-                                    tileManager.getStationary().get(row).set(column, Optional.of(tileManager.getTiles().get(idTile - 1)));
-                                } else if (idTile == Constants.ID_TILE_MEATBOY) {
-                                    tileManager.getMeatBoy().setX(Double.valueOf(column * Constants.TILE_SIZE));
-                                    tileManager.getMeatBoy().setY(Double.valueOf(row * Constants.TILE_SIZE));
-                                } else {
-                                    tileManager.getStationary().get(row).set(column, Optional.of(tileManager.getTiles().get(idTile - 1)));
+        IntStream.range(0, numRows)
+                .forEach(row -> IntStream.range(0, numColumns)
+                        .forEach(column -> {
+                            int gidNumber = row * numColumns + column;
+                            if (gidNumber < tileNodeList.getLength()) {
+                                Element tilesetElement = (Element) Objects.requireNonNull(tileNodeList.item(gidNumber));
+                                int idTile = Integer.parseInt(tilesetElement.getAttributes().getNamedItem("gid").getTextContent());
+    
+                                if (idTile > Constants.ID_TILE_NULL) {
+                                    if (idTile == Constants.ID_TILE_BANDAGEGIRL) {
+                                        tileManager.getBandageGirl().setX(Double.valueOf(column * Constants.TILE_SIZE));
+                                        tileManager.getBandageGirl().setY(Double.valueOf(row * Constants.TILE_SIZE));
+                                        tileManager.getStationary().get(row).set(column, Optional.of(tileManager.getTiles().get(idTile - 1)));
+                                    } else if (idTile == Constants.ID_TILE_MEATBOY) {
+                                        tileManager.getMeatBoy().setX(Double.valueOf(column * Constants.TILE_SIZE));
+                                        tileManager.getMeatBoy().setY(Double.valueOf(row * Constants.TILE_SIZE));
+                                    } else {
+                                        tileManager.getStationary().get(row).set(column, Optional.of(tileManager.getTiles().get(idTile - 1)));
+                                    }
                                 }
                             }
-                        }
-                    }));
-	}
+                        }));
+    }
 
-	
-	@Override
-	public void loadPlatforms() {
-    NodeList rectangleObjects = this.document.getElementsByTagName("objectgroup");
+
+	private void loadPlatforms() {
+    NodeList rectangleObjects = documentExtractor.getElements("objectgroup");
 	IntStream.range(0, rectangleObjects.getLength())
     	.mapToObj(i -> (Element) rectangleObjects.item(i))
     	.collect(Collectors.toList()).stream()
@@ -87,9 +91,8 @@ public class TileLoaderImpl implements TileLoader {
             });
 	}
 
-	@Override
-	public void loadCircularSaws() {
-    NodeList sawObjects = this.document.getElementsByTagName("objectgroup");
+	private void loadCircularSaws() {
+    NodeList sawObjects = documentExtractor.getElements("objectgroup");
 	IntStream.range(0, sawObjects.getLength())
     	.mapToObj(i -> (Element) sawObjects.item(i))
     	.collect(Collectors.toList()).stream()
