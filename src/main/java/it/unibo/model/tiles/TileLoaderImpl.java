@@ -1,6 +1,8 @@
 package it.unibo.model.tiles;
 
 import java.util.Objects;
+import java.util.stream.IntStream;
+import java.util.stream.Collectors;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -32,83 +34,80 @@ public class TileLoaderImpl implements TileLoader {
 
 	@Override
 	public void loadStationaryTiles() {
-		NodeList tileNodeList = document.getElementsByTagName("tile");
-		int gidNumber = 0;
-		for (int row = 0; row < this.numRows; row++) {
-			for (int column = 0; column < this.numColumns; column++) {
-				Element tilesetElement = (Element) Objects.requireNonNull(tileNodeList.item(gidNumber));
-				int idTile = Integer.parseInt(tilesetElement.getAttributes().getNamedItem("gid").getTextContent());
-				if (idTile > Constants.ID_TILE_NULL) {
-					if (idTile == Constants.ID_TILE_BANDAGEGIRL) {
-						this.tileManager.getBandageGirl().setX(Double.valueOf(column * Constants.TILE_SIZE));
-						this.tileManager.getBandageGirl().setY(Double.valueOf(row * Constants.TILE_SIZE));
-						this.tileManager.getStationary().get(row).set(column, this.tileManager.getTiles().get(idTile - 1));
-					} else if (idTile == Constants.ID_TILE_MEATBOY) {
-						this.tileManager.getMeatBoy().setX(Double.valueOf(column * Constants.TILE_SIZE));
-						this.tileManager.getMeatBoy().setY(Double.valueOf(row * Constants.TILE_SIZE));
-					} else {
-						this.tileManager.getStationary().get(row).set(column, this.tileManager.getTiles().get(idTile - 1));
-					}
-				}
-				gidNumber++;
-			}
-		}
+    NodeList tileNodeList = document.getElementsByTagName("tile");
+
+    IntStream.range(0, numRows)
+            .forEach(row -> IntStream.range(0, numColumns)
+                    .forEach(column -> {
+                        int gidNumber = row * numColumns + column;
+                        if (gidNumber < tileNodeList.getLength()) {
+                            Element tilesetElement = (Element) Objects.requireNonNull(tileNodeList.item(gidNumber));
+                            int idTile = Integer.parseInt(tilesetElement.getAttributes().getNamedItem("gid").getTextContent());
+
+                            if (idTile > Constants.ID_TILE_NULL) {
+                                if (idTile == Constants.ID_TILE_BANDAGEGIRL) {
+                                    tileManager.getBandageGirl().setX(Double.valueOf(column * Constants.TILE_SIZE));
+                                    tileManager.getBandageGirl().setY(Double.valueOf(row * Constants.TILE_SIZE));
+                                    tileManager.getStationary().get(row).set(column, tileManager.getTiles().get(idTile - 1));
+                                } else if (idTile == Constants.ID_TILE_MEATBOY) {
+                                    tileManager.getMeatBoy().setX(Double.valueOf(column * Constants.TILE_SIZE));
+                                    tileManager.getMeatBoy().setY(Double.valueOf(row * Constants.TILE_SIZE));
+                                } else {
+                                    tileManager.getStationary().get(row).set(column, tileManager.getTiles().get(idTile - 1));
+                                }
+                            }
+                        }
+                    }));
 	}
+
 	
 	@Override
 	public void loadPlatforms() {
-		NodeList rectangleObjects = this.document.getElementsByTagName("objectgroup");
-		int numPlatforms = 0;
-
-		for (int i = 0; i < rectangleObjects.getLength(); i++) {
-    		Element objectGroupElement = (Element) Objects.requireNonNull(rectangleObjects.item(i));
-
-    		if ("rectangle".equals(objectGroupElement.getAttribute("name"))) {
-        		NodeList objectsInGroup = objectGroupElement.getElementsByTagName("object");
-        		numPlatforms = objectsInGroup.getLength();
-
-        		for (int j = 0; j < numPlatforms; j++) {
-            		Element platformElement = (Element) Objects.requireNonNull(objectsInGroup.item(j));
-
-            		this.tileManager.getPlatforms().add(
-						new PlatformImpl(
-							Integer.parseInt(trim(platformElement.getAttribute("x"))),
-							Integer.parseInt(trim(platformElement.getAttribute("y"))),
-							Integer.parseInt(trim(platformElement.getAttribute("width"))),
-							Integer.parseInt(trim(platformElement.getAttribute("height")))));
-        		}
-				return;
-    		}
-		}
+    NodeList rectangleObjects = this.document.getElementsByTagName("objectgroup");
+	IntStream.range(0, rectangleObjects.getLength())
+    	.mapToObj(i -> (Element) rectangleObjects.item(i))
+    	.collect(Collectors.toList()).stream()
+            .filter(node -> "rectangle".equals(((Element) node).getAttribute("name")))
+            .findFirst()
+            .ifPresent(objectGroupElement -> {
+                NodeList objectsInGroup = ((Element) objectGroupElement).getElementsByTagName("object");
+				IntStream.range(0, objectsInGroup.getLength())
+    				.mapToObj(i -> (Element) objectsInGroup.item(i))
+    				.collect(Collectors.toList()).stream()
+                        .map(objectNode -> (Element) objectNode)
+                        .forEach(platformElement -> {
+                            this.tileManager.getPlatforms().add(
+								new PlatformImpl(
+									Integer.parseInt(trim(platformElement.getAttribute("x"))),
+									Integer.parseInt(trim(platformElement.getAttribute("y"))),
+									Integer.parseInt(trim(platformElement.getAttribute("width"))),
+									Integer.parseInt(trim(platformElement.getAttribute("height")))));
+                        });
+            });
 	}
 
 	@Override
 	public void loadCircularSaws() {
-		NodeList sawObjects = this.document.getElementsByTagName("objectgroup");
-		int numsaws = 0;
-
-		for (int i = 0; i < sawObjects.getLength(); i++) {
-    		Element objectGroupElement = (Element) Objects.requireNonNull(sawObjects.item(i));
-
-    		if ("saws".equals(objectGroupElement.getAttribute("name"))) {
-        		NodeList objectsInGroup = objectGroupElement.getElementsByTagName("object");
-        		numsaws = objectsInGroup.getLength();
-
-        		for (int j = 0; j < numsaws; j++) {
-            		Element sawElement = (Element) Objects.requireNonNull(objectsInGroup.item(j));
-
-            		int radius = Integer.parseInt(trim(sawElement.getAttribute("width")));
-
-					this.tileManager.getSaws().add(
-						new CircularSawImpl(
-							Integer.parseInt(trim(sawElement.getAttribute("x"))),
-							Integer.parseInt(trim(sawElement.getAttribute("y"))),
-							radius));
-            		
-				}
-				return;
-			}
-		}
+    NodeList sawObjects = this.document.getElementsByTagName("objectgroup");
+	IntStream.range(0, sawObjects.getLength())
+    	.mapToObj(i -> (Element) sawObjects.item(i))
+    	.collect(Collectors.toList()).stream()
+            .filter(node -> "saws".equals(((Element) node).getAttribute("name")))
+            .findFirst()
+            .ifPresent(objectGroupElement -> {
+                NodeList objectsInGroup = ((Element) objectGroupElement).getElementsByTagName("object");
+				IntStream.range(0, objectsInGroup.getLength())
+    				.mapToObj(i -> (Element) objectsInGroup.item(i))
+    				.collect(Collectors.toList()).stream()
+                        .map(objectNode -> (Element) objectNode)
+                        .forEach(sawElement -> {
+                            this.tileManager.getSaws().add(
+								new CircularSawImpl(
+									Integer.parseInt(trim(sawElement.getAttribute("x"))),
+									Integer.parseInt(trim(sawElement.getAttribute("y"))),
+									Integer.parseInt(trim(sawElement.getAttribute("width")))));
+                        });
+            });
 	}
 
     /**
