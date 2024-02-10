@@ -26,6 +26,6 @@ public interface Tile {
      * @return The string path of the image.
      */
     String getSrcImage();
-    
+
 }
 

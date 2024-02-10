@@ -1,18 +1,52 @@
 package it.unibo.model.collision;
 
+/**
+ * The CollisionChecker interface rapresents the checker of the
+ * interactions between MeatBoy and any obstacols in the level map
+ */
 public interface CollisionChecker {
 
-    static enum CollisionState {GROUND, WALL, AIR, SAW, BANDAGE_GIRL, LEFT_BOUND, RIGHT_BOUND, UPPER_BOUND, FALL}
+    /**
+     * Enum with the possible interactions state of MeatBoy entity
+     */
+    static enum CollisionState {GROUND, WALL, AIR, SAW, BANDAGE_GIRL, FALL}
 
+    /**
+     * Check if MeatBoy collides with any obstacols in the level map
+     */
     void isColliding();
 
+    /**
+     * Check if MeatBoy is in the game screen or if is fallen
+     * 
+     * @return The state of MeatBoy related to border limit
+     */
     CollisionState isInWindow();
 
+    /**
+     * Update the position of Meatboy and his Hitbox, only 
+     * if the movement that he has to do is possible
+     */
     void updateMeatBoy();
 
+    /**
+     * Set in which direction the MeatBoy has to move
+     * 
+     * @param k the key pressed in input
+     */
     void moveMeatBoy(int k);
 
+    /**
+     * Set in which direction the MeatBoy has to stop moving
+     * 
+     * @param k the key released in input
+     */
     void stopMovingMeatBoy(int k);
 
+    /**
+     * Returns the state of MeatBoy
+     * 
+     * @return state of MeatBoy
+     */
     CollisionState getState();
 }

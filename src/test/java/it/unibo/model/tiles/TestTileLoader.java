@@ -1,44 +1,55 @@
 package it.unibo.model.tiles;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import it.unibo.commons.Constants;
+import it.unibo.model.documentextractor.DocumentExtractor;
+import it.unibo.model.documentextractor.DocumentExtractorImpl;
+import it.unibo.model.tiles.loader.manager.TileLoaderManager;
+import it.unibo.model.tiles.loader.manager.TileLoaderManagerImpl;
+import it.unibo.model.tiles.manager.TileManager;
+import it.unibo.model.tiles.manager.TileManagerImpl;
 
+/**
+ * JUnit tests for the TileLoader class.
+ */
 public class TestTileLoader {
 
     private TileManager tileManager;
-    private URL urlMap;
-    private TileLoaderImpl tileLoader;
+    private DocumentExtractor documentExtractor;
+    private TileLoaderManager tileLoaderManager;
 
+    /**
+     * Initializes the test environment before each test method is executed.
+     */
     @BeforeEach
-    public void init() throws MalformedURLException {
-        this.urlMap = new URL("file:./src/main/resources/factory1.tmx");
-        assertNotNull(this.urlMap);
-        //this.tileManager = new TileManagerImpl(urlMap);
+    public void init() {
+        this.tileManager = new TileManagerImpl(Constants.SOURCE_MAP);
         assertNotNull(this.tileManager);
-        this.tileLoader = new TileLoaderImpl(tileManager);
+        this.tileLoaderManager = new TileLoaderManagerImpl(tileManager, Constants.SOURCE_MAP);
+        assertNotNull(this.tileManager);
+        this.documentExtractor = new DocumentExtractorImpl(Constants.SOURCE_MAP);
+        assertNotNull(this.documentExtractor);
     }
 
+    /**
+     * Tests the {@link TileLoaderImpl#load()} method.
+     */
     @Test
-    public void testLoadStationaryTiles() {
-        tileLoader.loadStationaryTiles();
+    public void testLoad() {
+        this.tileLoaderManager.load();
         assertNotNull(this.tileManager.getStationary());
-    }
-
-    @Test
-    public void testLoadPlatforms() {
-        tileLoader.loadPlatforms();
-        assertNotNull(this.tileManager.getPlatforms());
-    }
-
-    @Test
-    public void testLoadCircularSaws() {
-        tileLoader.loadCircularSaws();
+        assertFalse(this.tileManager.getStationary().isEmpty());
         assertNotNull(this.tileManager.getSaws());
+        assertFalse(this.tileManager.getSaws().isEmpty());
+        assertNotNull(this.tileManager.getPlatforms());
+        assertFalse(this.tileManager.getPlatforms().isEmpty());
+        assertNotNull(this.tileManager.getBandageGirl());
+        assertNotNull(this.tileManager.getMeatBoy());
     }
 
 }

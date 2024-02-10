@@ -1,6 +1,7 @@
 package it.unibo.model.level;
 
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.commons.Point2D;
 import it.unibo.model.entity.obstacles.CircularSaw;
@@ -10,7 +11,7 @@ import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
 
 /**
- *  Interface that reads a tmx file and creates a level from it
+ * Interface that reads a tmx file and creates a level from it.
  */
 public interface Level {
 
@@ -19,7 +20,7 @@ public interface Level {
      *
      * @return A two-dimensional list of stationary tiles.
      */
-    List<List<Tile>> getStationary();
+    List<List<Optional<Tile>>> getStationary();
 
     /**
      * Retrieves a list of platforms available.
@@ -68,6 +69,6 @@ public interface Level {
      *
      * @return The Starting Coordinates of MeatBoy.
      */
-    Point2D<Double,Double> getMeatBoyStartCoord();
+    Point2D<Double, Double> getMeatBoyStartCoord();
 
 }
