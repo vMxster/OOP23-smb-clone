@@ -21,7 +21,7 @@ public interface CollisionChecker {
      * 
      * @return The state of MeatBoy related to border limit
      */
-    CollisionState isInWindow();
+    CollisionState inWindow();
 
     /**
      * Update the position of Meatboy and his Hitbox, only 
