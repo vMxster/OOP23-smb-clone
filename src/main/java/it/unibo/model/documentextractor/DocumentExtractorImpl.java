@@ -1,4 +1,4 @@
-package it.unibo.model.tiles;
+package it.unibo.model.documentextractor;
 
 import java.io.IOException;
 

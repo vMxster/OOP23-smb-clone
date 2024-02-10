@@ -1,4 +1,4 @@
-package it.unibo.model.tiles;
+package it.unibo.model.documentextractor;
 
 import org.w3c.dom.NodeList;
 
