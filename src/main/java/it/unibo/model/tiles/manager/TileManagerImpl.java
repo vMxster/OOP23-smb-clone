@@ -41,7 +41,7 @@ public class TileManagerImpl implements TileManager {
         this.platforms = new ArrayList<>();
         this.circularSaws = new ArrayList<>();
         this.stationary = new ArrayList<>();
-        this.tiles = new TileSetImpl(tmx).getTiles();
+        this.tiles = new TileSetImpl(tmx).read();
         this.meatBoy = new MeatBoyImpl(0, 0);
         this.bandageGirl = new BandageGirlImpl(0, 0);
         final DocumentExtractor documentExtractor = new DocumentExtractorImpl(tmx);

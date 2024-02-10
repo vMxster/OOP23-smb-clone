@@ -1,4 +1,4 @@
-package it.unibo.view.imageRenderer;
+package it.unibo.view.imagerenderer;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
@@ -65,14 +66,14 @@ public class ImageRendererImpl implements ImageRenderer {
      */
     @Override
     public BufferedImage getStationary(final List<List<Optional<Tile>>> stationary) {
-        BufferedImage image = new BufferedImage(
+        final BufferedImage image = new BufferedImage(
                 numCols * Constants.TILE_SIZE,
                 numRows * Constants.TILE_SIZE,
                 BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = (Graphics2D) image.getGraphics();
+        final Graphics2D g = (Graphics2D) image.getGraphics();
         for (int row = 0; row < numRows; row++) {
             for (int column = 0; column < numCols; column++) {
-                Optional<Tile> tile = stationary.get(row).get(column);
+                final Optional<Tile> tile = stationary.get(row).get(column);
                 if (tile.isPresent()) {
                     try {
                         g.drawImage(
@@ -85,7 +86,8 @@ public class ImageRendererImpl implements ImageRenderer {
                             Constants.TILE_SIZE,
                             null);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Logger.getLogger(ImageRendererImpl.class.getName())
+                            .severe("An error occurred: " + e.getMessage());
                     }
                 }
             }
@@ -102,13 +104,12 @@ public class ImageRendererImpl implements ImageRenderer {
      */
     @Override
     public BufferedImage getSaws(final List<CircularSaw> saws) {
-        BufferedImage image = new BufferedImage(
+        final BufferedImage image = new BufferedImage(
                 numCols * Constants.TILE_SIZE,
                 numRows * Constants.TILE_SIZE,
                 BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = (Graphics2D) image.getGraphics();
-        for (int i = 0; i < saws.size(); i++) {
-            CircularSaw saw = saws.get(i);
+        final Graphics2D g = (Graphics2D) image.getGraphics();
+        for (final var saw : saws) {
             if (!Objects.isNull(saw)) {
                 try {
                     g.drawImage(
@@ -119,7 +120,8 @@ public class ImageRendererImpl implements ImageRenderer {
                         (int) saw.getHitbox().getHitbox().getHeight(),
                         null);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Logger.getLogger(ImageRendererImpl.class.getName())
+                            .severe("An error occurred: " + e.getMessage());
                 }
             }
         }
@@ -136,7 +138,7 @@ public class ImageRendererImpl implements ImageRenderer {
      */
     private BufferedImage getSubImage(final BufferedImage baseImage, final Tile tile) {
         return baseImage.getSubimage(
-                tile.getX(), 
+                tile.getX(),
                 tile.getY(),
                 Constants.TILE_SIZE,
                 Constants.TILE_SIZE);
