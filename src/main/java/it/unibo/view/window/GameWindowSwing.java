@@ -7,8 +7,8 @@ import javax.swing.JOptionPane;
 
 import it.unibo.commons.Constants;
 import it.unibo.controller.GameController;
-import it.unibo.view.imageRenderer.ImageRenderer;
-import it.unibo.view.imageRenderer.ImageRendererImpl;
+import it.unibo.view.imagerenderer.ImageRenderer;
+import it.unibo.view.imagerenderer.ImageRendererImpl;
 import it.unibo.view.panel.GamePanel;
 
 /**
