@@ -35,7 +35,6 @@ public class GameWindowSwing extends JFrame implements GameWindow {
         this.initializeGamePanel();
         this.setContentPane(menu);
         initializeWindowProperties();
-        this.setVisible(true);
     }
 
     /**
@@ -77,6 +76,14 @@ public class GameWindowSwing extends JFrame implements GameWindow {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Set the game panel visible.
+     */
+    @Override
+    public void setPanelVisible() {
+        this.setVisible(true);
     }
 
     /**
