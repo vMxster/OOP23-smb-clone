@@ -7,8 +7,8 @@ import it.unibo.model.GameModel;
  * and updating the game model accordingly.
  */
 public class CollisionHandlerImpl implements CollisionHandler {
-    private CollisionChecker collisionChecker;
-    private GameModel gameModel;
+    private final CollisionChecker collisionChecker;
+    private final GameModel gameModel;
 
     /**
      * Constructs the CollisionHandlerImpl with the given GameModel.
@@ -35,14 +35,14 @@ public class CollisionHandlerImpl implements CollisionHandler {
      */
     @Override
     public void check() {
-        if (collisionChecker.isInWindow() == CollisionChecker.CollisionState.FALL) {
+        if (collisionChecker.inWindow() == CollisionChecker.CollisionState.FALL) {
             gameModel.getMeatBoy().setX(gameModel.getMeatBoyStartCoord().getX());
             gameModel.getMeatBoy().setY(gameModel.getMeatBoyStartCoord().getY());
         } else {
-            if (collisionChecker.getState() == (CollisionChecker.CollisionState.SAW)) {
+            if (collisionChecker.getState() == CollisionChecker.CollisionState.SAW) {
                 gameModel.getMeatBoy().setX(gameModel.getMeatBoyStartCoord().getX());
                 gameModel.getMeatBoy().setY(gameModel.getMeatBoyStartCoord().getY());
-            } else if (collisionChecker.getState() == (CollisionChecker.CollisionState.BANDAGE_GIRL)) {
+            } else if (collisionChecker.getState() == CollisionChecker.CollisionState.BANDAGE_GIRL) {
                 //gameWindow.displayVictoryMessage();
             }
         }
