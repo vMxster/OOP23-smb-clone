@@ -19,6 +19,9 @@ import it.unibo.model.entity.obstacles.PlatformImpl;
  */
 public class TileLoaderImpl implements TileLoader {
 
+    private static final int ID_TILE_BANDAGEGIRL = 902;
+    private static final int ID_TILE_MEATBOY = 901;
+    private static final int ID_TILE_NULL = 0;
     private final TileManager tileManager;
     private final DocumentExtractor documentExtractor;
     private final int numColumns;
@@ -65,15 +68,15 @@ public class TileLoaderImpl implements TileLoader {
                                 int idTile = Integer.parseInt(
                                     tilesetElement.getAttributes().getNamedItem("gid").getTextContent());
 
-                                if (idTile > Constants.ID_TILE_NULL) {
-                                    if (idTile == Constants.ID_TILE_BANDAGEGIRL) {
+                                if (idTile > ID_TILE_NULL) {
+                                    if (idTile == ID_TILE_BANDAGEGIRL) {
                                         tileManager.getBandageGirl().setX(
                                             Double.valueOf(column * Constants.TILE_SIZE));
                                         tileManager.getBandageGirl().setY(
                                             Double.valueOf(row * Constants.TILE_SIZE));
                                         tileManager.getStationary().get(row)
                                             .set(column, Optional.of(tileManager.getTiles().get(idTile - 1)));
-                                    } else if (idTile == Constants.ID_TILE_MEATBOY) {
+                                    } else if (idTile == ID_TILE_MEATBOY) {
                                         tileManager.getMeatBoy().setX(
                                             Double.valueOf(column * Constants.TILE_SIZE));
                                         tileManager.getMeatBoy().setY(
