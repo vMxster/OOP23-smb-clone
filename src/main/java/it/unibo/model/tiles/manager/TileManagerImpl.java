@@ -15,7 +15,7 @@ import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.entity.target.BandageGirlImpl;
 import it.unibo.model.tiles.Tile;
 import it.unibo.model.tiles.TileSetImpl;
-import it.unibo.model.tiles.loader.TileLoaderImpl;
+import it.unibo.model.tiles.loader.manager.TileLoaderManagerImpl;
 
 /**
  * The TileManagerImpl class implements the TileManager interface and provides
@@ -48,7 +48,7 @@ public class TileManagerImpl implements TileManager {
         this.numRows = documentExtractor.getNumRows();
         this.numColumns = documentExtractor.getNumColumns();
         init();
-        new TileLoaderImpl(this, tmx).load();
+        new TileLoaderManagerImpl(this, tmx).load();
     }
 
     /**

@@ -1,4 +1,4 @@
-package it.unibo.model.tiles.loader;
+package it.unibo.model.tiles.loader.manager;
 
 import java.util.Objects;
 import java.util.stream.IntStream;
@@ -18,7 +18,7 @@ import it.unibo.model.tiles.manager.TileManager;
  * The TileLoaderImpl class is responsible for loading tiles and objects from a TMX file
  * and populating the TileManager with the loaded data.
  */
-public class TileLoaderImpl implements TileLoader {
+public class TileLoaderManagerImpl implements TileLoaderManager {
 
     private static final int ID_TILE_BANDAGEGIRL = 902;
     private static final int ID_TILE_MEATBOY = 901;
@@ -36,7 +36,7 @@ public class TileLoaderImpl implements TileLoader {
      * @param tileManager The TileManager providing information about the game level's tiles.
      * @param tmx The path to the TMX file containing tile data.
      */
-    public TileLoaderImpl(final TileManager tileManager, final String tmx) {
+    public TileLoaderManagerImpl(final TileManager tileManager, final String tmx) {
         this.tileManager = tileManager;
         this.documentExtractor = new DocumentExtractorImpl(tmx);
         this.numRows = documentExtractor.getNumRows();

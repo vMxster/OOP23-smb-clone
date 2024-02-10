@@ -9,7 +9,8 @@ import org.junit.jupiter.api.Test;
 import it.unibo.commons.Constants;
 import it.unibo.model.documentextractor.DocumentExtractor;
 import it.unibo.model.documentextractor.DocumentExtractorImpl;
-import it.unibo.model.tiles.loader.TileLoaderImpl;
+import it.unibo.model.tiles.loader.manager.TileLoaderManager;
+import it.unibo.model.tiles.loader.manager.TileLoaderManagerImpl;
 import it.unibo.model.tiles.manager.TileManager;
 import it.unibo.model.tiles.manager.TileManagerImpl;
 
@@ -20,7 +21,7 @@ public class TestTileLoader {
 
     private TileManager tileManager;
     private DocumentExtractor documentExtractor;
-    private TileLoaderImpl tileLoader;
+    private TileLoaderManager tileLoaderManager;
 
     /**
      * Initializes the test environment before each test method is executed.
@@ -29,7 +30,7 @@ public class TestTileLoader {
     public void init() {
         this.tileManager = new TileManagerImpl(Constants.SOURCE_MAP);
         assertNotNull(this.tileManager);
-        this.tileLoader = new TileLoaderImpl(tileManager, Constants.SOURCE_MAP);
+        this.tileLoaderManager = new TileLoaderManagerImpl(tileManager, Constants.SOURCE_MAP);
         assertNotNull(this.tileManager);
         this.documentExtractor = new DocumentExtractorImpl(Constants.SOURCE_MAP);
         assertNotNull(this.documentExtractor);
@@ -40,7 +41,7 @@ public class TestTileLoader {
      */
     @Test
     public void testLoad() {
-        this.tileLoader.load();
+        this.tileLoaderManager.load();
         assertNotNull(this.tileManager.getStationary());
         assertFalse(this.tileManager.getStationary().isEmpty());
         assertNotNull(this.tileManager.getSaws());

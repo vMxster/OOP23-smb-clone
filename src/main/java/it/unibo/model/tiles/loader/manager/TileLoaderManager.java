@@ -1,9 +1,9 @@
-package it.unibo.model.tiles.loader;
+package it.unibo.model.tiles.loader.manager;
 /**
  * The TileLoader interface is responsible for loading stationary tiles, platforms,
  * and circular saws from an XML document.
  */
-public interface TileLoader {
+public interface TileLoaderManager {
 
     /**
      * Loads stationary tiles, platforms and circular saws from an XML document.
