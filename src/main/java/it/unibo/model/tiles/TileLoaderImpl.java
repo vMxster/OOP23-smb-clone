@@ -8,6 +8,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import it.unibo.commons.Constants;
+import it.unibo.model.documentextractor.DocumentExtractor;
+import it.unibo.model.documentextractor.DocumentExtractorImpl;
 import it.unibo.model.entity.obstacles.CircularSawImpl;
 import it.unibo.model.entity.obstacles.PlatformImpl;
 

@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.commons.Constants;
+import it.unibo.model.documentextractor.DocumentExtractor;
+import it.unibo.model.documentextractor.DocumentExtractorImpl;
 
 /**
  * JUnit tests for the TileLoader class.
