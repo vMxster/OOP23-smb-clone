@@ -56,16 +56,16 @@ public class TileLoaderImpl implements TileLoader {
      * Loads stationary tiles from the TMX file and populates the TileManager.
      */
     private void loadStationaryTiles() {
-        NodeList tileNodeList = documentExtractor.getElements("tile");
+        final NodeList tileNodeList = documentExtractor.getElements("tile");
 
         IntStream.range(0, numRows)
                 .forEach(
                     row -> IntStream.range(0, numColumns)
                         .forEach(column -> {
-                            int gidNumber = row * numColumns + column;
+                            final int gidNumber = row * numColumns + column;
                             if (gidNumber < tileNodeList.getLength()) {
-                                Element tilesetElement = (Element) Objects.requireNonNull(tileNodeList.item(gidNumber));
-                                int idTile = Integer.parseInt(
+                                final Element tilesetElement = (Element) Objects.requireNonNull(tileNodeList.item(gidNumber));
+                                final int idTile = Integer.parseInt(
                                     tilesetElement.getAttributes().getNamedItem("gid").getTextContent());
 
                                 if (idTile > ID_TILE_NULL) {
@@ -96,20 +96,20 @@ public class TileLoaderImpl implements TileLoader {
      * @param nameObjects The name of the objects to load ( "rectangle" , "saws" ).
      */
     private void loadObjects(final String nameObjects) {
-        NodeList objects = documentExtractor.getElements("objectgroup");
+        final NodeList objects = documentExtractor.getElements("objectgroup");
         IntStream.range(0, objects.getLength())
             .mapToObj(i -> (Element) objects.item(i))
             .collect(Collectors.toList()).stream()
                 .filter(node -> nameObjects.equals(((Element) node).getAttribute("name")))
                 .findFirst()
                 .ifPresent(objectGroupElement -> {
-                    NodeList objectsInGroup = ((Element) objectGroupElement).getElementsByTagName("object");
+                    final NodeList objectsInGroup = ((Element) objectGroupElement).getElementsByTagName("object");
                     IntStream.range(0, objectsInGroup.getLength())
                         .mapToObj(i -> (Element) objectsInGroup.item(i))
                         .collect(Collectors.toList()).stream()
                             .map(objectNode -> (Element) objectNode)
                             .forEach(objectElement -> {
-                                if (nameObjects.equals("saws")) { 
+                                if ("saws".equals(nameObjects)) {
                                     this.tileManager.getSaws().add(
                                     new CircularSawImpl(
                                         Integer.parseInt(trim(objectElement.getAttribute("x"))),
