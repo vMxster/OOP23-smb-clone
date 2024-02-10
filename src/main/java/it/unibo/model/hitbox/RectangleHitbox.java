@@ -35,6 +35,7 @@ public class RectangleHitbox implements Hitbox<Rectangle> {
      * 
      * @return shape of the hitbox
      */
+    @Override
     public Rectangle getHitbox() {
         return this.hitbox;
     }
