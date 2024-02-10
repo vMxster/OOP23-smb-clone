@@ -3,12 +3,11 @@ package it.unibo.model.tiles;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import java.io.IOException;
-import javax.xml.parsers.ParserConfigurationException;
+import java.util.List;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.xml.sax.SAXException;
 
 import it.unibo.commons.Constants;
 
@@ -33,13 +32,9 @@ public class TestTileSet {
      */
     @Test
     public void testRead() {
-        try {
-            tileSet.read();
-            assertNotNull(tileSet.getTiles());
-            assertFalse(tileSet.getTiles().isEmpty());
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
-        }
+        List<Tile> list = tileSet.read();
+        assertNotNull(list);
+        assertFalse(list.isEmpty());
     }
 
 }
