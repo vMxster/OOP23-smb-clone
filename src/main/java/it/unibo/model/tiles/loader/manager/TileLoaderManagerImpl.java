@@ -1,46 +1,43 @@
 package it.unibo.model.tiles.loader.manager;
 
-import java.util.Objects;
-import java.util.stream.IntStream;
-import java.util.stream.Collectors;
+import java.util.List;
 import java.util.Optional;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
-import it.unibo.commons.Constants;
 import it.unibo.model.documentextractor.DocumentExtractor;
 import it.unibo.model.documentextractor.DocumentExtractorImpl;
-import it.unibo.model.entity.obstacles.CircularSawImpl;
-import it.unibo.model.entity.obstacles.PlatformImpl;
+import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.entity.player.MeatBoy;
+import it.unibo.model.entity.target.BandageGirl;
+import it.unibo.model.tiles.Tile;
+import it.unibo.model.tiles.loader.gameobjects.TileLoaderGameObjects;
+import it.unibo.model.tiles.loader.gameobjects.TileLoaderGameObjectsImpl;
+import it.unibo.model.tiles.loader.stationary.TileLoaderStationary;
+import it.unibo.model.tiles.loader.stationary.TileLoaderStationaryImpl;
 import it.unibo.model.tiles.manager.TileManager;
 
+
 /**
- * The TileLoaderImpl class is responsible for loading tiles and objects from a TMX file
- * and populating the TileManager with the loaded data.
- */
+ * The implementation of the TileLoaderManager interface is responsible for managing the loading 
+ * of StationaryTiles and GameObjects from a TMX file.
+*/
 public class TileLoaderManagerImpl implements TileLoaderManager {
 
-    private static final int ID_TILE_BANDAGEGIRL = 902;
-    private static final int ID_TILE_MEATBOY = 901;
-    private static final int ID_TILE_NULL = 0;
     private final TileManager tileManager;
-    private final DocumentExtractor documentExtractor;
-    private final int numColumns;
-    private final int numRows;
+    private final TileLoaderGameObjects tileLoaderGameObjects;
+    private final TileLoaderStationary tileLoaderStationary;
 
     /**
-     * Constructs a TileLoaderImpl instance with the specified TileManager.
-     * Initializes the TileLoaderImpl with the necessary information from the provided TileManager,
-     * including the number of rows, number of columns, and the XML document containing tile data.
+     * Constructs a TileLoaderManagerImpl with the specified TileManager and TMX file.
      *
-     * @param tileManager The TileManager providing information about the game level's tiles.
-     * @param tmx The path to the TMX file containing tile data.
+     * @param tileManager The tile manager responsible for managing tiles in the game.
+     * @param tmx         The path to the TMX file containing tile information.
      */
     public TileLoaderManagerImpl(final TileManager tileManager, final String tmx) {
         this.tileManager = tileManager;
-        this.documentExtractor = new DocumentExtractorImpl(tmx);
-        this.numRows = documentExtractor.getNumRows();
-        this.numColumns = documentExtractor.getNumColumns();
+        final DocumentExtractor documentExtractor = new DocumentExtractorImpl(tmx);
+        this.tileLoaderGameObjects = new TileLoaderGameObjectsImpl(this, documentExtractor);
+        this.tileLoaderStationary = new TileLoaderStationaryImpl(this, documentExtractor);
     }
 
     /**
@@ -48,84 +45,8 @@ public class TileLoaderManagerImpl implements TileLoaderManager {
      */
     @Override
     public void load() {
-        loadStationaryTiles();
-        loadObjects("rectangle");
-        loadObjects("saws");
-    }
-
-    /**
-     * Loads stationary tiles from the TMX file and populates the TileManager.
-     */
-    private void loadStationaryTiles() {
-        final NodeList tileNodeList = documentExtractor.getElements("tile");
-
-        IntStream.range(0, numRows)
-                .forEach(
-                    row -> IntStream.range(0, numColumns)
-                        .forEach(column -> {
-                            final int gidNumber = row * numColumns + column;
-                            if (gidNumber < tileNodeList.getLength()) {
-                                final Element tilesetElement = (Element) Objects.requireNonNull(tileNodeList.item(gidNumber));
-                                final int idTile = Integer.parseInt(
-                                    tilesetElement.getAttributes().getNamedItem("gid").getTextContent());
-
-                                if (idTile > ID_TILE_NULL) {
-                                    if (idTile == ID_TILE_BANDAGEGIRL) {
-                                        tileManager.getBandageGirl().setX(
-                                            Double.valueOf(column * Constants.TILE_SIZE));
-                                        tileManager.getBandageGirl().setY(
-                                            Double.valueOf(row * Constants.TILE_SIZE));
-                                        tileManager.getStationary().get(row)
-                                            .set(column, Optional.of(tileManager.getTiles().get(idTile - 1)));
-                                    } else if (idTile == ID_TILE_MEATBOY) {
-                                        tileManager.getMeatBoy().setX(
-                                            Double.valueOf(column * Constants.TILE_SIZE));
-                                        tileManager.getMeatBoy().setY(
-                                            Double.valueOf(row * Constants.TILE_SIZE));
-                                    } else {
-                                        tileManager.getStationary().get(row)
-                                            .set(column, Optional.of(tileManager.getTiles().get(idTile - 1)));
-                                    }
-                                }
-                            }
-                        }));
-    }
-
-    /**
-     * Loads objects from the TMX file and populates the TileManager.
-     *
-     * @param nameObjects The name of the objects to load ( "rectangle" , "saws" ).
-     */
-    private void loadObjects(final String nameObjects) {
-        final NodeList objects = documentExtractor.getElements("objectgroup");
-        IntStream.range(0, objects.getLength())
-            .mapToObj(i -> (Element) objects.item(i))
-            .collect(Collectors.toList()).stream()
-                .filter(node -> nameObjects.equals(((Element) node).getAttribute("name")))
-                .findFirst()
-                .ifPresent(objectGroupElement -> {
-                    final NodeList objectsInGroup = ((Element) objectGroupElement).getElementsByTagName("object");
-                    IntStream.range(0, objectsInGroup.getLength())
-                        .mapToObj(i -> (Element) objectsInGroup.item(i))
-                        .collect(Collectors.toList()).stream()
-                            .map(objectNode -> (Element) objectNode)
-                            .forEach(objectElement -> {
-                                if ("saws".equals(nameObjects)) {
-                                    this.tileManager.getSaws().add(
-                                    new CircularSawImpl(
-                                        Integer.parseInt(trim(objectElement.getAttribute("x"))),
-                                        Integer.parseInt(trim(objectElement.getAttribute("y"))),
-                                        Integer.parseInt(trim(objectElement.getAttribute("width")))));
-                                } else {
-                                    this.tileManager.getPlatforms().add(
-                                    new PlatformImpl(
-                                        Integer.parseInt(trim(objectElement.getAttribute("x"))),
-                                        Integer.parseInt(trim(objectElement.getAttribute("y"))),
-                                        Integer.parseInt(trim(objectElement.getAttribute("width"))),
-                                        Integer.parseInt(trim(objectElement.getAttribute("height")))));
-                                }
-                            });
-                });
+        this.tileLoaderStationary.load();
+        this.tileLoaderGameObjects.load();
     }
 
     /**
@@ -134,8 +55,70 @@ public class TileLoaderManagerImpl implements TileLoaderManager {
      * @param s The String to trim
      * @return The trimmed String
      */
-    private String trim(final String s) {
+    @Override
+    public String trim(final String s) {
         return s.contains(".") ? s.replaceAll("\\s+", "") : s;
+    }
+
+    /**
+     * Returns the List of Platforms parsed from the TMX file.
+     *
+     * @return The List of Platforms parsed from the TMX file.
+     */
+    @Override
+    public List<Platform> getPlatforms() {
+        return this.tileManager.getPlatforms();
+    }
+
+    /**
+     * Returns the List of CircularSaws parsed from the TMX file.
+     *
+     * @return The List of CircularSaws parsed from the TMX file.
+     */
+    @Override
+    public List<CircularSaw> getSaws() {
+        return this.tileManager.getSaws();
+    }
+
+    /**
+     * Returns the MeatBoy object parsed from the TMX file.
+     *
+     * @return The MeatBoy object parsed from the TMX file.
+     */
+    @Override
+    public MeatBoy getMeatBoy() {
+        return this.tileManager.getMeatBoy();
+    }
+
+    /**
+     * Returns the BandageGirl object parsed from the TMX file.
+     *
+     * @return The BandageGirl object parsed from the TMX file.
+     */
+    @Override
+    public BandageGirl getBandageGirl() {
+        return this.tileManager.getBandageGirl();
+    }
+
+    /**
+     * Retrieves a two-dimensional list representing stationary tiles in the game.
+     * Each inner list corresponds to a row of stationary tiles in the game level.
+     *
+     * @return A two-dimensional list of stationary tiles.
+     */
+    @Override
+    public List<List<Optional<Tile>>> getStationary() {
+        return this.tileManager.getStationary();
+    }
+
+    /**
+     * Retrieves a list of all tiles in the game.
+     *
+     * @return A list containing all tiles in the game.
+     */
+    @Override
+    public List<Tile> getTiles() {
+        return this.tileManager.getTiles();
     }
 
 }
