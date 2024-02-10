@@ -31,5 +31,10 @@ public interface GameWindow {
      * indicating the player's victory.
      */
     void displayVictoryMessage();
+
+    /**
+     * This method set visible the current panel.
+     */
+    void setPanelVisible();
 }
 
