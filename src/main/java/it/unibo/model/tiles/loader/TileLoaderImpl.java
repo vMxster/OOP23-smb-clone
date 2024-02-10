@@ -1,4 +1,4 @@
-package it.unibo.model.tiles;
+package it.unibo.model.tiles.loader;
 
 import java.util.Objects;
 import java.util.stream.IntStream;
@@ -12,6 +12,7 @@ import it.unibo.model.documentextractor.DocumentExtractor;
 import it.unibo.model.documentextractor.DocumentExtractorImpl;
 import it.unibo.model.entity.obstacles.CircularSawImpl;
 import it.unibo.model.entity.obstacles.PlatformImpl;
+import it.unibo.model.tiles.manager.TileManager;
 
 /**
  * The TileLoaderImpl class is responsible for loading tiles and objects from a TMX file

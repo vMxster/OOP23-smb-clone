@@ -1,4 +1,4 @@
-package it.unibo.model.tiles;
+package it.unibo.model.tiles.manager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +13,9 @@ import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.player.MeatBoyImpl;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.entity.target.BandageGirlImpl;
+import it.unibo.model.tiles.Tile;
+import it.unibo.model.tiles.TileSetImpl;
+import it.unibo.model.tiles.loader.TileLoaderImpl;
 
 /**
  * The TileManagerImpl class implements the TileManager interface and provides

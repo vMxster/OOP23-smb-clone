@@ -1,4 +1,4 @@
-package it.unibo.model.tiles;
+package it.unibo.model.tiles.manager;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +7,7 @@ import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
+import it.unibo.model.tiles.Tile;
 
 /**
  * The TileManager interface represents a manager for handling tiles in a game.

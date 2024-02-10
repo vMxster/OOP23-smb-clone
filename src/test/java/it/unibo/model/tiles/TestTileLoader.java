@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import it.unibo.commons.Constants;
 import it.unibo.model.documentextractor.DocumentExtractor;
 import it.unibo.model.documentextractor.DocumentExtractorImpl;
+import it.unibo.model.tiles.loader.TileLoaderImpl;
+import it.unibo.model.tiles.manager.TileManager;
+import it.unibo.model.tiles.manager.TileManagerImpl;
 
 /**
  * JUnit tests for the TileLoader class.

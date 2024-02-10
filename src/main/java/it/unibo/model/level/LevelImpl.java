@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import it.unibo.model.tiles.Tile;
-import it.unibo.model.tiles.TileManager;
-import it.unibo.model.tiles.TileManagerImpl;
+import it.unibo.model.tiles.manager.TileManager;
+import it.unibo.model.tiles.manager.TileManagerImpl;
 import it.unibo.commons.Point2D;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;

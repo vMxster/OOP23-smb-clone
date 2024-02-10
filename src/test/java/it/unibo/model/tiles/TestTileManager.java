@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import it.unibo.commons.Constants;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
+import it.unibo.model.tiles.manager.TileManager;
+import it.unibo.model.tiles.manager.TileManagerImpl;
 
 /**
  * JUnit tests for the TileManager class.
