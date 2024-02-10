@@ -16,12 +16,10 @@ import java.awt.event.KeyEvent;
  */
 public class CollisionCheckerImpl implements CollisionChecker {
 
-    private List<CircularHitbox> sawsHitboxs;
-    private List<RectangleHitbox> platformsHitboxs;
-    private RectangleHitbox bandageGirlHitbox;
-    private MeatBoy meatBoy;
-
-    private CollisionHandler collisionHandler;
+    private final List<CircularHitbox> sawsHitboxs;
+    private final List<RectangleHitbox> platformsHitboxs;
+    private final RectangleHitbox bandageGirlHitbox;
+    private final MeatBoy meatBoy;
 
     private boolean moveLeft;
     private boolean moveRight;
@@ -40,15 +38,14 @@ public class CollisionCheckerImpl implements CollisionChecker {
      * @param collisionHandler the handler of the collision checker
      */
     public CollisionCheckerImpl(final CollisionHandler collisionHandler) {
-        this.collisionHandler = collisionHandler;
-        this.sawsHitboxs = this.collisionHandler.getGameModel().getSaws().stream()
+        this.sawsHitboxs = collisionHandler.getGameModel().getSaws().stream()
                 .map(t -> t.getHitbox())
                 .toList();
-        this.platformsHitboxs = this.collisionHandler.getGameModel().getPlatforms().stream()
+        this.platformsHitboxs = collisionHandler.getGameModel().getPlatforms().stream()
                 .map(t -> t.getHitbox())
                 .toList();
-        this.bandageGirlHitbox = this.collisionHandler.getGameModel().getBandageGirl().getHitbox();
-        this.meatBoy = this.collisionHandler.getGameModel().getMeatBoy();
+        this.bandageGirlHitbox = collisionHandler.getGameModel().getBandageGirl().getHitbox();
+        this.meatBoy = collisionHandler.getGameModel().getMeatBoy();
         this.state = CollisionState.GROUND;
     }
 
@@ -82,12 +79,12 @@ public class CollisionCheckerImpl implements CollisionChecker {
      * @return The state of MeatBoy related to border limit
      */
     @Override
-    public CollisionState isInWindow() {
+    public CollisionState inWindow() {
         leftBound = this.meatBoy.getX() < 0;
         rightBound = this.meatBoy.getX() + Constants.TILE_SIZE > Constants.SW - Constants.TILE_SIZE;
         upperBound = this.meatBoy.getY() < 0;
 
-        return (this.meatBoy.getY() > Constants.SH) ? CollisionState.FALL : state;
+        return this.meatBoy.getY() > Constants.SH ? CollisionState.FALL : state;
     }
 
     /**
