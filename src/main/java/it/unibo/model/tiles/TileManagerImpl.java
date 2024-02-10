@@ -23,12 +23,9 @@ public class TileManagerImpl implements TileManager {
     private final List<List<Optional<Tile>>> stationary;
     private final List<Platform> platforms;
     private final List<CircularSaw> circularSaws;
-    private final TileSet tileSet;
     private final List<Tile> tiles;
     private final MeatBoy meatBoy;
     private final BandageGirl bandageGirl;
-    private final TileLoader tileLoader;
-    private final DocumentExtractor documentExtractor;
     private final int numRows;
     private final int numColumns;
 
@@ -38,19 +35,17 @@ public class TileManagerImpl implements TileManager {
      * @param tmx The path to the TMX file.
      */
     public TileManagerImpl(final String tmx) {
-        this.platforms = new ArrayList<Platform>();
-        this.circularSaws = new ArrayList<CircularSaw>();
+        this.platforms = new ArrayList<>();
+        this.circularSaws = new ArrayList<>();
         this.stationary = new ArrayList<>();
-        this.tileSet = new TileSetImpl(tmx);
-        this.tiles = tileSet.getTiles();
+        this.tiles = new TileSetImpl(tmx).getTiles();
         this.meatBoy = new MeatBoyImpl(0, 0);
         this.bandageGirl = new BandageGirlImpl(0, 0);
-        this.documentExtractor = new DocumentExtractorImpl(tmx);
-        this.tileLoader = new TileLoaderImpl(this, tmx);
+        final DocumentExtractor documentExtractor = new DocumentExtractorImpl(tmx);
         this.numRows = documentExtractor.getNumRows();
         this.numColumns = documentExtractor.getNumColumns();
         init();
-        this.tileLoader.load();
+        new TileLoaderImpl(this, tmx).load();
     }
 
     /**
