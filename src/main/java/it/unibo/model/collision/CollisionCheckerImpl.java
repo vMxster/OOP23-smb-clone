@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.unibo.commons.Constants;
 import it.unibo.model.entity.player.MeatBoy;
+import it.unibo.model.entity.player.MeatBoyImpl;
 import it.unibo.model.hitbox.CircularHitbox;
 import it.unibo.model.hitbox.RectangleHitbox;
 
@@ -71,20 +72,20 @@ public class CollisionCheckerImpl implements CollisionChecker{
     public void updateMeatBoy() {
         //left
         if (moveLeft && !moveRight && !leftBound) {
-            this.meatBoy.setX(this.meatBoy.getX() - MeatBoy.SPEED * this.meatBoy.getSpeedMul());
+            this.meatBoy.setX(this.meatBoy.getX() - MeatBoyImpl.SPEED * this.meatBoy.getSpeedMul());
             isColliding();
             if (state == CollisionState.GROUND) {
                 state = CollisionState.WALL;
-                this.meatBoy.setX(this.meatBoy.getX() + MeatBoy.SPEED * this.meatBoy.getSpeedMul());
+                this.meatBoy.setX(this.meatBoy.getX() + MeatBoyImpl.SPEED * this.meatBoy.getSpeedMul());
             }
         }
         //right
         if (!moveLeft && moveRight && !rightBound) {
-            this.meatBoy.setX(this.meatBoy.getX() + MeatBoy.SPEED * this.meatBoy.getSpeedMul());
+            this.meatBoy.setX(this.meatBoy.getX() + MeatBoyImpl.SPEED * this.meatBoy.getSpeedMul());
             isColliding();
             if (state == CollisionState.GROUND) {
                 state = CollisionState.WALL;
-                this.meatBoy.setX(this.meatBoy.getX() - MeatBoy.SPEED * this.meatBoy.getSpeedMul());
+                this.meatBoy.setX(this.meatBoy.getX() - MeatBoyImpl.SPEED * this.meatBoy.getSpeedMul());
             }
         }
         //up
