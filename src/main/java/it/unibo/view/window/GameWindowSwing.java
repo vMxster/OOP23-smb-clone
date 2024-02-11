@@ -2,13 +2,13 @@ package it.unibo.view.window;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import it.unibo.commons.Constants;
 import it.unibo.controller.GameController;
+import it.unibo.view.panel.GameMenu;
 import it.unibo.view.imagerenderer.ImageRenderer;
 import it.unibo.view.imagerenderer.ImageRendererImpl;
 import it.unibo.view.panel.GamePanel;
@@ -23,7 +23,7 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     private final GameController controller;
     private final ImageRenderer renderer;
     private final GameMenu menu;
-    private final GamePanel gamePanel;
+    private GamePanel gamePanel;
 
     /**
      * Constructs a new instance of GameWindowSwing with the specified GameController.
@@ -61,16 +61,6 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     }
 
     /**
-     * This method is responsible for switching between different panels within the game window.
-     */
-    @Override
-    public void switchPanel() {
-        this.setContentPane(gamePanel);
-        gamePanel.requestFocus();
-        this.setVisible(true);
-    }
-
-    /**
      * Initializes the properties of the game window.
      */
     private void initializeWindowProperties() {
@@ -84,19 +74,48 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     /**
      * Initializes the game panel.
      */
-    private void initializeGamePanel() {
-        this.gamePanel.setLocation(0, 0);
+    @Override
+    public void initializeGamePanel() {
         try {
-            this.gamePanel.setImages(
-                List.of(
-                    this.renderer.getBackGround(),
-                    this.renderer.getStationary(controller.getStationary()),
-                    this.renderer.getSaws(controller.getSaws()),
-                    this.renderer.getMeatBoy()));
-        } catch (IOException e) {
-            Logger.getLogger(GameWindowSwing.class.getName())
-                .severe("An error occurred: " + e.getMessage());
+            this.gamePanel = createGamePanel();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    /**
+     * Set the game panel visible.
+     */
+    @Override
+    public void setPanelVisible() {
+        this.setVisible(true);
+    }
+
+    /**
+     * Creates a new instance of GamePanel with the specified GameController and sets its initial properties.
+     *
+     * @return a new instance of GamePanel configured with background, stationary, saws, and MeatBoy images.
+     * @throws IOException if an I/O error occurs while obtaining the images.
+     */
+    private GamePanel createGamePanel() throws IOException {
+        GamePanel panel = new GamePanel(this.controller);
+        panel.setLocation(0, 0);
+        panel.setImages(
+            List.of(
+                this.renderer.getBackGround(),
+                this.renderer.getStationary(controller.getStationary()),
+                this.renderer.getSaws(controller.getSaws()),
+                this.renderer.getMeatBoy()));
+        return panel;
+    }
+
+    /**
+     * Switches the content pane to the game panel.
+     */
+    public void switchPanel() {
+        this.setContentPane(gamePanel);
+        gamePanel.requestFocus();
+        this.setVisible(true);
     }
 
 }

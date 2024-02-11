@@ -20,6 +20,17 @@ public interface GameWindow {
     void displayVictoryMessage();
 
     /**
+     * Initializes the game panel, setting up its layout and content.
+     * This method is responsible for creating and configuring the game panel
+     * that will be displayed within the game window.
+     */
+    void initializeGamePanel();
+    
+    /**
+     * This method set visible the current panel.
+     */
+    void setPanelVisible();
+    /**
      * This method is responsible for switching between different panels within the game window.
      */
     void switchPanel();

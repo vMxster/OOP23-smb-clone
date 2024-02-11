@@ -24,8 +24,8 @@ public class GameControllerImpl implements GameController {
 
     private static final int INITIAL_DELAY = 0;
     private static final int FRAME_RATE = 17;
-    private final GameWindow gameWindow;
     private final GameModel gameModel;
+    private final GameWindow gameWindow;
 
     /**
      * Constructs a new GameControllerImpl instance.
@@ -34,13 +34,13 @@ public class GameControllerImpl implements GameController {
     public GameControllerImpl() {
         this.gameModel = new GameModelImpl(Constants.SOURCE_MAP);
         this.gameWindow = new GameWindowFactoryImpl().createSwingGameWindow(this);
-        this.start();
     }
 
     /**
      * Starts the game loop.
      */
-    private void start() {
+    public void start() {
+        this.gameWindow.setPanelVisible();
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
