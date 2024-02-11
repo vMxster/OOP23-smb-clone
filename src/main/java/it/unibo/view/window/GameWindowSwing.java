@@ -1,9 +1,5 @@
 package it.unibo.view.window;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.logging.Logger;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -19,9 +15,9 @@ import it.unibo.view.panel.GamePanel;
  */
 public class GameWindowSwing extends JFrame implements GameWindow {
 
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = 2;
     private final GameController controller;
-    private final ImageRendererManager renderer;
+    private final ImageRendererManager imageRendererManager;
     private final GameMenu menu;
     private final GamePanel gamePanel;
 
@@ -32,7 +28,9 @@ public class GameWindowSwing extends JFrame implements GameWindow {
      */
     public GameWindowSwing(final GameController controller) {
         this.controller = controller;
-        this.renderer = new ImageRendererManagerImpl(this.controller.getNumRows(), this.controller.getNumCols());
+        this.imageRendererManager = new ImageRendererManagerImpl(
+            controller.getNumRows(),
+            controller.getNumCols());
         this.menu = new GameMenu(controller, this);
         this.gamePanel = new GamePanel(this.controller);
         initializeGamePanel();
@@ -86,17 +84,11 @@ public class GameWindowSwing extends JFrame implements GameWindow {
      */
     private void initializeGamePanel() {
         this.gamePanel.setLocation(0, 0);
-        try {
-            this.gamePanel.setImages(
-                List.of(
-                    this.renderer.getBackGround(),
-                    this.renderer.getStationary(controller.getStationary()),
-                    this.renderer.getSaws(controller.getSaws()),
-                    this.renderer.getMeatBoy()));
-        } catch (IOException e) {
-            Logger.getLogger(GameWindowSwing.class.getName())
-                .severe("An error occurred: " + e.getMessage());
-        }
+        this.gamePanel.setImages(
+            this.imageRendererManager.render(
+                    this.controller.getSaws(),
+                    this.controller.getStationary()
+            ));
     }
 
 }
