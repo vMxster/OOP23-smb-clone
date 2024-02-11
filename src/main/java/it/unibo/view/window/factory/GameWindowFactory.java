@@ -15,7 +15,7 @@ public interface GameWindowFactory {
      * @param controller The GameController associated with the game window.
      * @return A new instance of GameWindow using Swing.
      */
-    GameWindow createSwingGameWindow(final GameController controller);
+    GameWindow createSwingGameWindow(GameController controller);
 
 }
 

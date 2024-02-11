@@ -1,65 +1,89 @@
 package it.unibo.model.tiles;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.commons.Constants;
+import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
-import it.unibo.model.entity.target.BandageGirlImpl;
+import it.unibo.model.tiles.manager.TileManager;
+import it.unibo.model.tiles.manager.TileManagerImpl;
 
+/**
+ * JUnit tests for the TileManager class.
+ */
 public class TestTileManager {
 
+    private static final int MAP_ROWS = 30;
+    private static final int MAP_COLUMNS = 36;
     private TileManager tileManager;
 
+    /**
+     * Initializes the test environment before each test method is executed.
+     */
     @BeforeEach
     public void init() {
         this.tileManager = new TileManagerImpl(Constants.SOURCE_MAP);
         assertNotNull(this.tileManager);
     }
 
+    /**
+     * Tests the initialization of the TileManager.
+     */
     @Test
-    public void testLoadMap() {
-        try {
-            tileManager.loadMap();
-            assertNotNull(tileManager.getStationary());
-            assertNotNull(tileManager.getPlatforms());
-            assertNotNull(tileManager.getSaws());
-            assertFalse(tileManager.getStationary().isEmpty());
-            assertFalse(tileManager.getPlatforms().isEmpty());
-            assertFalse(tileManager.getSaws().isEmpty());
-        } catch (IllegalArgumentException | NullPointerException exception) {
-            fail("Exception not expected: " + exception.getMessage());
-        }
+    void testInitialization() {
+        assertNotNull(tileManager.getPlatforms());
+        assertNotNull(tileManager.getSaws());
+        assertNotNull(tileManager.getStationary());
+        assertNotNull(tileManager.getTiles());
+        assertFalse(tileManager.getTiles().isEmpty());
     }
 
+    /**
+     * Tests the {@link TileManagerImpl#getNumCols()} and {@link TileManagerImpl#getNumRows()} methods.
+     */
     @Test
     public void testGetNumColsAndRows() {
-        assertEquals(36, tileManager.getNumCols());
-        assertEquals(30, tileManager.getNumRows());
+        assertEquals(MAP_COLUMNS, tileManager.getNumCols());
+        assertEquals(MAP_ROWS, tileManager.getNumRows());
     }
 
-    @Test
-    public void testMeatBoy() {
-        assertNotNull(tileManager.getMeatBoy());
-    }
-
-    @Test
-    public void testDocument() {
-        assertNotNull(tileManager.getDocument());
-    }
-
+    /**
+     * Tests the {@link TileManagerImpl#getTiles()} method.
+     */
     @Test
     public void testTiles() {
         assertNotNull(tileManager.getTiles());
     }
 
+    /**
+     * Tests the {@link TileManagerImpl#getMeatBoy()} method.
+     */
+    @Test
+    public void testMeatBoy() {
+        assertNotNull(tileManager.getMeatBoy());
+        MeatBoy meatBoy = tileManager.getMeatBoy();
+        meatBoy.setX(1);
+        assertEquals(1, meatBoy.getX());
+        meatBoy.setY(2);
+        assertEquals(2, meatBoy.getY());
+    }
+
+    /**
+     * Tests the {@link TileManagerImpl#getBandageGirl()} method.
+     */
     @Test
     public void testBandageGirl() {
-        BandageGirl bandageGirl = new BandageGirlImpl(0, 0);
+        assertNotNull(tileManager.getBandageGirl());
+        BandageGirl bandageGirl = tileManager.getBandageGirl();
         bandageGirl.setX(1);
         assertEquals(1, bandageGirl.getX());
         bandageGirl.setY(2);
         assertEquals(2, bandageGirl.getY());
     }
+
 }

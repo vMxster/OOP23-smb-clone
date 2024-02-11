@@ -2,9 +2,24 @@ package it.unibo;
 
 import it.unibo.controller.GameControllerImpl;
 
-public class SuperMeatBoy {
+/**
+ * The main class for the Super Meat Boy game.
+ */
+public final class SuperMeatBoy {
 
-    public static void main(String[] args) {
+    /**
+     * The main method to start the game.
+     * 
+     * @param args command-line arguments
+     */
+    public static void main(final String[] args) {
         new GameControllerImpl();
     }
+
+    /**
+     * Private constructor to prevent instantiation from outside the class.
+     */
+    private SuperMeatBoy() {
+    }
+
 }

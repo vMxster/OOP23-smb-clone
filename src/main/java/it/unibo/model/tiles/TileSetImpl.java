@@ -4,67 +4,101 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
+import java.util.stream.IntStream;
 
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
 import org.w3c.dom.Document;
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
+import it.unibo.commons.Constants;
+
+/**
+ * Implementation of the TileSet interface for parsing TMX file and extracting tiles.
+ */
 public class TileSetImpl implements TileSet {
 
-	private final String tmx;
-	private final List<Tile> tiles;
+    private final String tmx;
+    private final List<Tile> tiles;
 
-	/**
-	 * Constructs a new TileSet object by parsing a tmx file.
-	 * @param tmx The tmx file to parse
-	 */
-	public TileSetImpl(String tmx) {
-		this.tmx = tmx;
-		this.tiles = new ArrayList<>();
-		try {
-			read();
-		} catch (ParserConfigurationException | SAXException | IOException exception) {
-			exception.printStackTrace();
-		}
-	}
+    /**
+     * Constructs a new TileSetImpl object by specifying the TMX file to parse.
+     *
+     * @param tmx The path to the TMX file to parse.
+     */
+    public TileSetImpl(final String tmx) {
+        this.tmx = tmx;
+        this.tiles = new ArrayList<>();
+    }
 
-	@Override
-    public void read() throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        Document document = documentBuilder.parse(tmx);
-        NodeList tileSetNodeList = document.getElementsByTagName("tileset");
-        int numTileSets = tileSetNodeList.getLength();
-		
-		for (int i = 0; i < numTileSets; i++) {
-            Element tilesetElement = (Element) Objects.requireNonNull(tileSetNodeList.item(i));
-
-            divideSpriteSheet(Integer.parseInt(Objects.requireNonNull(tilesetElement.getElementsByTagName("image").item(0)).getAttributes().getNamedItem("width").getTextContent()),
-                Integer.parseInt(Objects.requireNonNull(tilesetElement.getElementsByTagName("image").item(0)).getAttributes().getNamedItem("height").getTextContent()), 
-				Objects.requireNonNull(tilesetElement.getElementsByTagName("image").item(0)).getAttributes().getNamedItem("source").getTextContent());
+    /**
+     * Reads the TMX file, parses it, and extracts tiles.
+     * 
+     * @return A list of Tile objects extracted from the TMX file.
+     */
+    @Override
+    public List<Tile> read() {
+        try {
+            parseTMXFile();
+        } catch (SAXException | IOException | ParserConfigurationException e) {
+            Logger.getLogger(TileSetImpl.class.getName())
+                        .severe("An error occurred: " + e.getMessage());
         }
-	}
+        return this.tiles;
+    }
 
-	@Override
-	public List<Tile> getTiles() {
-		return this.tiles;
-	}
+    /**
+     * Parses the TMX file to identify sprite sheets and divide them into tiles.
+     * 
+     * @throws ParserConfigurationException If a DocumentBuilder cannot be created which satisfies the configuration requested.
+     * @throws SAXException                 If any parse errors occur.
+     * @throws IOException                  If an I/O error occurs while reading the XML file.
+     */
+    @Override
+    public void parseTMXFile() throws SAXException, IOException, ParserConfigurationException {
+        final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(tmx);
+        final NodeList tileSetNodeList = document.getElementsByTagName("tileset");
 
-	/**
-	 * Splits the SpriteSheet into tiles of the appropriate size.
-	 * @param w The width of the TileSet image
-	 * @param h The height of the TileSet image
-	 * @throws IOException
-	 */
-	private void divideSpriteSheet(int width, int height, String srcImage) throws IOException {
-		for( int row=0 ; row<height ; row+=20 ) {
-			for( int column=0 ; column<width ; column+=20 ) {
-				tiles.add(new TileImpl(column, row, srcImage));
-			}
-		}
-	}
+        IntStream.range(0, tileSetNodeList.getLength())
+            .mapToObj(i -> (Element) tileSetNodeList.item(i))
+            .forEach(tilesetElement -> {
+                try {
+                    divideSpriteSheet(
+                        Integer.parseInt(Objects.requireNonNull(
+                            tilesetElement.getElementsByTagName("image").item(0))
+                                .getAttributes().getNamedItem("width").getTextContent()),
+                        Integer.parseInt(Objects.requireNonNull(
+                            tilesetElement.getElementsByTagName("image").item(0))
+                                .getAttributes().getNamedItem("height").getTextContent()),
+                        Objects.requireNonNull(
+                            tilesetElement.getElementsByTagName("image").item(0))
+                                .getAttributes().getNamedItem("source").getTextContent());
+                } catch (IOException e) {
+                    Logger.getLogger(TileSetImpl.class.getName())
+                        .severe("An error occurred: " + e.getMessage());
+                }
+            });
+    }
+
+    /**
+     * Splits the sprite sheet into tiles of the appropriate size.
+     *
+     * @param width    The width of the tileset image.
+     * @param height   The height of the tileset image.
+     * @param srcImage The source image of the tileset.
+     * @throws IOException If an I/O error occurs.
+     */
+    private void divideSpriteSheet(final int width, final int height, final String srcImage) throws IOException {
+        IntStream.range(0, height / Constants.TILE_SIZE)
+                .boxed()
+                .flatMap(
+                    row -> IntStream.range(0, width / Constants.TILE_SIZE)
+                .mapToObj(
+                    column -> new TileImpl(column * Constants.TILE_SIZE, row * Constants.TILE_SIZE, srcImage)))
+                .forEach(tiles::add);
+    }
 
 }

@@ -1,49 +1,49 @@
-package it.unibo.view.imageRenderer;
+package it.unibo.view.imagerenderer;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.tiles.Tile;
 
 /**
- * The Renderer interface defines methods for rendering game elements.
+ * The ImageRenderer interface defines methods for rendering game elements.
  */
 public interface ImageRenderer {
 
     /**
-     * Generates a BufferedImage representing the stationary tiles in the game.
-     * 
-     * @param stationary a 2D List of Tile objects representing the stationary tiles.
-     * @return a BufferedImage representing the stationary tiles.
-     * @throws IOException if an I/O error occurs while generating the image.
-     */
-    BufferedImage getStationary(final List<List<Tile>> stationary) throws IOException;
-
-    /**
      * Generates a BufferedImage representing the background of the game.
      * 
-     * @return a BufferedImage representing the background.
-     * @throws IOException if an I/O error occurs while generating the image.
+     * @return A BufferedImage representing the background.
+     * @throws IOException If an I/O error occurs while generating the image.
      */
     BufferedImage getBackGround() throws IOException;
 
     /**
      * Generates a BufferedImage representing the character MeatBoy in the game.
      * 
-     * @return a BufferedImage representing Meat Boy.
-     * @throws IOException if an I/O error occurs while generating the image.
+     * @return A BufferedImage representing Meat Boy.
+     * @throws IOException If an I/O error occurs while generating the image.
      */
     BufferedImage getMeatBoy() throws IOException;
 
     /**
+     * Generates a BufferedImage representing the stationary tiles in the game.
+     * 
+     * @param stationary A 2D List of Tile objects representing the stationary tiles.
+     * @return A BufferedImage representing the stationary tiles.
+     */
+    BufferedImage getStationary(List<List<Optional<Tile>>> stationary);
+
+    /**
      * Generates a BufferedImage representing the saws of the game.
      * 
-     * @return a BufferedImage representing the background.
-     * @throws IOException if an I/O error occurs while generating the image.
+     * @param saws The List of CircularSaw objects representing the saws.
+     * @return A BufferedImage representing the saws.
      */
-    BufferedImage getSaws(final List<CircularSaw> saws);
+    BufferedImage getSaws(List<CircularSaw> saws);
 
 }
 

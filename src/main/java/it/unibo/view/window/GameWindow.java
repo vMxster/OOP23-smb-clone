@@ -14,23 +14,14 @@ public interface GameWindow {
     void paint();
 
     /**
-     * Initializes the properties of the game window, such as size, title, and behavior.
-     * This method should be called to set up the initial configuration of the game window.
-     */
-    void initializeWindowProperties();
-
-    /**
-     * Initializes the game panel, setting up its layout and content.
-     * This method is responsible for creating and configuring the game panel
-     * that will be displayed within the game window.
-     */
-    void initializeGamePanel();
-
-    /**
      * This method is responsible for showing a graphical message or UI elements
      * indicating the player's victory.
      */
     void displayVictoryMessage();
-    
-}
 
+    /**
+     * This method is responsible for switching between different panels within the game window.
+     */
+    void switchPanel();
+
+}
