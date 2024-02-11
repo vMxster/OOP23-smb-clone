@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 
 import it.unibo.commons.Constants;
 import it.unibo.model.entity.obstacles.CircularSaw;
-import it.unibo.view.imagerenderer.manager.ImageRendererManagerImpl;
 
 /**
  * An implementation of ImageRendererSaws that generates a BufferedImage representing
@@ -71,7 +70,7 @@ public class ImageRendererSawsImpl implements ImageRendererSaws {
                                 (int) saw.getHitbox().getHitbox().getHeight(),
                                 null);
                     } catch (IOException e) {
-                        Logger.getLogger(ImageRendererManagerImpl.class.getName())
+                        Logger.getLogger(ImageRendererSawsImpl.class.getName())
                                 .severe("An error occurred: " + e.getMessage());
                     }
                 });
