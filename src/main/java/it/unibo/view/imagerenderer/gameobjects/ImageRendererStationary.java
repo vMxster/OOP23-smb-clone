@@ -1,4 +1,4 @@
-package it.unibo.view.imagerenderer.stationary;
+package it.unibo.view.imagerenderer.gameobjects;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
