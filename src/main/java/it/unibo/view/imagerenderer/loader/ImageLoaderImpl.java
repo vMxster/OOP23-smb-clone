@@ -3,6 +3,7 @@ package it.unibo.view.imagerenderer.loader;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
@@ -12,12 +13,6 @@ import it.unibo.view.imagerenderer.manager.ImageType;
  * The ImageLoaderImpl class provides functionality to load images based on the specified ImageType.
  */
 public class ImageLoaderImpl implements ImageLoader {
-
-    /**
-     * Constructs a new instance of ImageLoaderImpl.
-     */
-    public ImageLoaderImpl() {
-    }
 
     /**
      * Loads the image associated with the specified ImageType.
@@ -30,7 +25,8 @@ public class ImageLoaderImpl implements ImageLoader {
         try {
             return getImage(imageType);
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(ImageLoaderImpl.class.getName())
+                .severe("An error occurred: " + e.getMessage());
         }
         return new BufferedImage(0, 0, 0);
     }
