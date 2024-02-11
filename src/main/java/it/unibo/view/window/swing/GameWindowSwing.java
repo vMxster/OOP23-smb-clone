@@ -17,7 +17,7 @@ import it.unibo.view.window.GameWindow;
  */
 public class GameWindowSwing extends JFrame implements GameWindow {
 
-    public static final long serialVersionUID = 2;
+    public static final long serialVersionUID = 3;
     private final GameController controller;
     private final ImageRendererManager imageRendererManager;
     private final GameMenu menu;
@@ -30,10 +30,8 @@ public class GameWindowSwing extends JFrame implements GameWindow {
      */
     public GameWindowSwing(final GameController controller) {
         this.controller = controller;
-        this.imageRendererManager = new ImageRendererManagerImpl(
-            controller.getNumRows(),
-            controller.getNumCols());
-        this.menu = new GameMenu(controller, this);
+        this.imageRendererManager = new ImageRendererManagerImpl(this.controller);
+        this.menu = new GameMenu(this.controller, this);
         this.gamePanel = new GamePanel(this.controller);
         initializeGamePanel();
         setContentPane(menu);
@@ -87,10 +85,7 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     private void initializeGamePanel() {
         this.gamePanel.setLocation(0, 0);
         this.gamePanel.setImages(
-            this.imageRendererManager.render(
-                    this.controller.getSaws(),
-                    this.controller.getStationary()
-            ));
+            this.imageRendererManager.render());
     }
 
 }
