@@ -9,8 +9,8 @@ import javax.swing.JOptionPane;
 
 import it.unibo.commons.Constants;
 import it.unibo.controller.GameController;
-import it.unibo.view.imagerenderer.ImageRenderer;
-import it.unibo.view.imagerenderer.ImageRendererImpl;
+import it.unibo.view.imagerenderer.manager.ImageRendererManager;
+import it.unibo.view.imagerenderer.manager.ImageRendererManagerImpl;
 import it.unibo.view.panel.GamePanel;
 
 /**
@@ -21,7 +21,7 @@ public class GameWindowSwing extends JFrame implements GameWindow {
 
     public static final long serialVersionUID = 1;
     private final GameController controller;
-    private final ImageRenderer renderer;
+    private final ImageRendererManager renderer;
     private final GameMenu menu;
     private final GamePanel gamePanel;
 
@@ -32,7 +32,7 @@ public class GameWindowSwing extends JFrame implements GameWindow {
      */
     public GameWindowSwing(final GameController controller) {
         this.controller = controller;
-        this.renderer = new ImageRendererImpl(this.controller.getNumRows(), this.controller.getNumCols());
+        this.renderer = new ImageRendererManagerImpl(this.controller.getNumRows(), this.controller.getNumCols());
         this.menu = new GameMenu(controller, this);
         this.gamePanel = new GamePanel(this.controller);
         initializeGamePanel();

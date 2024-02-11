@@ -1,4 +1,4 @@
-package it.unibo.view.imagerenderer;
+package it.unibo.view.imagerenderer.manager;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -20,7 +20,7 @@ import it.unibo.model.tiles.Tile;
  * The ImageRendererImpl class is responsible for rendering images for the game map, including background, 
  * player character (Meat Boy), stationary objects, and circular saws.
  */
-public class ImageRendererImpl implements ImageRenderer {
+public class ImageRendererManagerImpl implements ImageRendererManager {
 
     private final int numRows;
     private final int numCols;
@@ -32,7 +32,7 @@ public class ImageRendererImpl implements ImageRenderer {
      * @param numRows The number of Map rows.
      * @param numCols The number of Map columns.
      */
-    public ImageRendererImpl(final int numRows, final int numCols) {
+    public ImageRendererManagerImpl(final int numRows, final int numCols) {
         this.numCols = numCols;
         this.numRows = numRows;
     }
@@ -86,7 +86,7 @@ public class ImageRendererImpl implements ImageRenderer {
                                     Constants.TILE_SIZE,
                                     null);
                         } catch (IOException e) {
-                            Logger.getLogger(ImageRendererImpl.class.getName())
+                            Logger.getLogger(ImageRendererManagerImpl.class.getName())
                                     .severe("An error occurred: " + e.getMessage());
                         }
                     });
@@ -121,7 +121,7 @@ public class ImageRendererImpl implements ImageRenderer {
                                 (int) saw.getHitbox().getHitbox().getHeight(),
                                 null);
                     } catch (IOException e) {
-                        Logger.getLogger(ImageRendererImpl.class.getName())
+                        Logger.getLogger(ImageRendererManagerImpl.class.getName())
                                 .severe("An error occurred: " + e.getMessage());
                     }
                 });

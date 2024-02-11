@@ -1,4 +1,4 @@
-package it.unibo.view.imagerenderer;
+package it.unibo.view.imagerenderer.manager;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import it.unibo.model.tiles.Tile;
 /**
  * The ImageRenderer interface defines methods for rendering game elements.
  */
-public interface ImageRenderer {
+public interface ImageRendererManager {
 
     /**
      * Generates a BufferedImage representing the background of the game.
