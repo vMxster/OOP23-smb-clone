@@ -11,8 +11,8 @@ import javax.imageio.ImageIO;
 
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.tiles.Tile;
-import it.unibo.view.imagerenderer.gameobjects.ImageRendererGameObjects;
-import it.unibo.view.imagerenderer.gameobjects.ImageRendererGameObjectsImpl;
+import it.unibo.view.imagerenderer.gameobjects.ImageRendererSaws;
+import it.unibo.view.imagerenderer.gameobjects.ImageRendererSawsImpl;
 import it.unibo.view.imagerenderer.stationary.ImageRendererStationary;
 import it.unibo.view.imagerenderer.stationary.ImageRendererStationaryImpl;
 
@@ -21,7 +21,7 @@ import it.unibo.view.imagerenderer.stationary.ImageRendererStationaryImpl;
  */
 public class ImageRendererManagerImpl implements ImageRendererManager {
 
-    private final ImageRendererGameObjects imageRendererGameObjects;
+    private final ImageRendererSaws imageRendererGameObjects;
     private final ImageRendererStationary imageRendererStationary;
 
     /**
@@ -31,7 +31,7 @@ public class ImageRendererManagerImpl implements ImageRendererManager {
      * @param numColumns The number of columns in the game map.
      */
     public ImageRendererManagerImpl(final int numRows, final int numColumns) {
-        this.imageRendererGameObjects = new ImageRendererGameObjectsImpl(numRows, numColumns);
+        this.imageRendererGameObjects = new ImageRendererSawsImpl(numRows, numColumns);
         this.imageRendererStationary = new ImageRendererStationaryImpl(numRows, numColumns);
     }
 
