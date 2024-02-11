@@ -22,10 +22,9 @@ public class ImageRendererManagerImpl implements ImageRendererManager {
     private final ImageLoader imageLoader;
 
     /**
-     * Constructs an ImageRendererManager with the specified number of rows and columns for the game map.
+     * Constructs an ImageRendererManager with the specified GameController.
      *
-     * @param numRows    The number of rows in the game map.
-     * @param numColumns The number of columns in the game map.
+     * @param gameController The GameController associated with the game map.
      */
     public ImageRendererManagerImpl(final GameController gameController) {
         this.gameController = gameController;
