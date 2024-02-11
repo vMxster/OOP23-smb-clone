@@ -1,4 +1,4 @@
-package it.unibo.view.window;
+package it.unibo.view.window.swing;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -7,7 +7,9 @@ import it.unibo.commons.Constants;
 import it.unibo.controller.GameController;
 import it.unibo.view.imagerenderer.manager.ImageRendererManager;
 import it.unibo.view.imagerenderer.manager.ImageRendererManagerImpl;
+import it.unibo.view.panel.GameMenu;
 import it.unibo.view.panel.GamePanel;
+import it.unibo.view.window.GameWindow;
 
 /**
  * The GameWindowSwing class represents a Swing-based implementation of the GameWindow interface.

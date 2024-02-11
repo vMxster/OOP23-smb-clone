@@ -2,7 +2,7 @@ package it.unibo.view.window.factory;
 
 import it.unibo.controller.GameController;
 import it.unibo.view.window.GameWindow;
-import it.unibo.view.window.GameWindowSwing;
+import it.unibo.view.window.swing.GameWindowSwing;
 
 /**
  * The GameWindowFactoryImpl class implements the GameWindowFactory interface

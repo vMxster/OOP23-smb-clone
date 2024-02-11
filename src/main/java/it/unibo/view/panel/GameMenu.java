@@ -1,4 +1,4 @@
-package it.unibo.view.window;
+package it.unibo.view.panel;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import it.unibo.controller.GameController;
+import it.unibo.view.window.swing.GameWindowSwing;
 
 public class GameMenu extends JPanel{
 
