@@ -13,7 +13,6 @@ import javax.imageio.ImageIO;
 
 import it.unibo.commons.Constants;
 import it.unibo.model.tiles.Tile;
-import it.unibo.view.imagerenderer.manager.ImageRendererManagerImpl;
 
 /**
  * An implementation of ImageRendererStationary that generates a BufferedImage representing
@@ -73,7 +72,7 @@ public class ImageRendererStationaryImpl implements ImageRendererStationary {
                                     Constants.TILE_SIZE,
                                     null);
                         } catch (IOException e) {
-                            Logger.getLogger(ImageRendererManagerImpl.class.getName())
+                            Logger.getLogger(ImageRendererStationaryImpl.class.getName())
                                     .severe("An error occurred: " + e.getMessage());
                         }
                     });
