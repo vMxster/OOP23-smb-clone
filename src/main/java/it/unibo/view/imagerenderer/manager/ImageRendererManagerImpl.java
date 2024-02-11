@@ -1,40 +1,55 @@
 package it.unibo.view.imagerenderer.manager;
 
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Objects;
-import java.util.logging.Logger;
-import java.util.stream.IntStream;
 
 import javax.imageio.ImageIO;
 
-import it.unibo.commons.Constants;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.tiles.Tile;
+import it.unibo.view.imagerenderer.gameobjects.ImageRendererGameObjects;
+import it.unibo.view.imagerenderer.gameobjects.ImageRendererGameObjectsImpl;
+import it.unibo.view.imagerenderer.stationary.ImageRendererStationary;
+import it.unibo.view.imagerenderer.stationary.ImageRendererStationaryImpl;
 
 /**
- * The ImageRendererImpl class is responsible for rendering images for the game map, including background, 
- * player character (Meat Boy), stationary objects, and circular saws.
+ * The ImageRendererManager class is responsible for managing the rendering of the game map.
  */
 public class ImageRendererManagerImpl implements ImageRendererManager {
 
-    private final int numRows;
-    private final int numCols;
+    private final ImageRendererGameObjects imageRendererGameObjects;
+    private final ImageRendererStationary imageRendererStationary;
 
     /**
-     * Initializes a new instance of ImageRenderer with the given number of rows
-     * and columns.
+     * Constructs an ImageRendererManager with the specified number of rows and columns for the game map.
      *
-     * @param numRows The number of Map rows.
-     * @param numCols The number of Map columns.
+     * @param numRows    The number of rows in the game map.
+     * @param numColumns The number of columns in the game map.
      */
-    public ImageRendererManagerImpl(final int numRows, final int numCols) {
-        this.numCols = numCols;
-        this.numRows = numRows;
+    public ImageRendererManagerImpl(final int numRows, final int numColumns) {
+        this.imageRendererGameObjects = new ImageRendererGameObjectsImpl(numRows, numColumns);
+        this.imageRendererStationary = new ImageRendererStationaryImpl(numRows, numColumns);
+    }
+
+    /**
+     * Manage the rendering of circular saws and stationary tiles into a list of BufferedImages.
+     *
+     * @param saws       The list of CircularSaw objects to render.
+     * @param stationary The 2D list of Optional Tile objects representing the stationary tiles.
+     * @return A list of BufferedImages representing the rendered game elements.
+     */
+    @Override
+    public List<BufferedImage> render(final List<CircularSaw> saws, final List<List<Optional<Tile>>> stationary) {
+        final List<BufferedImage> list = new ArrayList<>();
+        list.add(
+            this.imageRendererGameObjects.render(saws));
+        list.add(
+            this.imageRendererStationary.render(stationary));
+        return list;
     }
 
     /**
@@ -57,91 +72,6 @@ public class ImageRendererManagerImpl implements ImageRendererManager {
     @Override
     public BufferedImage getMeatBoy() throws IOException {
         return ImageIO.read(new File("./src/main/resources/meatboystanding.png"));
-    }
-
-    /**
-     * Generates a BufferedImage representing the stationary tiles in the game.
-     * 
-     * @param stationary A 2D List of Tile objects representing the stationary tiles.
-     * @return A BufferedImage representing the stationary tiles.
-     */
-    @Override
-    public BufferedImage getStationary(final List<List<Optional<Tile>>> stationary) {
-        final BufferedImage image = new BufferedImage(
-                numCols * Constants.TILE_SIZE,
-                numRows * Constants.TILE_SIZE,
-                BufferedImage.TYPE_INT_ARGB);
-        final Graphics2D g = (Graphics2D) image.getGraphics();
-
-        IntStream.range(0, numRows).forEach(row ->
-                IntStream.range(0, numCols).forEach(column -> {
-                    final Optional<Tile> tile = stationary.get(row).get(column);
-                    tile.ifPresent(t -> {
-                        try {
-                            g.drawImage(
-                                    getSubImage(ImageIO.read(new File("./src/main/resources/" + t.getSrcImage())), t),
-                                    column * Constants.TILE_SIZE,
-                                    row * Constants.TILE_SIZE,
-                                    Constants.TILE_SIZE,
-                                    Constants.TILE_SIZE,
-                                    null);
-                        } catch (IOException e) {
-                            Logger.getLogger(ImageRendererManagerImpl.class.getName())
-                                    .severe("An error occurred: " + e.getMessage());
-                        }
-                    });
-                }));
-        g.dispose();
-        return image;
-    }
-
-    /**
-     * Generates a BufferedImage representing the saws of the game.
-     * 
-     * @param saws The List of CircularSaw objects representing the saws.
-     * @return A BufferedImage representing the saws.
-     */
-    @Override
-    public BufferedImage getSaws(final List<CircularSaw> saws) {
-        final BufferedImage image = new BufferedImage(
-                numCols * Constants.TILE_SIZE,
-                numRows * Constants.TILE_SIZE,
-                BufferedImage.TYPE_INT_ARGB);
-        final Graphics2D g = (Graphics2D) image.getGraphics();
-
-        saws.stream()
-                .filter(saw -> !Objects.isNull(saw))
-                .forEach(saw -> {
-                    try {
-                        g.drawImage(
-                                ImageIO.read(new File("./src/main/resources/buzzsaw2.png")),
-                                (int) saw.getX(),
-                                (int) saw.getY(),
-                                (int) saw.getHitbox().getHitbox().getWidth(),
-                                (int) saw.getHitbox().getHitbox().getHeight(),
-                                null);
-                    } catch (IOException e) {
-                        Logger.getLogger(ImageRendererManagerImpl.class.getName())
-                                .severe("An error occurred: " + e.getMessage());
-                    }
-                });
-        g.dispose();
-        return image;
-    }
-
-    /**
-     * Returns a subimage from the provided base image based on the specified tile.
-     *
-     * @param baseImage The base image from which to extract the subimage.
-     * @param tile The Tile object specifying the subimage's position.
-     * @return The subimage corresponding to the specified Tile.
-     */
-    private BufferedImage getSubImage(final BufferedImage baseImage, final Tile tile) {
-        return baseImage.getSubimage(
-                tile.getX(),
-                tile.getY(),
-                Constants.TILE_SIZE,
-                Constants.TILE_SIZE);
     }
 
 }
