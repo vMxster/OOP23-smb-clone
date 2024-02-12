@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import it.unibo.commons.Constants;
 import it.unibo.controller.GameController;
@@ -57,7 +58,6 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     @Override
     public void displayVictoryMessage() {
         JOptionPane.showMessageDialog(this, "WIN", "WIN", JOptionPane.INFORMATION_MESSAGE);
-        this.setVisible(false);
     }
 
     /**
@@ -112,10 +112,19 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     /**
      * Switches the content pane to the game panel.
      */
-    public void switchPanel() {
-        this.setContentPane(gamePanel);
-        gamePanel.requestFocus();
+    public void switchPanel(PanelType type) {
+        var panel = selectPanel(type);
+        this.setContentPane(panel);
+        panel.requestFocus();
         this.setVisible(true);
     }
 
+    private JPanel selectPanel(PanelType type) {
+        return switch(type) {
+            case GAME -> gamePanel;
+            case MENU -> menu;
+            case SCOREBOARD -> null;
+            default -> throw new IllegalArgumentException();
+        };
+    }
 }
