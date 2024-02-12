@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import it.unibo.commons.Point2D;
+import it.unibo.controller.GameController;
 import it.unibo.model.collision.CollisionHandler;
 import it.unibo.model.collision.CollisionHandlerImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
@@ -22,16 +23,19 @@ public class GameModelImpl implements GameModel {
 
     private final Level level;
     private final CollisionHandlerImpl collisionHandler;
+    private final GameController gameController;
 
     /**
      * Constructs a new instance of the GameModel.
      * This constructor initializes the game model with the specified URL to the game map.
      *
      * @param tmx The path to the TMX file representing the game map.
+     * @param gameControllerImpl 
      */
-    public GameModelImpl(final String tmx) {
+    public GameModelImpl(final String tmx, final GameController gameController) {
         this.level = new LevelImpl(tmx);
         this.collisionHandler = new CollisionHandlerImpl(this);
+        this.gameController = gameController;
     }
 
     /**
@@ -122,6 +126,18 @@ public class GameModelImpl implements GameModel {
     @Override
     public CollisionHandler getCollisionHandler() {
         return this.collisionHandler;
+    }
+
+    @Override
+    public void victory() {
+        this.gameController.victory();
+    }
+
+    @Override
+    public void initializeCoords() {
+        this.getMeatBoy().setX(this.getMeatBoyStartCoord().getX());
+        this.getMeatBoy().setY(this.getMeatBoyStartCoord().getY());
+        this.getCollisionHandler().initializeStates();
     }
 
 }
