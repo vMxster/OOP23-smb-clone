@@ -49,4 +49,6 @@ public interface CollisionChecker {
      * @return state of MeatBoy
      */
     CollisionState getState();
+
+    void initializeStates();
 }

@@ -204,6 +204,14 @@ public class CollisionCheckerImpl implements CollisionChecker {
         return state;
     }
 
+    @Override
+    public void initializeStates() {
+        this.moveLeft = false;
+        this.moveRight = false;
+        this.jump = false;
+        this.state = CollisionState.GROUND;
+    }
+
     private void setMoveLeft(final boolean moveLeft) {
         this.moveLeft = moveLeft;
     }
