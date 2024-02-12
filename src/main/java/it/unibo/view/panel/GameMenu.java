@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import it.unibo.controller.GameController;
 import it.unibo.view.window.GameWindowSwing;
+import it.unibo.view.window.GameWindow.PanelType;
 
 /**
  * The GameMenu class represents the panel of the main menu of the game.
@@ -34,7 +35,8 @@ public class GameMenu extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                window.switchPanel();
+                controller.start();
+                window.switchPanel(PanelType.GAME);
             }
         });
 
