@@ -14,7 +14,7 @@ public class EntityImpl<H extends Hitbox<?>> implements Entity<H> {
 
     private double x;
     private double y;
-    private H hitbox;
+    private final H hitbox;
 
     /**
      * Constructs an EntityImpl object with the specified coordinates and hitbox.

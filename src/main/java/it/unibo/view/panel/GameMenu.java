@@ -18,9 +18,8 @@ import it.unibo.view.window.GameWindow.PanelType;
  */
 public class GameMenu extends JPanel {
 
-    private JButton startButton;
-    private JButton scoreboardButton;
-    private JButton quitButton;
+    public static final long serialVersionUID = 1;
+
     /**
      * Constructs a new instance of GameMenu with the specified GameController and GameWindowSwing.
      * 
@@ -29,9 +28,9 @@ public class GameMenu extends JPanel {
      */
     public GameMenu(final GameController controller, final GameWindowSwing window) {
         this.setLayout(new GridLayout(3, 1));
-        startButton = new JButton("START");
-        scoreboardButton = new JButton("SCOREBOARD");
-        quitButton = new JButton("QUIT");
+        final JButton startButton = new JButton("START");
+        final JButton scoreboardButton = new JButton("SCOREBOARD");
+        final JButton quitButton = new JButton("QUIT");
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
@@ -51,7 +50,7 @@ public class GameMenu extends JPanel {
         quitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", 
+                final int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", 
                 "Exit Confirmation", JOptionPane.YES_NO_OPTION);
 
                 if (confirm == JOptionPane.YES_OPTION) {

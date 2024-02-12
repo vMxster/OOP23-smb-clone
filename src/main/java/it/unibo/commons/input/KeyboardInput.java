@@ -11,7 +11,7 @@ import it.unibo.view.panel.GamePanel;
  */
 public class KeyboardInput extends KeyAdapter {
 
-    private GamePanel panel;
+    private final GamePanel panel;
 
     /**
      * Constructs the KeyboardInput with the specified GamePanel.

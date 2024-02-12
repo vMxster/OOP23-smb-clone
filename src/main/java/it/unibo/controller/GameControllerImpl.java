@@ -25,9 +25,9 @@ public class GameControllerImpl implements GameController {
 
     private static final int INITIAL_DELAY = 0;
     private static final int FRAME_RATE = 17;
-    private GameModel gameModel;
-    private GameWindow gameWindow;
-    private Timer timer;
+    private final GameModel gameModel;
+    private final GameWindow gameWindow;
+    private final Timer timer;
     private TimerTask gameLoop;
     private TimerTask gameTimer;
     private int centiSeconds;
@@ -46,6 +46,7 @@ public class GameControllerImpl implements GameController {
     /**
      * Starts the game loop.
      */
+    @Override
     public void start() {
         this.gameModel.initializeCoords();
         this.gameLoop = createGameLoopTask();

@@ -2,9 +2,10 @@ package it.unibo.view.window;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import java.awt.Font;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -83,15 +84,15 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     /**
      * Initializes the game panel.
      */
-    @Override
-    public void initializeGamePanel() {
+    private void initializeGamePanel() {
         try {
             this.gamePanel = createGamePanel();
             this.timerField.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
             this.timerField.setBounds(INITIAL_TIMER_POSITION, INITIAL_TIMER_POSITION, TIMER_WIDTH, TIMER_HEIGHT);
             this.gamePanel.add(timerField);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            Logger.getLogger(GameWindowSwing.class.getName())
+                .log(Level.SEVERE, "Errore durante l'inizializzazione del pannello di gioco", e);
         }
     }
 
@@ -110,7 +111,7 @@ public class GameWindowSwing extends JFrame implements GameWindow {
      * @throws IOException if an I/O error occurs while obtaining the images.
      */
     private GamePanel createGamePanel() throws IOException {
-        GamePanel panel = new GamePanel(this.controller);
+        final var panel = new GamePanel(this.controller);
         panel.setLocation(0, 0);
         panel.setImages(
             List.of(
@@ -126,8 +127,9 @@ public class GameWindowSwing extends JFrame implements GameWindow {
      * 
      * @param type Type of panel to set.
      */
+    @Override
     public void switchPanel(final PanelType type) {
-        var panel = selectPanel(type);
+        final var panel = selectPanel(type);
         this.setContentPane(panel);
         panel.requestFocus();
         this.setVisible(true);
