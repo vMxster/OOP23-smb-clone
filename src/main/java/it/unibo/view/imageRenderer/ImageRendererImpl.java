@@ -1,4 +1,4 @@
-package it.unibo.view.imagerenderer;
+package it.unibo.view.imageRenderer;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
