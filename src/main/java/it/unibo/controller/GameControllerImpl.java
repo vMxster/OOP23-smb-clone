@@ -27,7 +27,10 @@ public class GameControllerImpl implements GameController {
     private static final int FRAME_RATE = 17;
     private GameModel gameModel;
     private GameWindow gameWindow;
+    private Timer timer;
     private TimerTask gameLoop;
+    private TimerTask gameTimer;
+    private int centiSeconds;
 
     /**
      * Constructs a new GameControllerImpl instance.
@@ -37,17 +40,7 @@ public class GameControllerImpl implements GameController {
         this.gameModel = new GameModelImpl(Constants.SOURCE_MAP, this);
         this.gameWindow = new GameWindowFactoryImpl().createSwingGameWindow(this);
         this.gameWindow.setPanelVisible();
-    }
-
-    private TimerTask createTask() {
-        return new TimerTask() {
-            @Override
-            public void run() {
-                gameModel.getCollisionHandler().updateMeatBoy();
-                gameModel.getCollisionHandler().check();
-                gameWindow.paint();
-            }
-        };
+        this.timer = new Timer();
     }
 
     /**
@@ -55,8 +48,43 @@ public class GameControllerImpl implements GameController {
      */
     public void start() {
         this.gameModel.initializeCoords();
-        this.gameLoop = createTask();
-        new Timer().schedule(gameLoop, INITIAL_DELAY, FRAME_RATE);
+        this.gameLoop = createGameLoopTask();
+        this.gameTimer = createGameTimerTask();
+        timer.schedule(gameLoop, INITIAL_DELAY, FRAME_RATE);
+        timer.schedule(gameTimer, INITIAL_DELAY, 10);
+    }
+
+    /**
+     * Creates a TimerTask for the game loop.
+     * This method is responsible for creating a task that represents the game loop.
+     *
+     * @return A TimerTask representing the game loop task.
+     */
+    private TimerTask createGameLoopTask() {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                gameModel.getCollisionHandler().updateMeatBoy();
+                gameModel.getCollisionHandler().check();
+                gameWindow.paint(centiSeconds);
+            }
+        };
+    }
+
+    /**
+     * Creates a TimerTask for the game timer.
+     * This method is responsible for creating a task that handles game timing and updates.
+     *
+     * @return A TimerTask representing the game timer task.
+     */
+    private TimerTask createGameTimerTask() {
+        this.centiSeconds = 0;
+        return new TimerTask() {
+            @Override
+            public void run() {
+                centiSeconds++;
+            }
+        };
     }
 
     /**
@@ -139,9 +167,14 @@ public class GameControllerImpl implements GameController {
         return gameModel;
     }
 
+    /**
+     * Signals a victory event.
+     * This method is called to indicate that the game has been won.
+     */
     @Override
     public void victory() {
         this.gameLoop.cancel();
+        this.gameTimer.cancel();
         this.gameWindow.displayVictoryMessage();
         this.gameWindow.switchPanel(PanelType.MENU);
     }
