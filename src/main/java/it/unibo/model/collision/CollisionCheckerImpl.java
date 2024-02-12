@@ -204,6 +204,10 @@ public class CollisionCheckerImpl implements CollisionChecker {
         return state;
     }
 
+    /**
+     * Initializes the states of the game.
+     * This method is responsible for setting up or resetting the various states of the game.
+     */
     @Override
     public void initializeStates() {
         this.moveLeft = false;

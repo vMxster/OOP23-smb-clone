@@ -11,16 +11,29 @@ import it.unibo.model.hitbox.RectangleHitbox;
  */
 public class MeatBoyImpl extends EntityImpl<RectangleHitbox> implements MeatBoy {
 
+    private double speedMul;
     /**
-     * Represents the default speed value for the MeatBoy entity.
-     * This value is used when no specific speed multiplier is set.
+     * Represents the default speed value for an entity.
+     * This constant is typically used when no specific speed multiplier is set.
      */
     public static final double SPEED = 4;
 
-    private double speedMul;
-    public static final double SPEED = 4;
+    /**
+     * Represents the maximum jump height for an entity.
+     * This constant defines the maximum vertical distance an entity can jump.
+     */
     public static final double MAX_JUMP_HEIGHT = 200;
+
+    /**
+     * Represents the falling speed for an entity.
+     * This constant defines the speed at which an entity falls when not supported by a surface.
+     */
     public static final double FALLING_SPEED = 5;
+
+    /**
+     * Represents the jump speed for an entity.
+     * This constant defines the initial upward speed when an entity jumps.
+     */
     public static final double JUMP_SPEED = 10;
 
     /**
@@ -53,6 +66,4 @@ public class MeatBoyImpl extends EntityImpl<RectangleHitbox> implements MeatBoy 
     public void setSpeedMul(final double speedMul) {
         this.speedMul = speedMul;
     }
-
-    
 }

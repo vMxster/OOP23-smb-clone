@@ -76,6 +76,9 @@ public interface GameController {
      */
     GameModel getGameModel();
 
+    /**
+     * Signals a victory event.
+     * This method is called to indicate that the game has been won.
+     */
     void victory();
 }
-

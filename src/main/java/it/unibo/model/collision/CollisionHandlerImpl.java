@@ -76,10 +76,12 @@ public class CollisionHandlerImpl implements CollisionHandler {
         this.collisionChecker.updateMeatBoy();
     }
 
+    /**
+     * Initializes the states of the game.
+     * This method is responsible for setting up or resetting the various states of the game.
+     */
     @Override
     public void initializeStates() {
         this.collisionChecker.initializeStates();
     }
-
-    
 }

@@ -40,5 +40,9 @@ public interface CollisionHandler {
      */
     void updateMeatBoy();
 
+    /**
+     * Initializes the states of the game.
+     * This method is responsible for setting up or resetting the various states of the game.
+     */
     void initializeStates();
 }

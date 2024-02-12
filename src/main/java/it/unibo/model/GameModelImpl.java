@@ -30,7 +30,7 @@ public class GameModelImpl implements GameModel {
      * This constructor initializes the game model with the specified URL to the game map.
      *
      * @param tmx The path to the TMX file representing the game map.
-     * @param gameControllerImpl 
+     * @param gameController The game controller.
      */
     public GameModelImpl(final String tmx, final GameController gameController) {
         this.level = new LevelImpl(tmx);
@@ -128,11 +128,19 @@ public class GameModelImpl implements GameModel {
         return this.collisionHandler;
     }
 
+    /**
+     * Signals a victory event.
+     * This method is called to indicate that the game has been won.
+     */
     @Override
     public void victory() {
         this.gameController.victory();
     }
 
+    /**
+     * Initializes the coordinates.
+     * This method is responsible for setting up initial coordinates or resetting them to their default values.
+     */
     @Override
     public void initializeCoords() {
         this.getMeatBoy().setX(this.getMeatBoyStartCoord().getX());

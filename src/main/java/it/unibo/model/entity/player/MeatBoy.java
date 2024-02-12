@@ -9,15 +9,12 @@ import it.unibo.model.hitbox.RectangleHitbox;
  */
 public interface MeatBoy extends Entity<RectangleHitbox> {
 
-
     /**
      * Retrieves the speed multiplier associated with this entity.
      *
      * @return The speed multiplier value.
      */
     double getSpeedMul();
-
-    
 
     /**
      * Sets the speed multiplier associated with this entity to the specified value.
