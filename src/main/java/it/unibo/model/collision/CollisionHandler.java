@@ -39,4 +39,6 @@ public interface CollisionHandler {
      * Call the same method in CollisionChecker.
      */
     void updateMeatBoy();
+
+    void initializeStates();
 }

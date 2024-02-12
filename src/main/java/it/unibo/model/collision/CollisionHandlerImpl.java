@@ -43,7 +43,7 @@ public class CollisionHandlerImpl implements CollisionHandler {
                 gameModel.getMeatBoy().setX(gameModel.getMeatBoyStartCoord().getX());
                 gameModel.getMeatBoy().setY(gameModel.getMeatBoyStartCoord().getY());
             } else if (collisionChecker.getState() == CollisionChecker.CollisionState.BANDAGE_GIRL) {
-                //gameWindow.displayVictoryMessage();
+                gameModel.victory();
             }
         }
     }
@@ -75,4 +75,11 @@ public class CollisionHandlerImpl implements CollisionHandler {
     public void updateMeatBoy() {
         this.collisionChecker.updateMeatBoy();
     }
+
+    @Override
+    public void initializeStates() {
+        this.collisionChecker.initializeStates();
+    }
+
+    
 }
