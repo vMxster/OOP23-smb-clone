@@ -3,9 +3,12 @@ package it.unibo.view.window;
 import java.io.IOException;
 import java.util.List;
 
+import java.awt.Font;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 import it.unibo.commons.Constants;
 import it.unibo.controller.GameController;
@@ -21,9 +24,14 @@ import it.unibo.view.panel.GamePanel;
 public class GameWindowSwing extends JFrame implements GameWindow {
 
     public static final long serialVersionUID = 1;
+    private static final int INITIAL_TIMER_POSITION = 10;
+    private static final int TIMER_WIDTH = 100;
+    private static final int TIMER_HEIGHT = 30;
+    private static final int FONT_SIZE = 30;
     private final GameController controller;
     private final ImageRenderer renderer;
     private final GameMenu menu;
+    private final JLabel timerField;
     private GamePanel gamePanel;
 
     /**
@@ -35,7 +43,7 @@ public class GameWindowSwing extends JFrame implements GameWindow {
         this.controller = controller;
         this.renderer = new ImageRendererImpl(this.controller.getNumRows(), this.controller.getNumCols());
         this.menu = new GameMenu(controller, this);
-        this.gamePanel = new GamePanel(this.controller);
+        this.timerField = new JLabel();
         initializeGamePanel();
         setContentPane(menu);
         initializeWindowProperties();
@@ -47,7 +55,8 @@ public class GameWindowSwing extends JFrame implements GameWindow {
      * It should be called whenever the content needs to be refreshed or repainted.
      */
     @Override
-    public void paint() {
+    public void paint(final int centiSeconds) {
+        this.timerField.setText(String.format("%d:%02d", centiSeconds / 100, centiSeconds % 100));
         this.repaint();
     }
 
@@ -78,6 +87,9 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     public void initializeGamePanel() {
         try {
             this.gamePanel = createGamePanel();
+            this.timerField.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
+            this.timerField.setBounds(INITIAL_TIMER_POSITION, INITIAL_TIMER_POSITION, TIMER_WIDTH, TIMER_HEIGHT);
+            this.gamePanel.add(timerField);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,16 +123,24 @@ public class GameWindowSwing extends JFrame implements GameWindow {
 
     /**
      * Switches the content pane to the game panel.
+     * 
+     * @param type Type of panel to set.
      */
-    public void switchPanel(PanelType type) {
+    public void switchPanel(final PanelType type) {
         var panel = selectPanel(type);
         this.setContentPane(panel);
         panel.requestFocus();
         this.setVisible(true);
     }
 
-    private JPanel selectPanel(PanelType type) {
-        return switch(type) {
+    /**
+     * Selects and returns a JPanel based on the specified PanelType.
+     *
+     * @param type The PanelType specifying the type of panel to select.
+     * @return A JPanel corresponding to the specified PanelType.
+     */
+    private JPanel selectPanel(final PanelType type) {
+        return switch (type) {
             case GAME -> gamePanel;
             case MENU -> menu;
             case SCOREBOARD -> null;
