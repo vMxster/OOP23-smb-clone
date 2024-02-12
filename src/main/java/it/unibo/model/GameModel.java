@@ -88,4 +88,8 @@ public interface GameModel {
      */
     CollisionHandler getCollisionHandler();
 
+    void victory();
+
+    void initializeCoords();
+
 }

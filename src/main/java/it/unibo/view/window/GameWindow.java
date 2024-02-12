@@ -6,6 +6,7 @@ package it.unibo.view.window;
  */
 public interface GameWindow {
 
+    enum PanelType { GAME, MENU, SCOREBOARD }
     /**
      * Paints the content of the game window.
      * This method is responsible for updating and rendering the content of the game window.
@@ -14,10 +15,10 @@ public interface GameWindow {
     void paint();
 
     /**
-     * Initializes the properties of the game window, such as size, title, and behavior.
-     * This method should be called to set up the initial configuration of the game window.
+     * This method is responsible for showing a graphical message or UI elements
+     * indicating the player's victory.
      */
-    void initializeWindowProperties();
+    void displayVictoryMessage();
 
     /**
      * Initializes the game panel, setting up its layout and content.
@@ -25,16 +26,14 @@ public interface GameWindow {
      * that will be displayed within the game window.
      */
     void initializeGamePanel();
-
-    /**
-     * This method is responsible for showing a graphical message or UI elements
-     * indicating the player's victory.
-     */
-    void displayVictoryMessage();
-
+    
     /**
      * This method set visible the current panel.
      */
     void setPanelVisible();
-}
 
+    /**
+     * This method is responsible for switching between different panels within the game window.
+     */
+    void switchPanel(PanelType type);
+}

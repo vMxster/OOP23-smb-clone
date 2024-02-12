@@ -2,14 +2,16 @@ package it.unibo.view.window;
 
 import java.io.IOException;
 import java.util.List;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import it.unibo.commons.Constants;
 import it.unibo.controller.GameController;
-import it.unibo.view.imageRenderer.ImageRenderer;
-import it.unibo.view.imageRenderer.ImageRendererImpl;
 import it.unibo.view.panel.GameMenu;
+import it.unibo.view.imagerenderer.ImageRenderer;
+import it.unibo.view.imagerenderer.ImageRendererImpl;
 import it.unibo.view.panel.GamePanel;
 
 /**
@@ -18,6 +20,7 @@ import it.unibo.view.panel.GamePanel;
  */
 public class GameWindowSwing extends JFrame implements GameWindow {
 
+    public static final long serialVersionUID = 1;
     private final GameController controller;
     private final ImageRenderer renderer;
     private final GameMenu menu;
@@ -32,13 +35,16 @@ public class GameWindowSwing extends JFrame implements GameWindow {
         this.controller = controller;
         this.renderer = new ImageRendererImpl(this.controller.getNumRows(), this.controller.getNumCols());
         this.menu = new GameMenu(controller, this);
-        this.initializeGamePanel();
-        this.setContentPane(menu);
+        this.gamePanel = new GamePanel(this.controller);
+        initializeGamePanel();
+        setContentPane(menu);
         initializeWindowProperties();
     }
 
     /**
-     * Paints the game window.
+     * Paints the content of the game window.
+     * This method is responsible for updating and rendering the content of the game window.
+     * It should be called whenever the content needs to be refreshed or repainted.
      */
     @Override
     public void paint() {
@@ -46,19 +52,18 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     }
 
     /**
-     * Displays a victory message dialog.
+     * This method is responsible for showing a graphical message or UI elements
+     * indicating the player's victory.
      */
     @Override
     public void displayVictoryMessage() {
         JOptionPane.showMessageDialog(this, "WIN", "WIN", JOptionPane.INFORMATION_MESSAGE);
-        this.setVisible(false);
     }
 
     /**
      * Initializes the properties of the game window.
      */
-    @Override
-    public void initializeWindowProperties() {
+    private void initializeWindowProperties() {
         this.setSize(Constants.SW, Constants.SH);
         this.setResizable(false);
         this.setLocationByPlatform(true);
@@ -107,10 +112,19 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     /**
      * Switches the content pane to the game panel.
      */
-    public void switchPanel() {
-        this.setContentPane(gamePanel);
-        gamePanel.requestFocus();
+    public void switchPanel(PanelType type) {
+        var panel = selectPanel(type);
+        this.setContentPane(panel);
+        panel.requestFocus();
         this.setVisible(true);
     }
 
+    private JPanel selectPanel(PanelType type) {
+        return switch(type) {
+            case GAME -> gamePanel;
+            case MENU -> menu;
+            case SCOREBOARD -> null;
+            default -> throw new IllegalArgumentException();
+        };
+    }
 }

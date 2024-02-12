@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 import java.util.stream.IntStream;
 
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
 import org.w3c.dom.Document;
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
 import it.unibo.commons.Constants;
 
 /**
- * Implementation of the TileSet interface for parsing TMX files and extracting tiles.
+ * Implementation of the TileSet interface for parsing TMX file and extracting tiles.
  */
 public class TileSetImpl implements TileSet {
 
@@ -25,34 +25,44 @@ public class TileSetImpl implements TileSet {
     private final List<Tile> tiles;
 
     /**
-     * Constructs a new TileSet object by parsing a TMX file.
+     * Constructs a new TileSetImpl object by specifying the TMX file to parse.
      *
-     * @param tmx The TMX file to parse.
+     * @param tmx The path to the TMX file to parse.
      */
     public TileSetImpl(final String tmx) {
         this.tmx = tmx;
         this.tiles = new ArrayList<>();
-        try {
-            read();
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
-     * Analyzes the TMX file to identify the appropriate sprite sheets.
-     *
+     * Reads the TMX file, parses it, and extracts tiles.
+     * 
+     * @return A list of Tile objects extracted from the TMX file.
+     */
+    @Override
+    public List<Tile> read() {
+        try {
+            parseTMXFile();
+        } catch (SAXException | IOException | ParserConfigurationException e) {
+            Logger.getLogger(TileSetImpl.class.getName())
+                        .severe("An error occurred: " + e.getMessage());
+        }
+        return this.tiles;
+    }
+
+    /**
+     * Parses the TMX file to identify sprite sheets and divide them into tiles.
+     * 
      * @throws ParserConfigurationException If a DocumentBuilder cannot be created which satisfies the configuration requested.
      * @throws SAXException                 If any parse errors occur.
      * @throws IOException                  If an I/O error occurs while reading the XML file.
      */
     @Override
-    public void read() throws ParserConfigurationException, SAXException, IOException {
-    DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-    Document document = documentBuilder.parse(tmx);
-    NodeList tileSetNodeList = document.getElementsByTagName("tileset");
+    public void parseTMXFile() throws SAXException, IOException, ParserConfigurationException {
+        final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(tmx);
+        final NodeList tileSetNodeList = document.getElementsByTagName("tileset");
 
-    IntStream.range(0, tileSetNodeList.getLength())
+        IntStream.range(0, tileSetNodeList.getLength())
             .mapToObj(i -> (Element) tileSetNodeList.item(i))
             .forEach(tilesetElement -> {
                 try {
@@ -67,19 +77,10 @@ public class TileSetImpl implements TileSet {
                             tilesetElement.getElementsByTagName("image").item(0))
                                 .getAttributes().getNamedItem("source").getTextContent());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Logger.getLogger(TileSetImpl.class.getName())
+                        .severe("An error occurred: " + e.getMessage());
                 }
             });
-    }
-
-    /**
-     * Retrieves a list of tiles contained in the TileSet.
-     *
-     * @return A list of Tile objects representing the tiles in the TileSet.
-     */
-    @Override
-    public List<Tile> getTiles() {
-        return this.tiles;
     }
 
     /**
