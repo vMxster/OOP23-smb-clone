@@ -18,6 +18,10 @@ public class MeatBoyImpl extends EntityImpl<RectangleHitbox> implements MeatBoy 
     public static final double SPEED = 4;
 
     private double speedMul;
+    public static final double SPEED = 4;
+    public static final double MAX_JUMP_HEIGHT = 200;
+    public static final double FALLING_SPEED = 5;
+    public static final double JUMP_SPEED = 10;
 
     /**
      * Constructs a MeatBoyImpl object with the specified coordinates.
@@ -49,4 +53,6 @@ public class MeatBoyImpl extends EntityImpl<RectangleHitbox> implements MeatBoy 
     public void setSpeedMul(final double speedMul) {
         this.speedMul = speedMul;
     }
+
+    
 }

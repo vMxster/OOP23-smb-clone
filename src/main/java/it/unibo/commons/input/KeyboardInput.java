@@ -6,39 +6,39 @@ import java.awt.event.KeyEvent;
 import it.unibo.view.panel.GamePanel;
 
 /**
- * This class represents a keyboard input handler that extends the KeyAdapter class.
- * It provides methods to handle keyboard input events.
+ * Custom KeyAdapter class for handling keyboard input events.
+ * Delegates key events to the associated GamePanel for processing.
  */
 public class KeyboardInput extends KeyAdapter {
 
-    private final GamePanel panel;
+    private GamePanel panel;
 
     /**
-     * Constructs a KeyboardInput object with the specified GamePanel.
+     * Constructs the KeyboardInput with the specified GamePanel.
      * 
-     * @param panel The GamePanel to which this keyboard input handler is associated.
+     * @param panel the GamePanel to which key events will be delegated
      */
     public KeyboardInput(final GamePanel panel) {
         this.panel = panel;
     }
 
     /**
-     * Invoked when a key is pressed while the associated component has focus.
+     * Called when a key is pressed. Delegates the event to the associated GamePanel.
      * 
-     * @param e The KeyEvent object containing information about the key press event.
+     * @param e the KeyEvent representing the key press event
      */
     @Override
     public void keyPressed(final KeyEvent e) {
-        this.panel.keyPressed(e);
+        panel.keyPressed(e);
     }
 
     /**
-     * Invoked when a key is released while the associated component has focus.
-     *
-     * @param e The KeyEvent object containing information about the key release event.
+     * Called when a key is released. Delegates the event to the associated GamePanel.
+     * 
+     * @param e the KeyEvent representing the key release event
      */
     @Override
     public void keyReleased(final KeyEvent e) {
-        this.panel.keyReleased(e);
+        panel.keyReleased(e);
     }
 }

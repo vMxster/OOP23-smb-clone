@@ -14,15 +14,6 @@ import it.unibo.model.tiles.Tile;
 public interface ImageRenderer {
 
     /**
-     * Generates a BufferedImage representing the stationary tiles in the game.
-     * 
-     * @param stationary A 2D List of Tile objects representing the stationary tiles.
-     * @return A BufferedImage representing the stationary tiles.
-     * @throws IOException If an I/O error occurs while generating the image.
-     */
-    BufferedImage getStationary(List<List<Optional<Tile>>> stationary) throws IOException;
-
-    /**
      * Generates a BufferedImage representing the background of the game.
      * 
      * @return A BufferedImage representing the background.
@@ -39,11 +30,18 @@ public interface ImageRenderer {
     BufferedImage getMeatBoy() throws IOException;
 
     /**
+     * Generates a BufferedImage representing the stationary tiles in the game.
+     * 
+     * @param stationary A 2D List of Tile objects representing the stationary tiles.
+     * @return A BufferedImage representing the stationary tiles.
+     */
+    BufferedImage getStationary(List<List<Optional<Tile>>> stationary);
+
+    /**
      * Generates a BufferedImage representing the saws of the game.
      * 
      * @param saws The List of CircularSaw objects representing the saws.
-     * @return A BufferedImage representing the background.
-     * @throws IOException If an I/O error occurs while generating the image.
+     * @return A BufferedImage representing the saws.
      */
     BufferedImage getSaws(List<CircularSaw> saws);
 
