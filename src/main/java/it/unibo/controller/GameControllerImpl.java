@@ -14,6 +14,7 @@ import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
 import it.unibo.view.window.GameWindow;
+import it.unibo.view.window.GameWindow.PanelType;
 import it.unibo.view.window.factory.GameWindowFactoryImpl;
 
 /**
@@ -24,31 +25,38 @@ public class GameControllerImpl implements GameController {
 
     private static final int INITIAL_DELAY = 0;
     private static final int FRAME_RATE = 17;
-    private final GameModel gameModel;
-    private final GameWindow gameWindow;
+    private GameModel gameModel;
+    private GameWindow gameWindow;
+    private TimerTask gameLoop;
 
     /**
      * Constructs a new GameControllerImpl instance.
      * Initializes the game model and the game window.
      */
     public GameControllerImpl() {
-        this.gameModel = new GameModelImpl(Constants.SOURCE_MAP);
+        this.gameModel = new GameModelImpl(Constants.SOURCE_MAP, this);
         this.gameWindow = new GameWindowFactoryImpl().createSwingGameWindow(this);
+        this.gameWindow.setPanelVisible();
     }
 
-    /**
-     * Starts the game loop.
-     */
-    public void start() {
-        this.gameWindow.setPanelVisible();
-        new Timer().schedule(new TimerTask() {
+    private TimerTask createTask() {
+        return new TimerTask() {
             @Override
             public void run() {
                 gameModel.getCollisionHandler().updateMeatBoy();
                 gameModel.getCollisionHandler().check();
                 gameWindow.paint();
             }
-        }, INITIAL_DELAY, FRAME_RATE);
+        };
+    }
+
+    /**
+     * Starts the game loop.
+     */
+    public void start() {
+        this.gameModel.initializeCoords();
+        this.gameLoop = createTask();
+        new Timer().schedule(gameLoop, INITIAL_DELAY, FRAME_RATE);
     }
 
     /**
@@ -129,5 +137,12 @@ public class GameControllerImpl implements GameController {
     @Override
     public GameModel getGameModel() {
         return gameModel;
+    }
+
+    @Override
+    public void victory() {
+        this.gameLoop.cancel();
+        this.gameWindow.displayVictoryMessage();
+        this.gameWindow.switchPanel(PanelType.MENU);
     }
 }

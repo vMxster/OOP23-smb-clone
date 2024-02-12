@@ -75,5 +75,7 @@ public interface GameController {
      * @return The GameModel.
      */
     GameModel getGameModel();
+
+    void victory();
 }
 
