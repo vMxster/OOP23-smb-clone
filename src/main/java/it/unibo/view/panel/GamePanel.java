@@ -35,6 +35,7 @@ public class GamePanel extends JPanel {
         this.meatBoy = this.controller.getMeatBoy();
         this.setFocusable(true);
         this.addKeyListener(new KeyboardInput(this));
+        this.setLayout(null);
     }
 
     /**
