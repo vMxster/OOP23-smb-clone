@@ -9,9 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import it.unibo.controller.GameController;
-
 /**
- * The GameMenu class represents the panel where the User can view statistic after passing the level.
+ * The Scoreboard class represents the panel where the User can view statistic after passing the level.
  * It extends JPanel and provides the number of deaths and the time that the User managed to pass the level.
  */
 public class Scoreboard extends JPanel  {
