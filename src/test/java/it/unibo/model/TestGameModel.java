@@ -18,6 +18,7 @@ import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
 import it.unibo.commons.Point2D;
+import it.unibo.controller.GameControllerImpl;
 
 /**
  * JUnit tests for the GameModel class.
@@ -33,7 +34,7 @@ public class TestGameModel {
      */
     @BeforeEach
     public void init() {
-        this.gameModel = new GameModelImpl(Constants.SOURCE_MAP);
+        this.gameModel = new GameModelImpl(Constants.SOURCE_MAP, new GameControllerImpl());
         assertNotNull(this.gameModel);
     }
 

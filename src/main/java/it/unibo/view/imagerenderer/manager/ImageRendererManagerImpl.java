@@ -43,9 +43,9 @@ public class ImageRendererManagerImpl implements ImageRendererManager {
     @Override
     public List<BufferedImage> render() {
         return List.of(
-            this.imageRendererSaws.render(this.gameController.getSaws()),
-            this.imageRendererStationary.render(this.gameController.getStationary()),
             this.imageLoader.load(ImageType.BACKGROUND),
+            this.imageRendererStationary.render(this.gameController.getStationary()),
+            this.imageRendererSaws.render(this.gameController.getSaws()),
             this.imageLoader.load(ImageType.MEAT_BOY));
     }
 

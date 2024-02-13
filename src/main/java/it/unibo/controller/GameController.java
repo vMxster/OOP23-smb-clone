@@ -16,6 +16,11 @@ import it.unibo.model.tiles.Tile;
 public interface GameController {
 
     /**
+     * Starts the game loop.
+     */
+    void start();
+
+    /**
      * Retrieves the grid of tiles representing the stationary object.
      *
      * @return A list of lists of tiles, where each list represents a row of tiles.
@@ -70,5 +75,10 @@ public interface GameController {
      * @return The GameModel.
      */
     GameModel getGameModel();
-}
 
+    /**
+     * Signals a victory event.
+     * This method is called to indicate that the game has been won.
+     */
+    void victory();
+}

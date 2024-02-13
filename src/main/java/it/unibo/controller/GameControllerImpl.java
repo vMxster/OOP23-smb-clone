@@ -14,6 +14,7 @@ import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
 import it.unibo.view.window.GameWindow;
+import it.unibo.view.window.GameWindow.PanelType;
 import it.unibo.view.window.factory.GameWindowFactoryImpl;
 
 /**
@@ -24,31 +25,67 @@ public class GameControllerImpl implements GameController {
 
     private static final int INITIAL_DELAY = 0;
     private static final int FRAME_RATE = 17;
-    private final GameWindow gameWindow;
     private final GameModel gameModel;
+    private final GameWindow gameWindow;
+    private final Timer timer;
+    private TimerTask gameLoop;
+    private TimerTask gameTimer;
+    private int centiSeconds;
 
     /**
      * Constructs a new GameControllerImpl instance.
      * Initializes the game model and the game window.
      */
     public GameControllerImpl() {
-        this.gameModel = new GameModelImpl(Constants.SOURCE_MAP);
+        this.gameModel = new GameModelImpl(Constants.SOURCE_MAP, this);
         this.gameWindow = new GameWindowFactoryImpl().createSwingGameWindow(this);
-        this.start();
+        this.gameWindow.setPanelVisible();
+        this.timer = new Timer();
     }
 
     /**
      * Starts the game loop.
      */
-    private void start() {
-        new Timer().schedule(new TimerTask() {
+    @Override
+    public void start() {
+        this.gameModel.initializeCoords();
+        this.gameLoop = createGameLoopTask();
+        this.gameTimer = createGameTimerTask();
+        timer.schedule(gameLoop, INITIAL_DELAY, FRAME_RATE);
+        timer.schedule(gameTimer, INITIAL_DELAY, 10);
+    }
+
+    /**
+     * Creates a TimerTask for the game loop.
+     * This method is responsible for creating a task that represents the game loop.
+     *
+     * @return A TimerTask representing the game loop task.
+     */
+    private TimerTask createGameLoopTask() {
+        return new TimerTask() {
             @Override
             public void run() {
                 gameModel.getCollisionHandler().updateMeatBoy();
                 gameModel.getCollisionHandler().check();
-                gameWindow.paint();
+                gameWindow.paint(centiSeconds);
             }
-        }, INITIAL_DELAY, FRAME_RATE);
+        };
+    }
+
+    /**
+     * Creates a TimerTask for the game timer.
+     * This method is responsible for creating a task that handles game timing and updates.
+     *
+     * @return A TimerTask representing the game timer task.
+     */
+    private TimerTask createGameTimerTask() {
+        this.centiSeconds = 0;
+        return new TimerTask() {
+            @Override
+            public void run() {
+                centiSeconds++;
+            }
+        };
     }
 
     /**
@@ -129,5 +166,17 @@ public class GameControllerImpl implements GameController {
     @Override
     public GameModel getGameModel() {
         return gameModel;
+    }
+
+    /**
+     * Signals a victory event.
+     * This method is called to indicate that the game has been won.
+     */
+    @Override
+    public void victory() {
+        this.gameLoop.cancel();
+        this.gameTimer.cancel();
+        this.gameWindow.displayVictoryMessage();
+        this.gameWindow.switchPanel(PanelType.MENU);
     }
 }

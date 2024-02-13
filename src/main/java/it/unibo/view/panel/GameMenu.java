@@ -9,46 +9,54 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import it.unibo.controller.GameController;
-import it.unibo.view.window.swing.GameWindowSwing;
+import it.unibo.view.window.GameWindowSwing;
+import it.unibo.view.window.GameWindow.PanelType;
 
-public class GameMenu extends JPanel{
+/**
+ * The GameMenu class represents the panel of the main menu of the game.
+ * It extends JPanel and provides buttons to switch to the GamePanel, check the scoreboard after a level and quit the application.
+ */
+public class GameMenu extends JPanel {
 
-    JButton startButton;
-    JButton scoreboardButton;
-    JButton quitButton;
-    GameWindowSwing window;
+    public static final long serialVersionUID = 1;
 
-    public GameMenu (final GameController controller, final GameWindowSwing window){
-        this.setLayout(new GridLayout(3,1));
-        startButton = new JButton("START");
-        scoreboardButton = new JButton("SCOREBOARD");
-        quitButton = new JButton("QUIT");
-        this.window = window;
-
-        startButton.addActionListener(new ActionListener(){
+    /**
+     * Constructs a new instance of GameMenu with the specified GameController and GameWindowSwing.
+     * 
+     * @param controller the GameController associated with the window.
+     * @param window the GameWindowSwing that can switch to change panel.
+     */
+    public GameMenu(final GameController controller, final GameWindowSwing window) {
+        this.setLayout(new GridLayout(3, 1));
+        final JButton startButton = new JButton("START");
+        final JButton scoreboardButton = new JButton("SCOREBOARD");
+        final JButton quitButton = new JButton("QUIT");
+        startButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                window.switchPanel();
+            public void actionPerformed(final ActionEvent e) {
+                controller.start();
+                window.switchPanel(PanelType.GAME);
             }
-        } );
+        });
 
-        scoreboardButton.addActionListener(new ActionListener(){
+        scoreboardButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+            public void actionPerformed(final ActionEvent e) {
+                window.switchPanel(PanelType.SCOREBOARD);
             }
-        } );
+        });
 
-        quitButton.addActionListener(new ActionListener(){
+        quitButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Exit Confirmation", JOptionPane.YES_NO_OPTION);
+            public void actionPerformed(final ActionEvent e) {
+                final int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", 
+                "Exit Confirmation", JOptionPane.YES_NO_OPTION);
+
                 if (confirm == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 }
             }
-        } );
+        });
 
         this.add(startButton);
         this.add(scoreboardButton);

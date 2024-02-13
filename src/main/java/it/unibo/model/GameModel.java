@@ -88,4 +88,15 @@ public interface GameModel {
      */
     CollisionHandler getCollisionHandler();
 
+    /**
+     * Signals a victory event.
+     * This method is called to indicate that the game has been won.
+     */
+    void victory();
+
+    /**
+     * Initializes the coordinates.
+     * This method is responsible for setting up initial coordinates or resetting them to their default values.
+     */
+    void initializeCoords();
 }

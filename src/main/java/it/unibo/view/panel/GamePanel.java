@@ -20,6 +20,7 @@ import it.unibo.model.entity.player.MeatBoy;
  */
 public class GamePanel extends JPanel {
 
+    public static final long serialVersionUID = 1;
     private final List<BufferedImage> images;
     private final GameController controller;
     private final MeatBoy meatBoy;
@@ -35,6 +36,7 @@ public class GamePanel extends JPanel {
         this.meatBoy = this.controller.getMeatBoy();
         this.setFocusable(true);
         this.addKeyListener(new KeyboardInput(this));
+        this.setLayout(null);
     }
 
     /**
@@ -56,7 +58,7 @@ public class GamePanel extends JPanel {
     @Override
     public void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
+        final Graphics2D g2d = (Graphics2D) g;
         for (int i = 0; i < this.images.size(); i++) {
             if (i == 3) {
                 g2d.drawImage(Objects.requireNonNull(this.images.get(i)), (int) meatBoy.getX(), (int) meatBoy.getY(), this);
