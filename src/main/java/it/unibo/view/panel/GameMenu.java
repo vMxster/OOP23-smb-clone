@@ -42,8 +42,7 @@ public class GameMenu extends JPanel {
         scoreboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+                window.switchPanel(PanelType.SCOREBOARD);
             }
         });
 

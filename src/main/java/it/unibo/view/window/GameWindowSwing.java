@@ -17,6 +17,7 @@ import it.unibo.view.panel.GameMenu;
 import it.unibo.view.imagerenderer.ImageRenderer;
 import it.unibo.view.imagerenderer.ImageRendererImpl;
 import it.unibo.view.panel.GamePanel;
+import it.unibo.view.panel.Scoreboard;
 
 /**
  * The GameWindowSwing class represents a Swing-based implementation of the GameWindow interface.
@@ -33,6 +34,7 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     private final ImageRenderer renderer;
     private final GameMenu menu;
     private final JLabel timerField;
+    private final Scoreboard scoreboard;
     private GamePanel gamePanel;
 
     /**
@@ -43,8 +45,9 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     public GameWindowSwing(final GameController controller) {
         this.controller = controller;
         this.renderer = new ImageRendererImpl(this.controller.getNumRows(), this.controller.getNumCols());
-        this.menu = new GameMenu(controller, this);
+        this.menu = new GameMenu(this.controller, this);
         this.timerField = new JLabel();
+        this.scoreboard = new Scoreboard(this.controller, this);
         initializeGamePanel();
         setContentPane(menu);
         initializeWindowProperties();
@@ -145,7 +148,7 @@ public class GameWindowSwing extends JFrame implements GameWindow {
         return switch (type) {
             case GAME -> gamePanel;
             case MENU -> menu;
-            case SCOREBOARD -> null;
+            case SCOREBOARD -> scoreboard;
             default -> throw new IllegalArgumentException();
         };
     }
