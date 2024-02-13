@@ -57,8 +57,7 @@ public class TileSetImpl implements TileSet {
      * @throws SAXException                 If any parse errors occur.
      * @throws IOException                  If an I/O error occurs while reading the XML file.
      */
-    @Override
-    public void parseTMXFile() throws SAXException, IOException, ParserConfigurationException {
+    private void parseTMXFile() throws SAXException, IOException, ParserConfigurationException {
         final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(tmx);
         final NodeList tileSetNodeList = document.getElementsByTagName("tileset");
 
