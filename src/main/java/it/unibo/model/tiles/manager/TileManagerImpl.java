@@ -51,83 +51,43 @@ public class TileManagerImpl implements TileManager {
         new TileLoaderManagerImpl(this, tmx).load();
     }
 
-    /**
-     * Returns the list of platforms.
-     *
-     * @return The list of platforms.
-     */
     @Override
-    public List<Platform> getPlatforms() {
+    public final List<Platform> getPlatforms() {
         return this.platforms;
     }
 
-    /**
-     * Returns the list of circular saws.
-     *
-     * @return The list of circular saws.
-     */
     @Override
-    public List<CircularSaw> getSaws() {
+    public final List<CircularSaw> getSaws() {
         return this.circularSaws;
     }
 
-    /**
-     * Returns the number of columns in the tile map.
-     *
-     * @return The number of columns.
-     */
     @Override
-    public int getNumCols() {
+    public final int getNumCols() {
         return this.numColumns;
     }
 
-    /**
-     * Returns the number of rows in the tile map.
-     *
-     * @return The number of rows.
-     */
     @Override
-    public int getNumRows() {
+    public final int getNumRows() {
         return this.numRows;
     }
 
-    /**
-     * Returns the MeatBoy entity.
-     *
-     * @return The MeatBoy entity.
-     */
     @Override
-    public MeatBoy getMeatBoy() {
+    public final MeatBoy getMeatBoy() {
         return this.meatBoy;
     }
 
-    /**
-     * Returns the BandageGirl entity.
-     *
-     * @return The BandageGirl entity.
-     */
     @Override
-    public BandageGirl getBandageGirl() {
+    public final BandageGirl getBandageGirl() {
         return this.bandageGirl;
     }
 
-    /**
-     * Returns the list of stationary tiles.
-     *
-     * @return The list of stationary tiles.
-     */
     @Override
-    public List<List<Optional<Tile>>> getStationary() {
+    public final List<List<Optional<Tile>>> getStationary() {
         return this.stationary;
     }
 
-    /**
-     * Returns the list of all tiles.
-     *
-     * @return The list of all tiles.
-     */
     @Override
-    public List<Tile> getTiles() {
+    public final List<Tile> getTiles() {
         return this.tiles;
     }
 
