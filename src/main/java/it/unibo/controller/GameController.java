@@ -10,6 +10,7 @@ import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
+import it.unibo.view.window.GameWindow;
 
 /**
  * Interface representing a Controller for Managing the SuperMeatBoy Game.
@@ -108,4 +109,8 @@ public interface GameController {
      * @return the time record of the level.
      */
     int getTimeRecord();
+
+    GameWindow getGameWindow();
+
+    void esc();
 }

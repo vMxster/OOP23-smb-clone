@@ -211,4 +211,16 @@ public class GameControllerImpl implements GameController {
     public Point2D<Double, Double> getMeatBoyStartCoord() {
         return this.gameModel.getMeatBoyStartCoord();
     }
+
+    @Override
+    public void esc() {
+        this.statistic.updateRecord(centiSeconds);
+        this.gameLoop.cancel();
+        this.gameTimer.cancel();
+        this.gameWindow.switchPanel(PanelType.MENU);
+    }
+
+    public GameWindow getGameWindow() {
+        return gameWindow;
+    }
 }
