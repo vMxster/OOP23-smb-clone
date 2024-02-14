@@ -2,6 +2,7 @@ package it.unibo.model.tiles;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -47,7 +48,7 @@ public class TileSetImpl implements TileSet {
             Logger.getLogger(TileSetImpl.class.getName())
                         .severe("An error occurred: " + e.getMessage());
         }
-        return this.tiles;
+        return Collections.unmodifiableList(this.tiles);
     }
 
     /**
