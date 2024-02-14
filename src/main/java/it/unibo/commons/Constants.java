@@ -19,6 +19,10 @@ public final class Constants {
     /** The source map file path. */
     public static final String SOURCE_MAP = "file:./src/main/resources/factory1.tmx";
 
+    public static final double scaleX = (double) Constants.SW / 800;
+
+    public static final double scaleY = (double) Constants.SH / 600;
+
     /**
      * Private constructor to prevent instantiation.
      * Utility classes should not be instantiated.
