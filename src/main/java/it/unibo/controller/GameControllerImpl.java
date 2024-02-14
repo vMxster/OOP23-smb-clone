@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import it.unibo.commons.Constants;
+import it.unibo.commons.Point2D;
 import it.unibo.model.GameModel;
 import it.unibo.model.GameModelImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
@@ -178,5 +179,15 @@ public class GameControllerImpl implements GameController {
         this.gameTimer.cancel();
         this.gameWindow.displayVictoryMessage();
         this.gameWindow.switchPanel(PanelType.MENU);
+    }
+
+    /**
+     * Returns the starting coordinates of the MeatBoy entity in the game.
+     *
+     * @return The starting coordinates of the MeatBoy entity.
+     */
+    @Override
+    public Point2D<Double, Double> getMeatBoyStartCoord() {
+        return this.gameModel.getMeatBoyStartCoord();
     }
 }
