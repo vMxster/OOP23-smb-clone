@@ -4,12 +4,12 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 import it.unibo.controller.GameController;
+import it.unibo.view.imagerenderer.factory.gameobjects.ImageRendererSawsFactoryImpl;
+import it.unibo.view.imagerenderer.factory.gameobjects.ImageRendererStationaryFactoryImpl;
+import it.unibo.view.imagerenderer.factory.loader.ImageLoaderFactoryImpl;
 import it.unibo.view.imagerenderer.gameobjects.ImageRendererSaws;
-import it.unibo.view.imagerenderer.gameobjects.ImageRendererSawsImpl;
 import it.unibo.view.imagerenderer.gameobjects.ImageRendererStationary;
-import it.unibo.view.imagerenderer.gameobjects.ImageRendererStationaryImpl;
 import it.unibo.view.imagerenderer.loader.ImageLoader;
-import it.unibo.view.imagerenderer.loader.ImageLoaderImpl;
 
 /**
  * The ImageRendererManager class is responsible for managing the rendering of the game map.
@@ -28,11 +28,16 @@ public class ImageRendererManagerImpl implements ImageRendererManager {
      */
     public ImageRendererManagerImpl(final GameController gameController) {
         this.gameController = gameController;
-        this.imageRendererSaws = new ImageRendererSawsImpl(
-            this.gameController.getNumRows(), this.gameController.getNumCols());
-        this.imageRendererStationary = new ImageRendererStationaryImpl(
-            this.gameController.getNumRows(), this.gameController.getNumCols());
-        this.imageLoader = new ImageLoaderImpl();
+        this.imageRendererSaws = new ImageRendererSawsFactoryImpl()
+            .createImageRendererSaws(
+                this.gameController.getNumRows(),
+                this.gameController.getNumCols());
+        this.imageRendererStationary = new ImageRendererStationaryFactoryImpl()
+            .createImageRendererStationary(
+                this.gameController.getNumRows(),
+                this.gameController.getNumCols());   
+        this.imageLoader = new ImageLoaderFactoryImpl()
+            .createImageLoader();
     }
 
     /**

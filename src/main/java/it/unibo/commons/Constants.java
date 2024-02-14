@@ -1,5 +1,7 @@
 package it.unibo.commons;
 
+import java.awt.Toolkit;
+
 /**
  * This class provides constants used throughout the application.
  */
@@ -9,10 +11,10 @@ public final class Constants {
     public static final int TILE_SIZE = 20;
 
     /** The width of the screen. */
-    public static final int SW = 800;
+    public static final int SW = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 0.70);
 
     /** The height of the screen. */
-    public static final int SH = 600;
+    public static final int SH = ( SW/4 ) * 3;
 
     /** The source map file path. */
     public static final String SOURCE_MAP = "file:./src/main/resources/factory1.tmx";
