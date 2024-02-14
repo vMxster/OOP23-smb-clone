@@ -35,6 +35,7 @@ public class GameControllerImpl implements GameController {
     private TimerTask gameLoop;
     private TimerTask gameTimer;
     private int centiSeconds;
+    private int currentDeaths;
 
 
     /**
@@ -59,6 +60,7 @@ public class GameControllerImpl implements GameController {
         this.gameTimer = createGameTimerTask();
         timer.schedule(gameLoop, INITIAL_DELAY, FRAME_RATE);
         timer.schedule(gameTimer, INITIAL_DELAY, 10);
+        this.newDeathsSession();
     }
 
     /**
@@ -73,7 +75,7 @@ public class GameControllerImpl implements GameController {
             public void run() {
                 gameModel.getCollisionHandler().updateMeatBoy();
                 gameModel.getCollisionHandler().check();
-                gameWindow.paint(centiSeconds);
+                gameWindow.paint(centiSeconds, currentDeaths);
             }
         };
     }
@@ -92,6 +94,10 @@ public class GameControllerImpl implements GameController {
                 centiSeconds++;
             }
         };
+    }
+
+    private void newDeathsSession() {
+        this.currentDeaths = 0;
     }
 
     /**
@@ -189,6 +195,7 @@ public class GameControllerImpl implements GameController {
 
     @Override
     public void isDead() {
+        this.currentDeaths++;
         this.statistic.addDeaths();
     }
 
