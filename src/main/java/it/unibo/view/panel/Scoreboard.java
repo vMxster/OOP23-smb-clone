@@ -16,11 +16,13 @@ import it.unibo.view.window.GameWindow.PanelType;
  * It extends JPanel and provides the number of deaths and the time that the User managed to pass the level.
  */
 public class Scoreboard extends JPanel  {
+    private GameController controller;
     private JLabel label;
     private JLabel deathsField;
     private JLabel timeRecordField;
     private JButton backButton;
-    private int deaths = 0;
+    private JButton refreshButton;
+    private int deaths;
     //time record
 
     /**
@@ -29,11 +31,14 @@ public class Scoreboard extends JPanel  {
      * @param window
      */
     public Scoreboard(final GameController controller, final GameWindowSwing window) {
-        this.setLayout(new GridLayout(4, 1));
-        label = new JLabel("LEVEL 1");
-        deathsField = new JLabel("TOTAL DEATHS: " + this.deaths);
-        timeRecordField = new JLabel("RECORD TIME: ");
-        backButton = new JButton("BACK");
+        this.setLayout(new GridLayout(5, 1));
+        this.controller = controller;
+        this.deaths = 0;
+        this.label = new JLabel("LEVEL 1");
+        this.deathsField = new JLabel("TOTAL DEATHS: " + deaths);
+        this.timeRecordField = new JLabel("RECORD TIME: ");
+        this.backButton = new JButton("BACK");
+        this.refreshButton = new JButton("REFRESH");
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -42,19 +47,29 @@ public class Scoreboard extends JPanel  {
             }
         });
 
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                updateDeaths();
+                //updateTimeRecord
+                deathsField.setText("TOTAL DEATHS: " + deaths);
+                repaint();
+                System.out.println(deaths);
+            }
+        });
+
         this.add(label);
         this.add(deathsField);
         this.add(timeRecordField);
         this.add(backButton);
+        this.add(refreshButton);
     }
 
 
-    
     public void updateDeaths() {
-        deaths++;
-        System.out.println(deaths);
+        deaths = this.controller.getDeaths();
     }
-
+    
     public void updateTimeRecord() {
 
     }
