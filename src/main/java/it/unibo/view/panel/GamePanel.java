@@ -6,19 +6,20 @@ import java.util.Objects;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import it.unibo.commons.input.KeyboardInput;
 import it.unibo.controller.GameController;
 import it.unibo.model.entity.player.MeatBoy;
-
 
 /**
  * The GamePanel class represents the main panel for rendering game elements.
  * It extends JPanel and provides methods for painting and handling keyboard input.
  */
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements KeyListener {
 
     public static final long serialVersionUID = 1;
     private final List<BufferedImage> images;
@@ -35,7 +36,7 @@ public class GamePanel extends JPanel {
         this.controller = controller;
         this.meatBoy = this.controller.getMeatBoy();
         this.setFocusable(true);
-        this.addKeyListener(new KeyboardInput(this));
+        this.addKeyListener(this);
         this.setLayout(null);
     }
 
@@ -74,6 +75,12 @@ public class GamePanel extends JPanel {
      * @param e The KeyEvent representing the key pressed event.
      */
     public void keyPressed(final KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            if (JOptionPane.showConfirmDialog(null, "Sei sicuro di volere uscire?", 
+            "Torna al menu", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                this.controller.esc();
+            }
+        }
         this.controller.getGameModel().getCollisionHandler().moveMeatBoy(e.getKeyCode());
     }
 
@@ -86,5 +93,8 @@ public class GamePanel extends JPanel {
         this.controller.getGameModel().getCollisionHandler().stopMovingMeatBoy(e.getKeyCode());
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
 }
 

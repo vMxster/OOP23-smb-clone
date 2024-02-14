@@ -49,7 +49,7 @@ public class GameWindowSwing extends JFrame implements GameWindow {
         this.controller = controller;
         this.renderer = new ImageRendererManagerFactoryImpl()
             .createImageRendererManager(this.controller);
-        this.menu = new GameMenu(this.controller, this);
+        this.menu = new GameMenu(this.controller);
         this.timerField = new JLabel();
         this.deathsField = new JLabel();
         this.scoreboard = new Scoreboard(this.controller, this);
