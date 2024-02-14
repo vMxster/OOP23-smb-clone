@@ -179,6 +179,7 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public void victory() {
+        this.statistic.updateRecord(centiSeconds);
         this.gameLoop.cancel();
         this.gameTimer.cancel();
         this.gameWindow.displayVictoryMessage();
@@ -193,6 +194,11 @@ public class GameControllerImpl implements GameController {
     @Override
     public int getDeaths() {
         return this.statistic.getDeaths();
+    }
+
+    @Override
+    public int getTimeRecord() {
+        return this.statistic.getRecordTime();
     }
     
 }
