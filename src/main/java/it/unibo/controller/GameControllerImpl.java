@@ -221,7 +221,6 @@ public class GameControllerImpl implements GameController {
 
     @Override
     public void esc() {
-        this.statistic.updateRecord(centiSeconds);
         this.gameLoop.cancel();
         this.gameTimer.cancel();
         this.gameWindow.switchPanel(PanelType.MENU);
