@@ -148,4 +148,9 @@ public class GameModelImpl implements GameModel {
         this.getCollisionHandler().initializeStates();
     }
 
+    @Override
+    public void Died() {
+        this.gameController.isDead();
+    }
+
 }
