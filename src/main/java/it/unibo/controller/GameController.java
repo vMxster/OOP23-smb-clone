@@ -81,4 +81,8 @@ public interface GameController {
      * This method is called to indicate that the game has been won.
      */
     void victory();
+
+    void isDead();
+
+    int getDeaths();
 }
