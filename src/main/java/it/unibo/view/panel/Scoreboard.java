@@ -16,6 +16,10 @@ import it.unibo.view.window.GameWindow.PanelType;
  * It extends JPanel and provides the number of deaths and the time that the User managed to pass the level.
  */
 public class Scoreboard extends JPanel  {
+
+    public static final long serialVersionUID = 1;
+    private static final int ROWS = 5;
+    private static final int COLS = 1;
     private GameController controller;
     private JLabel label;
     private JLabel deathsField;
@@ -26,20 +30,21 @@ public class Scoreboard extends JPanel  {
     private int record;
 
     /**
+     * Constructs a new instance of Scoreboard with the GameController and GameWindowSwing.
      * 
-     * @param controller
-     * @param window
+     * @param controller the GameController associated with the window.
+     * @param window the GameWindowSwing that can switch to change panel.
      */
     public Scoreboard(final GameController controller, final GameWindowSwing window) {
-        this.setLayout(new GridLayout(5, 1));
+        this.setLayout(new GridLayout(ROWS, COLS));
         this.controller = controller;
         this.deaths = 0;
         this.record = 0;
         this.label = new JLabel("LEVEL 1");
         this.deathsField = new JLabel("TOTAL DEATHS: " + deaths);
         this.timeRecordField = new JLabel(String.format("%d:%02d", record / 100, record % 100));
-        this.backButton = new JButton("BACK");
         this.refreshButton = new JButton("REFRESH");
+        this.backButton = new JButton("BACK");
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -62,8 +67,8 @@ public class Scoreboard extends JPanel  {
         this.add(label);
         this.add(deathsField);
         this.add(timeRecordField);
-        this.add(backButton);
         this.add(refreshButton);
+        this.add(backButton);
     }
 
 
@@ -78,5 +83,4 @@ public class Scoreboard extends JPanel  {
             record = 0;
         }
     }
-    
 }
