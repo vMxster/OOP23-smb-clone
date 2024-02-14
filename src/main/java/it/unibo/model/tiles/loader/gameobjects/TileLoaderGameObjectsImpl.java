@@ -69,9 +69,9 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
                                     this.tileLoaderManager.trim(objectElement.getAttribute("width")));
                                 if (GameObjectType.SAWS.toString().equals(nameObjects.toString())) {
                                     this.tileLoaderManager.setSaw(new CircularSawImpl(
-                                        x,
-                                        y,
-                                        width));
+                                        x * 1.68,
+                                        y * 1.68,
+                                        (int) (width * 1.68)));
                                 } else {
                                     this.tileLoaderManager.setPlatform(new PlatformImpl(
                                         x * 1.68,
