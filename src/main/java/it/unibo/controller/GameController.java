@@ -3,6 +3,7 @@ package it.unibo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.commons.Point2D;
 import it.unibo.model.GameModel;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
@@ -54,6 +55,13 @@ public interface GameController {
      * @return The MeatBoy parsed from the TMX file.
      */
     MeatBoy getMeatBoy();
+
+    /**
+     * Returns the starting coordinates of the MeatBoy entity in the game.
+     *
+     * @return The starting coordinates of the MeatBoy entity.
+     */
+    Point2D<Double, Double> getMeatBoyStartCoord();
 
     /**
      * Retrieves the number of Map rows.
