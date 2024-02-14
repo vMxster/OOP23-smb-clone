@@ -1,9 +1,5 @@
 package it.unibo.view.window;
 
-import java.io.IOException;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-
 import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -13,8 +9,10 @@ import javax.swing.JLabel;
 import it.unibo.commons.Constants;
 import it.unibo.controller.GameController;
 import it.unibo.view.panel.GameMenu;
+import it.unibo.view.imagerenderer.factory.manager.ImageRendererManagerFactoryImpl;
 import it.unibo.view.imagerenderer.manager.ImageRendererManager;
-import it.unibo.view.imagerenderer.manager.ImageRendererManagerImpl;
+import it.unibo.view.imageresizer.ImageResizer;
+import it.unibo.view.imageresizer.ImageResizerImpl;
 import it.unibo.view.panel.GamePanel;
 import it.unibo.view.panel.Scoreboard;
 
@@ -24,7 +22,7 @@ import it.unibo.view.panel.Scoreboard;
  */
 public class GameWindowSwing extends JFrame implements GameWindow {
 
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = 2;
     private static final int INITIAL_TIMER_POSITION = 10;
     private static final int TIMER_WIDTH = 100;
     private static final int TIMER_HEIGHT = 30;
@@ -34,7 +32,8 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     private final GameMenu menu;
     private final JLabel timerField;
     private final Scoreboard scoreboard;
-    private GamePanel gamePanel;
+    private final ImageResizer imageResizer;
+    private final GamePanel gamePanel;
 
     /**
      * Constructs a new instance of GameWindowSwing with the specified GameController.
@@ -43,10 +42,13 @@ public class GameWindowSwing extends JFrame implements GameWindow {
      */
     public GameWindowSwing(final GameController controller) {
         this.controller = controller;
-        this.renderer = new ImageRendererManagerImpl(this.controller);
+        this.renderer = new ImageRendererManagerFactoryImpl()
+            .createImageRendererManager(this.controller);
         this.menu = new GameMenu(this.controller, this);
         this.timerField = new JLabel();
         this.scoreboard = new Scoreboard(this.controller, this);
+        this.imageResizer = new ImageResizerImpl(this.controller);
+        this.gamePanel = new GamePanel(this.controller);
         initializeGamePanel();
         setContentPane(menu);
         initializeWindowProperties();
@@ -87,15 +89,11 @@ public class GameWindowSwing extends JFrame implements GameWindow {
      * Initializes the game panel.
      */
     private void initializeGamePanel() {
-        try {
-            this.gamePanel = createGamePanel();
-            this.timerField.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
-            this.timerField.setBounds(INITIAL_TIMER_POSITION, INITIAL_TIMER_POSITION, TIMER_WIDTH, TIMER_HEIGHT);
-            this.gamePanel.add(timerField);
-        } catch (IOException e) {
-            Logger.getLogger(GameWindowSwing.class.getName())
-                .log(Level.SEVERE, "Errore durante l'inizializzazione del pannello di gioco", e);
-        }
+        this.gamePanel.setLocation(0, 0);
+        this.gamePanel.setImages(this.imageResizer.resize(this.renderer.render()));
+        this.timerField.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
+        this.timerField.setBounds(INITIAL_TIMER_POSITION, INITIAL_TIMER_POSITION, TIMER_WIDTH, TIMER_HEIGHT);
+        this.gamePanel.add(timerField);
     }
 
     /**
@@ -104,19 +102,6 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     @Override
     public void setPanelVisible() {
         this.setVisible(true);
-    }
-
-    /**
-     * Creates a new instance of GamePanel with the specified GameController and sets its initial properties.
-     *
-     * @return a new instance of GamePanel configured with background, stationary, saws, and MeatBoy images.
-     * @throws IOException if an I/O error occurs while obtaining the images.
-     */
-    private GamePanel createGamePanel() throws IOException {
-        final var panel = new GamePanel(this.controller);
-        panel.setLocation(0, 0);
-        panel.setImages(this.renderer.render());
-        return panel;
     }
 
     /**
