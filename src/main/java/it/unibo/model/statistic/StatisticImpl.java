@@ -2,26 +2,33 @@ package it.unibo.model.statistic;
 
 public class StatisticImpl implements Statistic{
     private int deaths;
-    //timer  
+    private int recordTime; 
     
     public StatisticImpl() {
         this.deaths = 0;
+        this.recordTime = Integer.MAX_VALUE;
     }
 
     @Override
     public void addDeaths() {
-        deaths++;
+        this.deaths++;
     }
 
     @Override
-    public void updateRecord() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateRecord'");
+    public void updateRecord(int time) {
+        if (time < this.recordTime) {
+            this.recordTime = time;
+        }
     }
 
     @Override
     public int getDeaths() {
-        return deaths;
+        return this.deaths;
+    }
+
+    @Override
+    public int getRecordTime() {
+        return this.recordTime;
     }
 
 }
