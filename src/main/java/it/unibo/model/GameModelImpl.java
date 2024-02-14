@@ -148,6 +148,9 @@ public class GameModelImpl implements GameModel {
         this.getCollisionHandler().initializeStates();
     }
 
+    /**
+     * This method is called to indicate that the player collides with an obstacles or fall from the map and died.
+     */
     @Override
     public void Died() {
         this.gameController.isDead();
