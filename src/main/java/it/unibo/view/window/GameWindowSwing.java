@@ -131,4 +131,5 @@ public class GameWindowSwing extends JFrame implements GameWindow {
             default -> throw new IllegalArgumentException();
         };
     }
+    
 }

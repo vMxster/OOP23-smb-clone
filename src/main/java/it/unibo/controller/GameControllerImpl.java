@@ -13,6 +13,8 @@ import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
+import it.unibo.model.statistic.Statistic;
+import it.unibo.model.statistic.StatisticImpl;
 import it.unibo.model.tiles.Tile;
 import it.unibo.view.window.GameWindow;
 import it.unibo.view.window.GameWindow.PanelType;
@@ -29,9 +31,11 @@ public class GameControllerImpl implements GameController {
     private final GameModel gameModel;
     private final GameWindow gameWindow;
     private final Timer timer;
+    private final Statistic statistic;
     private TimerTask gameLoop;
     private TimerTask gameTimer;
     private int centiSeconds;
+
 
     /**
      * Constructs a new GameControllerImpl instance.
@@ -42,6 +46,7 @@ public class GameControllerImpl implements GameController {
         this.gameWindow = new GameWindowFactoryImpl().createSwingGameWindow(this);
         this.gameWindow.setPanelVisible();
         this.timer = new Timer();
+        this.statistic = new StatisticImpl();
     }
 
     /**
@@ -175,12 +180,28 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public void victory() {
+        this.statistic.updateRecord(centiSeconds);
         this.gameLoop.cancel();
         this.gameTimer.cancel();
         this.gameWindow.displayVictoryMessage();
         this.gameWindow.switchPanel(PanelType.MENU);
     }
 
+    @Override
+    public void isDead() {
+        this.statistic.addDeaths();
+    }
+
+    @Override
+    public int getDeaths() {
+        return this.statistic.getDeaths();
+    }
+
+    @Override
+    public int getTimeRecord() {
+        return this.statistic.getRecordTime();
+    }
+    
     /**
      * Returns the starting coordinates of the MeatBoy entity in the game.
      *

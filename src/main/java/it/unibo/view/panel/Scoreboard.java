@@ -16,24 +16,35 @@ import it.unibo.view.window.GameWindow.PanelType;
  * It extends JPanel and provides the number of deaths and the time that the User managed to pass the level.
  */
 public class Scoreboard extends JPanel  {
+
+    public static final long serialVersionUID = 1;
+    private static final int ROWS = 5;
+    private static final int COLS = 1;
+    private GameController controller;
     private JLabel label;
     private JLabel deathsField;
     private JLabel timeRecordField;
     private JButton backButton;
-    private int deaths = 0;
-    //time record
+    private JButton refreshButton;
+    private int deaths;
+    private int record;
 
     /**
+     * Constructs a new instance of Scoreboard with the GameController and GameWindowSwing.
      * 
-     * @param controller
-     * @param window
+     * @param controller the GameController associated with the window.
+     * @param window the GameWindowSwing that can switch to change panel.
      */
     public Scoreboard(final GameController controller, final GameWindowSwing window) {
-        this.setLayout(new GridLayout(4, 1));
-        label = new JLabel("LEVEL 1");
-        deathsField = new JLabel("TOTAL DEATHS: " + this.deaths);
-        timeRecordField = new JLabel("RECORD TIME: ");
-        backButton = new JButton("BACK");
+        this.setLayout(new GridLayout(ROWS, COLS));
+        this.controller = controller;
+        this.deaths = 0;
+        this.record = 0;
+        this.label = new JLabel("LEVEL 1");
+        this.deathsField = new JLabel("TOTAL DEATHS: " + deaths);
+        this.timeRecordField = new JLabel(String.format("%d:%02d", record / 100, record % 100));
+        this.refreshButton = new JButton("REFRESH");
+        this.backButton = new JButton("BACK");
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -42,20 +53,34 @@ public class Scoreboard extends JPanel  {
             }
         });
 
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                updateDeaths();
+                updateTimeRecord();
+                deathsField.setText("TOTAL DEATHS: " + deaths);
+                timeRecordField.setText(String.format("%d:%02d", record / 100, record % 100));
+                repaint();
+            }
+        });
+
         this.add(label);
         this.add(deathsField);
         this.add(timeRecordField);
+        this.add(refreshButton);
         this.add(backButton);
     }
 
 
-    
     public void updateDeaths() {
-        deaths++;
-        System.out.println(deaths);
+        deaths = this.controller.getDeaths();
     }
-
+    
     public void updateTimeRecord() {
-
+        if (this.controller.getTimeRecord() != Integer.MAX_VALUE) {
+            record = this.controller.getTimeRecord();
+        } else {
+            record = 0;
+        }
     }
 }

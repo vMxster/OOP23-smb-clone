@@ -19,6 +19,8 @@ import it.unibo.view.window.GameWindow.PanelType;
 public class GameMenu extends JPanel {
 
     public static final long serialVersionUID = 1;
+    public static final int ROWS = 3;
+    public static final int COLS = 1;
 
     /**
      * Constructs a new instance of GameMenu with the specified GameController and GameWindowSwing.
@@ -27,7 +29,7 @@ public class GameMenu extends JPanel {
      * @param window the GameWindowSwing that can switch to change panel.
      */
     public GameMenu(final GameController controller, final GameWindowSwing window) {
-        this.setLayout(new GridLayout(3, 1));
+        this.setLayout(new GridLayout(ROWS, COLS));
         final JButton startButton = new JButton("START");
         final JButton scoreboardButton = new JButton("SCOREBOARD");
         final JButton quitButton = new JButton("QUIT");

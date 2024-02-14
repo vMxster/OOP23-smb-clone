@@ -99,4 +99,9 @@ public interface GameModel {
      * This method is responsible for setting up initial coordinates or resetting them to their default values.
      */
     void initializeCoords();
+
+    /**
+     * This method is called to indicate that the player collides with an obstacles or fall from the map and died.
+     */
+    void Died();
 }
