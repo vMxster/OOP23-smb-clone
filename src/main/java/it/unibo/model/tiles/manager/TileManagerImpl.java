@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.commons.Point2D;
 import it.unibo.model.documentextractor.DocumentExtractor;
 import it.unibo.model.documentextractor.DocumentExtractorImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
@@ -53,12 +54,12 @@ public class TileManagerImpl implements TileManager {
 
     @Override
     public final List<Platform> getPlatforms() {
-        return this.platforms;
+        return Collections.unmodifiableList(this.platforms);
     }
 
     @Override
     public final List<CircularSaw> getSaws() {
-        return this.circularSaws;
+        return Collections.unmodifiableList(this.circularSaws);
     }
 
     @Override
@@ -73,22 +74,49 @@ public class TileManagerImpl implements TileManager {
 
     @Override
     public final MeatBoy getMeatBoy() {
-        return this.meatBoy;
+        return new MeatBoyImpl(
+            this.meatBoy.getX(),
+            this.meatBoy.getY());
     }
 
     @Override
     public final BandageGirl getBandageGirl() {
-        return this.bandageGirl;
+        return new BandageGirlImpl(
+            this.bandageGirl.getX(),
+            this.bandageGirl.getY()
+        );
     }
 
     @Override
     public final List<List<Optional<Tile>>> getStationary() {
-        return this.stationary;
+        return Collections.unmodifiableList(this.stationary);
     }
 
     @Override
     public final List<Tile> getTiles() {
-        return this.tiles;
+        return Collections.unmodifiableList(this.tiles);
+    }
+
+    @Override
+    public final void setSaw(final CircularSaw circularSaw) {
+        this.circularSaws.add(circularSaw);
+    }
+
+    @Override
+    public final void setPlatform(final Platform platform) {
+        this.platforms.add(platform);
+    }
+
+    @Override
+    public final void setMeatBoyCoord(final Point2D<Double, Double> coord) {
+        this.meatBoy.setX(coord.getX() * 1.68);
+        this.meatBoy.setY(coord.getY() * 1.68);
+    }
+
+    @Override
+    public final void setBandageGirlCoord(final Point2D<Double, Double> coord) {
+        this.bandageGirl.setX(coord.getX() * 1.68);
+        this.bandageGirl.setY(coord.getY() * 1.68);
     }
 
     /**
