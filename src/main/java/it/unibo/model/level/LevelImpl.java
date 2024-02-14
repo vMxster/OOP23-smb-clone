@@ -29,88 +29,50 @@ public class LevelImpl implements Level {
      */
     public LevelImpl(final String tmx) {
         this.tileManager = new TileManagerImpl(tmx);
-        this.meatBoy = tileManager.getMeatBoy();
-        this.bandageGirl = tileManager.getBandageGirl();
-        this.meatBoyStartCoord = new Point2D<>(meatBoy.getX(), meatBoy.getY());
+        this.meatBoy = this.tileManager.getMeatBoy();
+        this.bandageGirl = this.tileManager.getBandageGirl();
+        this.meatBoyStartCoord = new Point2D<>(
+            this.meatBoy.getX(),
+            this.meatBoy.getY());
     }
 
-    /**
-     * Retrieves the meat boy.
-     *
-     * @return The meat boy.
-     */
     @Override
-    public MeatBoy getMeatBoy() {
+    public final MeatBoy getMeatBoy() {
         return this.meatBoy;
     }
 
-    /**
-     * Retrieves the Starting Coordinates of MeatBoy.
-     *
-     * @return The Starting Coordinates of MeatBoy.
-     */
     @Override
-    public Point2D<Double, Double> getMeatBoyStartCoord() {
-        return this.meatBoyStartCoord;
+    public final Point2D<Double, Double> getMeatBoyStartCoord() {
+        return this.meatBoyStartCoord.copy();
     }
 
-    /**
-     * Retrieves the bandage girl.
-     *
-     * @return The bandage girl.
-     */
     @Override
-    public BandageGirl getBandageGirl() {
+    public final BandageGirl getBandageGirl() {
         return this.bandageGirl;
     }
 
-    /**
-     * Retrieves a two-dimensional list representing stationary tiles in the game.
-     *
-     * @return A two-dimensional list of stationary tiles.
-     */
     @Override
-    public List<List<Optional<Tile>>> getStationary() {
+    public final List<List<Optional<Tile>>> getStationary() {
         return this.tileManager.getStationary();
     }
 
-    /**
-     * Retrieves a list of platforms available.
-     *
-     * @return A List of Platform objects representing the available platforms.
-     */
     @Override
-    public List<Platform> getPlatforms() {
+    public final List<Platform> getPlatforms() {
         return this.tileManager.getPlatforms();
     }
 
-    /**
-     * Retrieves a list of saws.
-     *
-     * @return A List of Saws.
-     */
     @Override
-    public List<CircularSaw> getSaws() {
+    public final List<CircularSaw> getSaws() {
         return this.tileManager.getSaws();
     }
 
-    /**
-     * Gets the width level of the platform.
-     *
-     * @return An integer representing the width level of the platform.
-     */
     @Override
-    public int getNumCols() {
+    public final int getNumCols() {
         return this.tileManager.getNumCols();
     }
 
-    /**
-     * Gets the height level of the platform.
-     *
-     * @return An integer representing the height level of the platform.
-     */
     @Override
-    public int getNumRows() {
+    public final int getNumRows() {
         return this.tileManager.getNumRows();
     }
 
