@@ -42,7 +42,7 @@ public class Scoreboard extends JPanel  {
         this.record = 0;
         this.label = new JLabel("LEVEL 1");
         this.deathsField = new JLabel("TOTAL DEATHS: " + deaths);
-        this.timeRecordField = new JLabel(String.format("%d:%02d", record / 100, record % 100));
+        this.timeRecordField = new JLabel(String.format("BEST TIME RECORD: %d:%02d", record / 100, record % 100));
         this.refreshButton = new JButton("REFRESH");
         this.backButton = new JButton("BACK");
 
@@ -59,7 +59,7 @@ public class Scoreboard extends JPanel  {
                 updateDeaths();
                 updateTimeRecord();
                 deathsField.setText("TOTAL DEATHS: " + deaths);
-                timeRecordField.setText(String.format("%d:%02d", record / 100, record % 100));
+                timeRecordField.setText(String.format("BEST TIME RECORD: %d:%02d", record / 100, record % 100));
                 repaint();
             }
         });
