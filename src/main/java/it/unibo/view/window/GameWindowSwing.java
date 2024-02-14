@@ -47,7 +47,7 @@ public class GameWindowSwing extends JFrame implements GameWindow {
         this.menu = new GameMenu(this.controller, this);
         this.timerField = new JLabel();
         this.scoreboard = new Scoreboard(this.controller, this);
-        this.imageResizer = new ImageResizerImpl(this.controller);
+        this.imageResizer = new ImageResizerImpl();
         this.gamePanel = new GamePanel(this.controller);
         initializeGamePanel();
         setContentPane(menu);
