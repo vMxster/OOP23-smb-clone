@@ -99,4 +99,6 @@ public interface GameModel {
      * This method is responsible for setting up initial coordinates or resetting them to their default values.
      */
     void initializeCoords();
+
+    void Died();
 }
