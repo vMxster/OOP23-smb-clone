@@ -6,6 +6,7 @@ import java.util.stream.IntStream;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import it.unibo.commons.Constants;
 import it.unibo.model.documentextractor.DocumentExtractor;
 import it.unibo.model.entity.obstacles.CircularSawImpl;
 import it.unibo.model.entity.obstacles.PlatformImpl;
@@ -69,16 +70,16 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
                                     this.tileLoaderManager.trim(objectElement.getAttribute("width")));
                                 if (GameObjectType.SAWS.toString().equals(nameObjects.toString())) {
                                     this.tileLoaderManager.setSaw(new CircularSawImpl(
-                                        x * 1.68,
-                                        y * 1.68,
-                                        (int) (width * 1.68)));
+                                        x * Constants.SCALE_PROPORTION,
+                                        y * Constants.SCALE_PROPORTION,
+                                        (int) (width * Constants.SCALE_PROPORTION)));
                                 } else {
                                     this.tileLoaderManager.setPlatform(new PlatformImpl(
-                                        x * 1.68,
-                                        y * 1.68,
-                                        (int) (width * 1.68),
+                                        x * Constants.SCALE_PROPORTION,
+                                        y * Constants.SCALE_PROPORTION,
+                                        (int) (width * Constants.SCALE_PROPORTION),
                                         (int) (Integer.parseInt(
-                                            this.tileLoaderManager.trim(objectElement.getAttribute("height"))) * 1.68)));
+                                            this.tileLoaderManager.trim(objectElement.getAttribute("height"))) * Constants.SCALE_PROPORTION)));
                                 }
                             });
                 });
