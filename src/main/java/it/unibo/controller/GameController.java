@@ -82,9 +82,22 @@ public interface GameController {
      */
     void victory();
 
+    /**
+     * This method is called to indicate that the player collides with an obstacles or fall from the map and died.
+     */
     void isDead();
 
+    /**
+     * Retrieves the number of deaths of the player.
+     * 
+     * @return the number of deaths.
+     */
     int getDeaths();
 
+    /**
+     * Retrieves the time record of the level.
+     * 
+     * @return the time record of the level.
+     */
     int getTimeRecord();
 }
