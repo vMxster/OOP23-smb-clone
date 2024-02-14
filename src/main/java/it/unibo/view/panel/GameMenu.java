@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import it.unibo.controller.GameController;
-import it.unibo.view.window.GameWindowSwing;
 import it.unibo.view.window.GameWindow.PanelType;
 
 /**
@@ -28,7 +27,7 @@ public class GameMenu extends JPanel {
      * @param controller the GameController associated with the window.
      * @param window the GameWindowSwing that can switch to change panel.
      */
-    public GameMenu(final GameController controller, final GameWindowSwing window) {
+    public GameMenu(final GameController controller) {
         this.setLayout(new GridLayout(ROWS, COLS));
         final JButton startButton = new JButton("START");
         final JButton scoreboardButton = new JButton("SCOREBOARD");
@@ -37,25 +36,23 @@ public class GameMenu extends JPanel {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 controller.start();
-                window.switchPanel(PanelType.GAME);
+                controller.getGameWindow().switchPanel(PanelType.GAME);
             }
         });
 
         scoreboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                window.switchPanel(PanelType.SCOREBOARD);
+                controller.getGameWindow().switchPanel(PanelType.SCOREBOARD);
             }
         });
 
         quitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                final int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", 
-                "Exit Confirmation", JOptionPane.YES_NO_OPTION);
-
-                if (confirm == JOptionPane.YES_OPTION) {
-                    System.exit(0);
+                if (JOptionPane.showConfirmDialog(null, "Sei sicuro di volere uscire?", 
+            "Esci dal gioco", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                System.exit(0);
                 }
             }
         });
