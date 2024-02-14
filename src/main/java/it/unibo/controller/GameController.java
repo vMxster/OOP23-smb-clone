@@ -85,4 +85,6 @@ public interface GameController {
     void isDead();
 
     int getDeaths();
+
+    int getTimeRecord();
 }
