@@ -27,7 +27,7 @@ public class GameModelImpl implements GameModel {
 
     /**
      * Constructs a new instance of the GameModel.
-     * This constructor initializes the game model with the specified URL to the game map.
+     * This constructor initializes the game model with the specified Path to the game map.
      *
      * @param tmx The path to the TMX file representing the game map.
      * @param gameController The game controller.
@@ -38,93 +38,48 @@ public class GameModelImpl implements GameModel {
         this.gameController = gameController;
     }
 
-    /**
-     * Returns the list of stationary tiles in the game.
-     *
-     * @return The list of stationary tiles.
-     */
     @Override
-    public List<List<Optional<Tile>>> getStationary() {
+    public final List<List<Optional<Tile>>> getStationary() {
         return this.level.getStationary();
     }
 
-    /**
-     * Returns the list of circular saws in the game.
-     *
-     * @return The list of circular saws.
-     */
     @Override
-    public List<CircularSaw> getSaws() {
+    public final List<CircularSaw> getSaws() {
         return this.level.getSaws();
     }
 
-    /**
-     * Returns the list of platforms in the game.
-     *
-     * @return The list of platforms.
-     */
     @Override
-    public List<Platform> getPlatforms() {
+    public final List<Platform> getPlatforms() {
         return this.level.getPlatforms();
     }
 
-    /**
-     * Returns the BandageGirl entity in the game.
-     *
-     * @return The BandageGirl entity.
-     */
     @Override
-    public BandageGirl getBandageGirl() {
+    public final BandageGirl getBandageGirl() {
         return this.level.getBandageGirl();
     }
 
-    /**
-     * Returns the MeatBoy entity in the game.
-     *
-     * @return The MeatBoy entity.
-     */
     @Override
-    public MeatBoy getMeatBoy() {
+    public final MeatBoy getMeatBoy() {
         return this.level.getMeatBoy();
     }
 
-    /**
-     * Returns the starting coordinates of the MeatBoy entity in the game.
-     *
-     * @return The starting coordinates of the MeatBoy entity.
-     */
     @Override
-    public Point2D<Double, Double> getMeatBoyStartCoord() {
+    public final Point2D<Double, Double> getMeatBoyStartCoord() {
         return this.level.getMeatBoyStartCoord();
     }
 
-    /**
-     * Returns the number of rows in the game map.
-     *
-     * @return The number of rows.
-     */
     @Override
-    public int getNumRows() {
+    public final int getNumRows() {
         return this.level.getNumRows();
     }
 
-    /**
-     * Returns the number of columns in the game map.
-     *
-     * @return The number of columns.
-     */
     @Override
-    public int getNumCols() {
+    public final int getNumCols() {
         return this.level.getNumCols();
     }
 
-    /**
-     * Returns the collision handler associated with the game model.
-     *
-     * @return The collision handler.
-     */
     @Override
-    public CollisionHandler getCollisionHandler() {
+    public final CollisionHandler getCollisionHandler() {
         return this.collisionHandler;
     }
 
@@ -152,7 +107,7 @@ public class GameModelImpl implements GameModel {
      * This method is called to indicate that the player collides with an obstacles or fall from the map and died.
      */
     @Override
-    public void Died() {
+    public void died() {
         this.gameController.isDead();
     }
 
