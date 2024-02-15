@@ -79,7 +79,8 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
                                         y * Constants.SCALE_PROPORTION,
                                         (int) (width * Constants.SCALE_PROPORTION),
                                         (int) (Integer.parseInt(
-                                            this.tileLoaderManager.trim(objectElement.getAttribute("height"))) * Constants.SCALE_PROPORTION)));
+                                            this.tileLoaderManager.trim(
+                                                objectElement.getAttribute("height"))) * Constants.SCALE_PROPORTION)));
                                 }
                             });
                 });
