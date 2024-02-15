@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.commons.Constants;
 import it.unibo.commons.Point2D;
 import it.unibo.model.documentextractor.DocumentExtractor;
 import it.unibo.model.documentextractor.DocumentExtractorImpl;
@@ -83,8 +84,7 @@ public class TileManagerImpl implements TileManager {
     public final BandageGirl getBandageGirl() {
         return new BandageGirlImpl(
             this.bandageGirl.getX(),
-            this.bandageGirl.getY()
-        );
+            this.bandageGirl.getY());
     }
 
     @Override
@@ -109,14 +109,14 @@ public class TileManagerImpl implements TileManager {
 
     @Override
     public final void setMeatBoyCoord(final Point2D<Double, Double> coord) {
-        this.meatBoy.setX(coord.getX() * 1.68);
-        this.meatBoy.setY(coord.getY() * 1.68);
+        this.meatBoy.setX(coord.getX() * Constants.SCALE_PROPORTION);
+        this.meatBoy.setY(coord.getY() * Constants.SCALE_PROPORTION);
     }
 
     @Override
     public final void setBandageGirlCoord(final Point2D<Double, Double> coord) {
-        this.bandageGirl.setX(coord.getX() * 1.68);
-        this.bandageGirl.setY(coord.getY() * 1.68);
+        this.bandageGirl.setX(coord.getX() * Constants.SCALE_PROPORTION);
+        this.bandageGirl.setY(coord.getY() * Constants.SCALE_PROPORTION);
     }
 
     /**
