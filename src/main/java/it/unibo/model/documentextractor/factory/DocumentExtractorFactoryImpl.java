@@ -4,10 +4,9 @@ import it.unibo.model.documentextractor.DocumentExtractor;
 import it.unibo.model.documentextractor.DocumentExtractorImpl;
 
 /**
- * Creates a new DocumentExtractor object based on the provided TMX (Tile Map XML).
- *
- * @param tmx the Tile Map XML data representing the document.
- * @return a DocumentExtractor object created with the provided TMX data.
+ * A factory implementation for creating instances of DocumentExtractor.
+ * This implementation provides a method to create a document extractor
+ * with the given TMX file.
  */
 public class DocumentExtractorFactoryImpl implements DocumentExtractorFactory {
 
