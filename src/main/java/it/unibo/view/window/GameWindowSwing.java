@@ -12,7 +12,7 @@ import it.unibo.view.panel.GameMenu;
 import it.unibo.view.imagerenderer.factory.manager.ImageRendererManagerFactoryImpl;
 import it.unibo.view.imagerenderer.manager.ImageRendererManager;
 import it.unibo.view.imageresizer.ImageResizer;
-import it.unibo.view.imageresizer.ImageResizerImpl;
+import it.unibo.view.imageresizer.factory.ImageResizerFactoryImpl;
 import it.unibo.view.panel.GamePanel;
 import it.unibo.view.panel.Scoreboard;
 
@@ -22,7 +22,7 @@ import it.unibo.view.panel.Scoreboard;
  */
 public class GameWindowSwing extends JFrame implements GameWindow {
 
-    public static final long serialVersionUID = 2;
+    public static final long serialVersionUID = 3;
     private static final int INITIAL_TIMER_POSITION = 10;
     private static final int TIMER_WIDTH = 100;
     private static final int TIMER_HEIGHT = 30;
@@ -47,7 +47,8 @@ public class GameWindowSwing extends JFrame implements GameWindow {
         this.menu = new GameMenu(this.controller, this);
         this.timerField = new JLabel();
         this.scoreboard = new Scoreboard(this.controller, this);
-        this.imageResizer = new ImageResizerImpl();
+        this.imageResizer = new ImageResizerFactoryImpl()
+            .createImageResizer();
         this.gamePanel = new GamePanel(this.controller);
         initializeGamePanel();
         setContentPane(menu);
