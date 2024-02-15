@@ -11,10 +11,10 @@ import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
+import it.unibo.model.tiles.loader.factory.gameobjects.TileLoaderGameObjectsFactoryImpl;
+import it.unibo.model.tiles.loader.factory.stationary.TileLoaderStationaryFactoryImpl;
 import it.unibo.model.tiles.loader.gameobjects.TileLoaderGameObjects;
-import it.unibo.model.tiles.loader.gameobjects.TileLoaderGameObjectsImpl;
 import it.unibo.model.tiles.loader.stationary.TileLoaderStationary;
-import it.unibo.model.tiles.loader.stationary.TileLoaderStationaryImpl;
 import it.unibo.model.tiles.manager.TileManager;
 /**
  * The implementation of the TileLoaderManager interface is responsible for managing the loading 
@@ -35,8 +35,10 @@ public class TileLoaderManagerImpl implements TileLoaderManager {
     public TileLoaderManagerImpl(final TileManager tileManager, final String tmx) {
         this.tileManager = tileManager;
         final DocumentExtractor documentExtractor = new DocumentExtractorImpl(tmx);
-        this.tileLoaderGameObjects = new TileLoaderGameObjectsImpl(this, documentExtractor);
-        this.tileLoaderStationary = new TileLoaderStationaryImpl(this, documentExtractor);
+        this.tileLoaderGameObjects = new TileLoaderGameObjectsFactoryImpl()
+            .createTileLoaderGameObjects(this, documentExtractor);
+        this.tileLoaderStationary = new TileLoaderStationaryFactoryImpl()
+            .createTileLoaderStationary(this, documentExtractor);
     }
 
     /**
