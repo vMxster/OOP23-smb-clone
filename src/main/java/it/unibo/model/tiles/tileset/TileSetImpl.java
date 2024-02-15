@@ -1,7 +1,8 @@
-package it.unibo.model.tiles;
+package it.unibo.model.tiles.tileset;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -15,6 +16,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import it.unibo.commons.Constants;
+import it.unibo.model.tiles.Tile;
+import it.unibo.model.tiles.TileImpl;
 
 /**
  * Implementation of the TileSet interface for parsing TMX file and extracting tiles.
@@ -47,7 +50,7 @@ public class TileSetImpl implements TileSet {
             Logger.getLogger(TileSetImpl.class.getName())
                         .severe("An error occurred: " + e.getMessage());
         }
-        return this.tiles;
+        return Collections.unmodifiableList(this.tiles);
     }
 
     /**

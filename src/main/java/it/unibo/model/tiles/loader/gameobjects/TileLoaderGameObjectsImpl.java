@@ -6,9 +6,11 @@ import java.util.stream.IntStream;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import it.unibo.commons.Constants;
 import it.unibo.model.documentextractor.DocumentExtractor;
 import it.unibo.model.entity.obstacles.CircularSawImpl;
 import it.unibo.model.entity.obstacles.PlatformImpl;
+import it.unibo.model.tiles.loader.manager.GameObjectType;
 import it.unibo.model.tiles.loader.manager.TileLoaderManager;
 
 /**
@@ -37,8 +39,8 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
      */
     @Override
     public void load() {
-        this.loadObjects("saws");
-        this.loadObjects("rectangle");
+        this.loadObjects(GameObjectType.SAWS);
+        this.loadObjects(GameObjectType.PLATFORMS);
     }
 
     /**
@@ -46,12 +48,12 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
      *
      * @param nameObjects The name of the objects to load ( "rectangle" , "saws" ).
      */
-    private void loadObjects(final String nameObjects) {
+    private void loadObjects(final GameObjectType nameObjects) {
         final NodeList objects = documentExtractor.getElements("objectgroup");
         IntStream.range(0, objects.getLength())
             .mapToObj(i -> (Element) objects.item(i))
             .collect(Collectors.toList()).stream()
-                .filter(node -> nameObjects.equals(((Element) node).getAttribute("name")))
+                .filter(node -> nameObjects.toString().equals(((Element) node).getAttribute("name")))
                 .findFirst()
                 .ifPresent(objectGroupElement -> {
                     final NodeList objectsInGroup = ((Element) objectGroupElement).getElementsByTagName("object");
@@ -66,18 +68,19 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
                                     this.tileLoaderManager.trim(objectElement.getAttribute("y")));
                                 final int width = Integer.parseInt(
                                     this.tileLoaderManager.trim(objectElement.getAttribute("width")));
-                                if ("saws".equals(nameObjects)) {
-                                    this.tileLoaderManager.getSaws().add(new CircularSawImpl(
-                                        x,
-                                        y,
-                                        width));
+                                if (GameObjectType.SAWS.toString().equals(nameObjects.toString())) {
+                                    this.tileLoaderManager.setSaw(new CircularSawImpl(
+                                        x * Constants.SCALE_PROPORTION,
+                                        y * Constants.SCALE_PROPORTION,
+                                        (int) (width * Constants.SCALE_PROPORTION)));
                                 } else {
-                                    this.tileLoaderManager.getPlatforms().add(new PlatformImpl(
-                                        x,
-                                        y,
-                                        width,
-                                        Integer.parseInt(
-                                            this.tileLoaderManager.trim(objectElement.getAttribute("height")))));
+                                    this.tileLoaderManager.setPlatform(new PlatformImpl(
+                                        x * Constants.SCALE_PROPORTION,
+                                        y * Constants.SCALE_PROPORTION,
+                                        (int) (width * Constants.SCALE_PROPORTION),
+                                        (int) (Integer.parseInt(
+                                            this.tileLoaderManager.trim(
+                                                objectElement.getAttribute("height"))) * Constants.SCALE_PROPORTION)));
                                 }
                             });
                 });
