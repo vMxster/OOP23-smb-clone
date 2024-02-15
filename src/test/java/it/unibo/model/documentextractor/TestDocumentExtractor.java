@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.commons.Constants;
+import it.unibo.model.documentextractor.factory.DocumentExtractorFactoryImpl;
+
 import javax.xml.parsers.ParserConfigurationException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,7 +25,8 @@ public class TestDocumentExtractor {
      */
     @BeforeEach
     public void init() {
-        this.documentExtractor = new DocumentExtractorImpl(Constants.SOURCE_MAP);
+        this.documentExtractor = new DocumentExtractorFactoryImpl()
+            .createDocumentExtractor(Constants.SOURCE_MAP);
         assertNotNull(this.documentExtractor);
     }
 
