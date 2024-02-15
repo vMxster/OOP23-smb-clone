@@ -38,12 +38,12 @@ public class CollisionHandlerImpl implements CollisionHandler {
         if (collisionChecker.inWindow() == CollisionChecker.CollisionState.FALL) {
             gameModel.getMeatBoy().setX(gameModel.getMeatBoyStartCoord().getX());
             gameModel.getMeatBoy().setY(gameModel.getMeatBoyStartCoord().getY());
-            gameModel.Died();
+            gameModel.died();
         } else {
             if (collisionChecker.getState() == CollisionChecker.CollisionState.SAW) {
                 gameModel.getMeatBoy().setX(gameModel.getMeatBoyStartCoord().getX());
                 gameModel.getMeatBoy().setY(gameModel.getMeatBoyStartCoord().getY());
-                gameModel.Died();
+                gameModel.died();
             } else if (collisionChecker.getState() == CollisionChecker.CollisionState.BANDAGE_GIRL) {
                 gameModel.victory();
             }
