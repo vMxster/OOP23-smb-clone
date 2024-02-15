@@ -14,6 +14,6 @@ public interface ImageResizer {
      * @param images The list of BufferedImages to resize.
      * @return A list of resized BufferedImages.
      */
-    List<BufferedImage> resize(List<BufferedImage> render);
+    List<BufferedImage> resize(List<BufferedImage> images);
 
 }
