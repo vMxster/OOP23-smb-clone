@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import it.unibo.commons.Point2D;
 import it.unibo.model.documentextractor.DocumentExtractor;
-import it.unibo.model.documentextractor.DocumentExtractorImpl;
+import it.unibo.model.documentextractor.factory.DocumentExtractorFactoryImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
@@ -34,7 +34,8 @@ public class TileLoaderManagerImpl implements TileLoaderManager {
      */
     public TileLoaderManagerImpl(final TileManager tileManager, final String tmx) {
         this.tileManager = tileManager;
-        final DocumentExtractor documentExtractor = new DocumentExtractorImpl(tmx);
+        final DocumentExtractor documentExtractor = new DocumentExtractorFactoryImpl()
+            .createDocumentExtractor(tmx);
         this.tileLoaderGameObjects = new TileLoaderGameObjectsFactoryImpl()
             .createTileLoaderGameObjects(this, documentExtractor);
         this.tileLoaderStationary = new TileLoaderStationaryFactoryImpl()
