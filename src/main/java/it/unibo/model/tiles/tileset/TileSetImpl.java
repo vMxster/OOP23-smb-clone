@@ -1,4 +1,4 @@
-package it.unibo.model.tiles;
+package it.unibo.model.tiles.tileset;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,6 +16,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import it.unibo.commons.Constants;
+import it.unibo.model.tiles.Tile;
+import it.unibo.model.tiles.TileImpl;
 
 /**
  * Implementation of the TileSet interface for parsing TMX file and extracting tiles.
