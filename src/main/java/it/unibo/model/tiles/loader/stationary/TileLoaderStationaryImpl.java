@@ -67,7 +67,7 @@ public class TileLoaderStationaryImpl implements TileLoaderStationary {
                                 if (idTile > ID_TILE_NULL) {
                                     if (idTile == ID_TILE_BANDAGEGIRL) {
                                         this.tileLoaderManager.setBandageGirlCoord(
-                                            new Point2D<Double,Double>(
+                                            new Point2D<Double, Double>(
                                                 Double.valueOf(column * Constants.TILE_SIZE),
                                                 Double.valueOf(row * Constants.TILE_SIZE))
                                         );
@@ -76,7 +76,7 @@ public class TileLoaderStationaryImpl implements TileLoaderStationary {
                                                 Optional.of(this.tileLoaderManager.getTiles().get(idTile - 1)));
                                     } else if (idTile == ID_TILE_MEATBOY) {
                                         this.tileLoaderManager.setMeatBoyCoord(
-                                            new Point2D<Double,Double>(
+                                            new Point2D<Double, Double>(
                                                 Double.valueOf(column * Constants.TILE_SIZE),
                                                 Double.valueOf(row * Constants.TILE_SIZE))
                                             );
