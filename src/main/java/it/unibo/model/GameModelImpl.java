@@ -12,7 +12,7 @@ import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.level.Level;
-import it.unibo.model.level.LevelImpl;
+import it.unibo.model.level.factory.LevelFactoryImpl;
 import it.unibo.model.tiles.Tile;
 
 /**
@@ -33,7 +33,7 @@ public class GameModelImpl implements GameModel {
      * @param gameController The game controller.
      */
     public GameModelImpl(final String tmx, final GameController gameController) {
-        this.level = new LevelImpl(tmx);
+        this.level = new LevelFactoryImpl().createLevel(tmx);
         this.collisionHandler = new CollisionHandlerImpl(this);
         this.gameController = gameController;
     }
