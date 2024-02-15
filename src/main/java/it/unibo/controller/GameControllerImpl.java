@@ -223,4 +223,14 @@ public class GameControllerImpl implements GameController {
     public GameWindow getGameWindow() {
         return gameWindow;
     }
+
+    @Override
+    public void stopMovingMeatBoy(int keyCode) {
+        this.getGameModel().getCollisionHandler().stopMovingMeatBoy(keyCode);
+    }
+
+    @Override
+    public void moveMeatBoy(int keyCode) {
+        this.getGameModel().getCollisionHandler().moveMeatBoy(keyCode);
+    }
 }
