@@ -1,6 +1,8 @@
 package it.unibo.model.tiles;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -8,48 +10,65 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.commons.Constants;
 import it.unibo.model.documentextractor.DocumentExtractor;
-import it.unibo.model.documentextractor.DocumentExtractorImpl;
+import it.unibo.model.documentextractor.factory.DocumentExtractorFactoryImpl;
+import it.unibo.model.tiles.loader.factory.gameobjects.TileLoaderGameObjectsFactoryImpl;
+import it.unibo.model.tiles.loader.factory.manager.TileLoaderManagerFactoryImpl;
+import it.unibo.model.tiles.loader.factory.stationary.TileLoaderStationaryFactoryImpl;
+import it.unibo.model.tiles.loader.gameobjects.TileLoaderGameObjects;
 import it.unibo.model.tiles.loader.manager.TileLoaderManager;
-import it.unibo.model.tiles.loader.manager.TileLoaderManagerImpl;
+import it.unibo.model.tiles.loader.stationary.TileLoaderStationary;
 import it.unibo.model.tiles.manager.TileManager;
-import it.unibo.model.tiles.manager.TileManagerImpl;
+import it.unibo.model.tiles.manager.factory.TileManagerFactoryImpl;
 
 /**
  * JUnit tests for the TileLoader class.
  */
 public class TestTileLoader {
 
+    private static final int NUM_ROWS = 30;
+    private static final int NUM_COLUMNS = 36;
     private TileManager tileManager;
     private DocumentExtractor documentExtractor;
     private TileLoaderManager tileLoaderManager;
+    private TileLoaderGameObjects tileLoaderGameObjects;
+    private TileLoaderStationary tileLoaderStationary;
 
     /**
      * Initializes the test environment before each test method is executed.
      */
     @BeforeEach
     public void init() {
-        this.tileManager = new TileManagerImpl(Constants.SOURCE_MAP);
+        this.tileManager = new TileManagerFactoryImpl()
+            .createTileManager(Constants.SOURCE_MAP);
         assertNotNull(this.tileManager);
-        this.tileLoaderManager = new TileLoaderManagerImpl(tileManager, Constants.SOURCE_MAP);
-        assertNotNull(this.tileManager);
-        this.documentExtractor = new DocumentExtractorImpl(Constants.SOURCE_MAP);
+        this.tileLoaderManager = new TileLoaderManagerFactoryImpl()
+            .createTileLoaderManager(this.tileManager, Constants.SOURCE_MAP);
+        assertNotNull(this.tileLoaderManager);
+        this.documentExtractor = new DocumentExtractorFactoryImpl()
+            .createDocumentExtractor(Constants.SOURCE_MAP);
         assertNotNull(this.documentExtractor);
+        this.tileLoaderGameObjects = new TileLoaderGameObjectsFactoryImpl()
+            .createTileLoaderGameObjects(this.tileLoaderManager, this.documentExtractor);
+        assertNotNull(this.tileLoaderGameObjects);
+        this.tileLoaderStationary = new TileLoaderStationaryFactoryImpl()
+            .createTileLoaderStationary(this.tileLoaderManager, this.documentExtractor);
+        assertNotNull(this.tileLoaderStationary);
     }
 
     /**
-     * Tests the {@link TileLoaderImpl#load()} method.
+     * Tests the {@link TileLoaderManager#load()} method.
      */
     @Test
     public void testLoad() {
         this.tileLoaderManager.load();
-        assertNotNull(this.tileManager.getStationary());
-        assertFalse(this.tileManager.getStationary().isEmpty());
+        assertNotNull(this.tileLoaderManager.getStationary());
+        assertFalse(this.tileLoaderManager.getStationary().isEmpty());
+        assertEquals(NUM_ROWS, this.tileLoaderManager.getStationary().size());
+        assertEquals(NUM_COLUMNS, this.tileLoaderManager.getStationary().get(0).size());
         assertNotNull(this.tileManager.getSaws());
         assertFalse(this.tileManager.getSaws().isEmpty());
         assertNotNull(this.tileManager.getPlatforms());
         assertFalse(this.tileManager.getPlatforms().isEmpty());
-        assertNotNull(this.tileManager.getBandageGirl());
-        assertNotNull(this.tileManager.getMeatBoy());
     }
 
 }
