@@ -16,8 +16,8 @@ import it.unibo.model.entity.player.MeatBoyImpl;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.entity.target.BandageGirlImpl;
 import it.unibo.model.tiles.Tile;
-import it.unibo.model.tiles.TileSetImpl;
-import it.unibo.model.tiles.loader.manager.TileLoaderManagerImpl;
+import it.unibo.model.tiles.loader.factory.manager.TileLoaderManagerFactoryImpl;
+import it.unibo.model.tiles.tileset.factory.TileSetFactoryImpl;
 
 /**
  * The TileManagerImpl class implements the TileManager interface and provides
@@ -43,14 +43,16 @@ public class TileManagerImpl implements TileManager {
         this.platforms = new ArrayList<>();
         this.circularSaws = new ArrayList<>();
         this.stationary = new ArrayList<>();
-        this.tiles = new TileSetImpl(tmx).read();
+        this.tiles = new TileSetFactoryImpl()
+            .createTileSet(tmx).read();
         this.meatBoy = new MeatBoyImpl(0, 0);
         this.bandageGirl = new BandageGirlImpl(0, 0);
         final DocumentExtractor documentExtractor = new DocumentExtractorImpl(tmx);
         this.numRows = documentExtractor.getNumRows();
         this.numColumns = documentExtractor.getNumColumns();
         init();
-        new TileLoaderManagerImpl(this, tmx).load();
+        new TileLoaderManagerFactoryImpl()
+            .createTileLoaderManager(this, tmx).load();
     }
 
     @Override
