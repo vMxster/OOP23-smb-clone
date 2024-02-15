@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import it.unibo.model.tiles.Tile;
 import it.unibo.model.tiles.manager.TileManager;
-import it.unibo.model.tiles.manager.TileManagerImpl;
+import it.unibo.model.tiles.manager.factory.TileManagerFactoryImpl;
 import it.unibo.commons.Point2D;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
@@ -28,7 +28,8 @@ public class LevelImpl implements Level {
      * @param tmx The URL to the tmx file representing the level.
      */
     public LevelImpl(final String tmx) {
-        this.tileManager = new TileManagerImpl(tmx);
+        this.tileManager = new TileManagerFactoryImpl()
+            .createTileManager(tmx);
         this.meatBoy = this.tileManager.getMeatBoy();
         this.bandageGirl = this.tileManager.getBandageGirl();
         this.meatBoyStartCoord = new Point2D<>(
