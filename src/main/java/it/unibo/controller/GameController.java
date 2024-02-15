@@ -113,4 +113,8 @@ public interface GameController {
     GameWindow getGameWindow();
 
     void esc();
+
+    void stopMovingMeatBoy(int keyCode);
+
+    void moveMeatBoy(int keyCode);
 }
