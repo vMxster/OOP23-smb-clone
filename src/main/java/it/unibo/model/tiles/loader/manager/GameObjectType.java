@@ -6,17 +6,17 @@ package it.unibo.model.tiles.loader.manager;
 public enum GameObjectType {
 
     /**
-     * Object type: Saws
+     * Object type: Saws.
      */
     SAWS("saws"),
 
     /**
-     * Object type: Platforms
+     * Object type: Platforms.
      */
     PLATFORMS("rectangle");
 
     /**
-     * TagName of the objects
+     * TagName of the objects.
      */
     private final String nameObjects;
 
