@@ -6,8 +6,6 @@ import java.util.Optional;
 import it.unibo.commons.Point2D;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
-import it.unibo.model.entity.player.MeatBoy;
-import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
 
 /**
@@ -29,34 +27,6 @@ public interface TileLoaderManager {
      * @return The trimmed String
      */
     String trim(String s);
-
-    /**
-     * Returns the List of Platforms parsed from the TMX file.
-     *
-     * @return The List of Platforms parsed from the TMX file.
-     */
-    List<Platform> getPlatforms();
-
-    /**
-     * Returns the List of CircularSaws parsed from the TMX file.
-     *
-     * @return The List of CircularSaws parsed from the TMX file.
-     */
-    List<CircularSaw> getSaws();
-
-    /**
-     * Returns the MeatBoy object parsed from the TMX file.
-     *
-     * @return The MeatBoy object parsed from the TMX file.
-     */
-    MeatBoy getMeatBoy();
-
-    /**
-     * Returns the BandageGirl object parsed from the TMX file.
-     *
-     * @return The BandageGirl object parsed from the TMX file.
-     */
-    BandageGirl getBandageGirl();
 
     /**
      * Retrieves a two-dimensional list representing stationary tiles in the game.
