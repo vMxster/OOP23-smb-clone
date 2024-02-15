@@ -84,22 +84,22 @@ public class TileLoaderManagerImpl implements TileLoaderManager {
     }
 
     @Override
-    public final void setPlatform(Platform platform) {
+    public final void setPlatform(final Platform platform) {
         this.tileManager.setPlatform(platform);
     }
 
     @Override
-    public final void setSaw(CircularSaw circularSaw) {
+    public final void setSaw(final CircularSaw circularSaw) {
         this.tileManager.setSaw(circularSaw);
     }
 
     @Override
-    public final void setMeatBoyCoord(Point2D<Double, Double> coord) {
+    public final void setMeatBoyCoord(final Point2D<Double, Double> coord) {
         this.tileManager.setMeatBoyCoord(coord);
     }
 
     @Override
-    public final void setBandageGirlCoord(Point2D<Double, Double> coord) {
+    public final void setBandageGirlCoord(final Point2D<Double, Double> coord) {
         this.tileManager.setBandageGirlCoord(coord);
     }
 
