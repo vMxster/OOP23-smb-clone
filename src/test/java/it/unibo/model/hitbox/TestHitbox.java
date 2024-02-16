@@ -1,4 +1,4 @@
-package it.unibo.model;
+package it.unibo.model.hitbox;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -20,8 +20,6 @@ import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.player.MeatBoyImpl;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.entity.target.BandageGirlImpl;
-import it.unibo.model.hitbox.CircularHitbox;
-import it.unibo.model.hitbox.RectangleHitbox;
 
 public class TestHitbox {
 
