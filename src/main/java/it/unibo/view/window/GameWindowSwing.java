@@ -50,7 +50,7 @@ public class GameWindowSwing extends JFrame implements GameWindow {
         this.menu = new GameMenu(controller);
         this.timerField = new JLabel();
         this.deathsField = new JLabel();
-        this.scoreboard = new Scoreboard(this.controller, this);
+        this.scoreboard = new Scoreboard(controller, this);
         this.imageResizer = new ImageResizerFactoryImpl()
             .createImageResizer();
         this.gamePanel = new GamePanel(controller);
@@ -140,5 +140,4 @@ public class GameWindowSwing extends JFrame implements GameWindow {
             default -> throw new IllegalArgumentException();
         };
     }
-    
 }
