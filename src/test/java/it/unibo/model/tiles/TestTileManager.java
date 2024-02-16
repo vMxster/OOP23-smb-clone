@@ -19,10 +19,10 @@ import it.unibo.model.tiles.manager.factory.TileManagerFactoryImpl;
  */
 class TestTileManager {
 
-    private static final double MEATBOY_X = 100.8;
-    private static final double MEATBOY_Y = 772.8;
-    private static final double BANDAGEGIRL_X = 1108.8;
-    private static final double BANDAGEGIRL_Y = 638.4;
+    private static final double MEATBOY_X = 60 * Constants.SCALE_PROPORTION;
+    private static final double MEATBOY_Y = 460 * Constants.SCALE_PROPORTION;
+    private static final double BANDAGEGIRL_X = 660 * Constants.SCALE_PROPORTION;
+    private static final double BANDAGEGIRL_Y = 380 * Constants.SCALE_PROPORTION;
     private static final int NUM_TILES = 902;
     private static final int NUM_PLATFORMS = 6;
     private static final int NUM_SAWS = 2;
