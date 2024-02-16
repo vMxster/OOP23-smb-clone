@@ -3,6 +3,7 @@ package it.unibo.model.level;
 import java.util.List;
 import java.util.Optional;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.tiles.Tile;
 import it.unibo.model.tiles.manager.TileManager;
 import it.unibo.model.tiles.manager.factory.TileManagerFactoryImpl;
@@ -11,6 +12,7 @@ import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
+import it.unibo.model.entity.target.BandageGirlImpl;
 
 /**
  * Implementation of the Level interface that reads a tmx file and creates a level from it.
@@ -37,6 +39,15 @@ public class LevelImpl implements Level {
             this.meatBoy.getY());
     }
 
+    @SuppressFBWarnings(value = "EI", justification =
+                "Justification for Suppressing SpotBugs Warning:\r\n" + //
+                "The SpotBugs warning \"EI\" indicates that the method returns a reference to a mutable object (meatBoy),\r\n" + //
+                "potentially allowing the caller to modify its internal state. In this context, the\r\n" + //
+                "method returns the reference to the `MeatBoy` to allow the CollisionHandler to modify its state.\r\n" + //
+                "This decision is intentional and necessary for the correct functioning of the system.\r\n" + //
+                "Despite exposing a reference to a mutable object, such exposure is accurate and necessary for\r\n" + //
+                "the proper functioning of the system, ensuring that the CollisionHandler can directly access\r\n" + //
+                "the `MeatBoy` to update its state in response to collision events.")
     @Override
     public final MeatBoy getMeatBoy() {
         return this.meatBoy;
@@ -49,7 +60,9 @@ public class LevelImpl implements Level {
 
     @Override
     public final BandageGirl getBandageGirl() {
-        return this.bandageGirl;
+        return new BandageGirlImpl(
+            this.bandageGirl.getX(),
+            this.bandageGirl.getY());
     }
 
     @Override
