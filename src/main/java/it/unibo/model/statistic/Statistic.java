@@ -12,6 +12,7 @@ public interface Statistic {
     /**
      * Update the time record every time the player 
      * makes a better time. 
+     * @param time the new time made by the player.
      */
     void updateRecord(int time);
     /**

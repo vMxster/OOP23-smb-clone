@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +22,10 @@ import it.unibo.commons.Point2D;
 /**
  * JUnit test class for LevelImpl.
  */
-public class TestLevel {
+class TestLevel {
 
+    private static final int NUM_SAWS = 2;
+    private static final int NUM_PLATFORMS = 6;
     private static final int NUM_ROWS = 30;
     private static final int NUM_COLUMNS = 36;
     private Level level;
@@ -33,7 +34,7 @@ public class TestLevel {
      * Initialize the LevelImpl instance before each test.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         level = new LevelFactoryImpl().createLevel(Constants.SOURCE_MAP);
         assertNotNull(level);
     }
@@ -42,8 +43,8 @@ public class TestLevel {
      * Test the {@link LevelImpl#getMeatBoy()} method.
      */
     @Test
-    public void testGetMeatBoy() {
-        MeatBoy meatBoy = level.getMeatBoy();
+    void testGetMeatBoy() {
+        final MeatBoy meatBoy = level.getMeatBoy();
         assertNotNull(meatBoy);
         assertNotEquals(0, meatBoy.getX());
         assertNotEquals(0, meatBoy.getY());
@@ -53,8 +54,8 @@ public class TestLevel {
      * Test the {@link LevelImpl#getMeatBoyStartCoord()} method.
      */
     @Test
-    public void testGetMeatBoyStartCoord() {
-        Point2D<Double, Double> startCoord = level.getMeatBoyStartCoord();
+    void testGetMeatBoyStartCoord() {
+        final Point2D<Double, Double> startCoord = level.getMeatBoyStartCoord();
         assertNotNull(startCoord);
         assertNotEquals(0, startCoord.getX());
         assertNotEquals(0, startCoord.getY());
@@ -64,8 +65,8 @@ public class TestLevel {
      * Test the {@link LevelImpl#getBandageGirl()} method.
      */
     @Test
-    public void testGetBandageGirl() {
-        BandageGirl bandageGirl = level.getBandageGirl();
+    void testGetBandageGirl() {
+        final BandageGirl bandageGirl = level.getBandageGirl();
         assertNotNull(bandageGirl);
         assertNotEquals(0, bandageGirl.getX());
         assertNotEquals(0, bandageGirl.getY());
@@ -75,38 +76,38 @@ public class TestLevel {
      * Test the {@link LevelImpl#getStationary()} method.
      */
     @Test
-    public void testGetStationary() {
-        List<List<Optional<Tile>>> stationary = level.getStationary();
+    void testGetStationary() {
+        final List<List<Optional<Tile>>> stationary = level.getStationary();
         assertNotNull(stationary);
-        assertTrue(stationary.size()==NUM_ROWS);
-        assertTrue(stationary.get(0).size()==NUM_COLUMNS);
+        assertEquals(NUM_ROWS, stationary.size());
+        assertEquals(NUM_COLUMNS, stationary.get(0).size());
     }
 
     /**
      * Test the {@link LevelImpl#getPlatforms()} method.
      */
     @Test
-    public void testGetPlatforms() {
-        List<Platform> platforms = level.getPlatforms();
+    void testGetPlatforms() {
+        final List<Platform> platforms = level.getPlatforms();
         assertNotNull(platforms);
-        assertEquals(6, platforms.size());
+        assertEquals(NUM_PLATFORMS, platforms.size());
     }
 
     /**
      * Test the {@link LevelImpl#getSaws()} method.
      */
     @Test
-    public void testGetSaws() {
-        List<CircularSaw> saws = level.getSaws();
+    void testGetSaws() {
+        final List<CircularSaw> saws = level.getSaws();
         assertNotNull(saws);
-        assertEquals(2, saws.size());
+        assertEquals(NUM_SAWS, saws.size());
     }
 
     /**
      * Test the {@link LevelImpl#getNumCols()} method.
      */
     @Test
-    public void testGetNumCols() {
+    void testGetNumCols() {
         assertEquals(NUM_COLUMNS, level.getNumCols());
     }
 
@@ -114,7 +115,7 @@ public class TestLevel {
      * Test the {@link LevelImpl#getNumRows()} method.
      */
     @Test
-    public void testGetNumRows() {
+    void testGetNumRows() {
         assertEquals(NUM_ROWS, level.getNumRows());
     }
 

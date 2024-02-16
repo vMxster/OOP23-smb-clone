@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * The CircularHitbox rapresents the implementation of the Hitbox
  * with a circular shape.
@@ -27,6 +29,7 @@ public class CircularHitbox implements Hitbox<Ellipse2D> {
         this.hitbox.setFrame(x, y, hitbox.getWidth(), hitbox.getHeight());
     }
 
+    @SuppressFBWarnings("EI_EXPOSE_REP")
     @Override
     public final Ellipse2D getHitbox() {
         return this.hitbox;

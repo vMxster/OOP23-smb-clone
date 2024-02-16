@@ -18,7 +18,7 @@ import it.unibo.model.tiles.tileset.factory.TileSetFactoryImpl;
 /**
  * JUnit tests for the TileSet class.
  */
-public class TestTileSet {
+class TestTileSet {
 
     private static final int NUM_TILES = 902;
     private TileSet tileSet;
@@ -27,7 +27,7 @@ public class TestTileSet {
      * Initializes the test environment before each test method is executed.
      */
     @BeforeEach
-    public void init() {
+    void init() {
         this.tileSet = new TileSetFactoryImpl()
             .createTileSet(Constants.SOURCE_MAP);
         assertNotNull(this.tileSet);
@@ -37,8 +37,8 @@ public class TestTileSet {
      * Tests the {@link TileSetImpl#read()} method.
      */
     @Test
-    public void testRead() {
-        List<Tile> tiles = this.tileSet.read();
+    void testRead() {
+        final List<Tile> tiles = this.tileSet.read();
         assertNotNull(tiles);
         assertFalse(tiles.isEmpty());
         assertEquals(NUM_TILES, tiles.size());
