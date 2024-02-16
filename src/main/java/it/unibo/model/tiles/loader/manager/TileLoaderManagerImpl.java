@@ -32,14 +32,22 @@ public class TileLoaderManagerImpl implements TileLoaderManager {
      * @param tmx         The path to the TMX file containing tile information.
      */
     @SuppressFBWarnings(value = "EI2", justification =
-                "Justification for Suppressing SpotBugs Warning:\r\n" + //
-                "The SpotBugs warning \"EI2\" indicates that a mutable object (tileManager)\r\n" + //
-                "is being stored without defensively copying its contents. In this context, the\r\n" + //
-                "tileManager object is used solely for internal use within the\r\n" + //
-                "TileLoaderManagerImpl class and for initializing its internal state. It's not\r\n" + //
-                "exposed to external code, and no modifications are made to it after initialization.\r\n" + //
-                "Therefore, there's no risk of unintended modification by external code or concurrent\r\n" + //
-                "access issues. Suppressing this warning is justified as it accurately reflects the\r\n" + //
+                "Justification for Suppressing SpotBugs Warning:\r\n"
+                + //
+                "The SpotBugs warning \"EI2\" indicates that a mutable object (tileManager)\r\n"
+                + //
+                "is being stored without defensively copying its contents. In this context, the\r\n"
+                + //
+                "tileManager object is used solely for internal use within the\r\n"
+                + //
+                "TileLoaderManagerImpl class and for initializing its internal state. It's not\r\n"
+                + //
+                "exposed to external code, and no modifications are made to it after initialization.\r\n"
+                + //
+                "Therefore, there's no risk of unintended modification by external code or concurrent\r\n"
+                + //
+                "access issues. Suppressing this warning is justified as it accurately reflects the\r\n"
+                + //
                 "intentional design and usage of the tileManager object within this class.")
     public TileLoaderManagerImpl(final TileManager tileManager, final String tmx) {
         this.tileManager = tileManager;
