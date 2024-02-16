@@ -115,4 +115,26 @@ public class TestHitbox {
                 List.of(300.0, 100.0),
                 List.of(hitboxShapeP.getWidth(), hitboxShapeP.getHeight()));
     }
+
+    @Test
+    void testSawHitbox(){
+        CircularHitbox sawHitbox = this.saw.getHitbox();
+        assertNotNull(sawHitbox);
+        Ellipse2D hitboxShapeS = sawHitbox.getHitbox();
+        assertNotNull(hitboxShapeS);
+        assertEquals(
+                List.of(this.saw.getX(), this.saw.getY()),
+                List.of(hitboxShapeS.getX(), hitboxShapeS.getY()));
+        assertEquals(
+                List.of(30.0, 30.0),
+                List.of(hitboxShapeS.getWidth(), hitboxShapeS.getHeight()));
+        this.saw.setX(100);
+        this.saw.setY(100);
+        assertEquals(
+                List.of(this.saw.getX(), this.saw.getY()),
+                List.of(hitboxShapeS.getX(), hitboxShapeS.getY()));
+        assertEquals(
+                List.of(30.0, 30.0),
+                List.of(hitboxShapeS.getWidth(), hitboxShapeS.getHeight()));
+    }
 }
