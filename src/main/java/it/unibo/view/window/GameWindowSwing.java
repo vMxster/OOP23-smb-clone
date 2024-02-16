@@ -32,12 +32,12 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     private static final int DEATHSFIELD_WIDTH = (int) (Constants.SW * 0.05);
     private static final int DEATHSFIELD_HEIGHT = (int) (Constants.SH * 0.03);
     private static final int FONT_SIZE = 30;
-    private final ImageRendererManager renderer;
+    private final transient ImageRendererManager renderer;
     private final GameMenu menu;
     private final JLabel timerField;
     private final JLabel deathsField;
     private final Scoreboard scoreboard;
-    private final ImageResizer imageResizer;
+    private final transient ImageResizer imageResizer;
     private final GamePanel gamePanel;
 
     /**
