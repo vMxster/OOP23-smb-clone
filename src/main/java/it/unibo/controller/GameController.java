@@ -17,6 +17,11 @@ import it.unibo.model.tiles.Tile;
 public interface GameController {
 
     /**
+     * Starts the GameWindow.
+     */
+    void startWindow();
+
+    /**
      * Starts the game loop.
      */
     void start();

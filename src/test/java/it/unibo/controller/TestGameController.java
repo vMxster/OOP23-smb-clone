@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.controller.factory.GameControllerFactoryImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
@@ -26,7 +27,8 @@ public class TestGameController {
      */
     @BeforeEach
     public void init() {
-        gameController = new GameControllerImpl();
+        gameController = new GameControllerFactoryImpl()
+            .createGameController();
         assertNotNull(this.gameController);
     }
 
