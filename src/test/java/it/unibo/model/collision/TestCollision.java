@@ -23,10 +23,10 @@ class TestCollision {
     private GameModel gameModel;
     private CollisionChecker collisionChecker;
 
-    private static final int SAW_X = 500;
-    private static final int SAW_Y = 60;
-    private static final int BANDAGE_X = 1100;
-    private static final int BANDAGE_Y = 650;
+    private static final int SAW_X = (int) (300 * Constants.SCALE_PROPORTION);
+    private static final int SAW_Y = (int) (35 * Constants.SCALE_PROPORTION);
+    private static final int BANDAGE_X = (int) (654 * Constants.SCALE_PROPORTION);
+    private static final int BANDAGE_Y = (int) (386 * Constants.SCALE_PROPORTION);
     private static final int FALLING = 2000;
 
     /**
