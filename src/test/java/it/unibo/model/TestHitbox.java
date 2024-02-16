@@ -67,4 +67,30 @@ public class TestHitbox {
                     Math.floor(Constants.TILE_SIZE * Constants.SCALE_PROPORTION)),
                 List.of(hitboxShapeMB.getWidth(), hitboxShapeMB.getHeight()));
     }
+
+    @Test
+    void testBandageGirlHitbox(){
+        RectangleHitbox bandageGirlHitbox = this.bandageGirl.getHitbox();
+        assertNotNull(bandageGirlHitbox);
+        Rectangle hitboxShapeBG = bandageGirlHitbox.getHitbox();
+        assertNotNull(hitboxShapeBG);
+        assertEquals(
+                List.of(this.bandageGirl.getX(), this.bandageGirl.getY()),
+                List.of(hitboxShapeBG.getX(), hitboxShapeBG.getY()));
+        assertEquals(
+                List.of(
+                    Math.floor(Constants.TILE_SIZE * Constants.SCALE_PROPORTION), 
+                    Math.floor(Constants.TILE_SIZE * Constants.SCALE_PROPORTION)),
+                List.of(hitboxShapeBG.getWidth(), hitboxShapeBG.getHeight()));
+        this.bandageGirl.setX(100);
+        this.bandageGirl.setY(100);
+        assertEquals(
+                List.of(this.bandageGirl.getX(), this.bandageGirl.getY()),
+                List.of(hitboxShapeBG.getX(), hitboxShapeBG.getY()));
+        assertEquals(
+                List.of(
+                    Math.floor(Constants.TILE_SIZE * Constants.SCALE_PROPORTION), 
+                    Math.floor(Constants.TILE_SIZE * Constants.SCALE_PROPORTION)),
+                List.of(hitboxShapeBG.getWidth(), hitboxShapeBG.getHeight()));
+    }
 }
