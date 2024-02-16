@@ -20,12 +20,13 @@ import it.unibo.model.entity.player.MeatBoy;
  * The GamePanel class represents the main panel for rendering game elements.
  * It extends JPanel and provides methods for painting and handling keyboard input.
  */
+@SuppressFBWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
 public class GamePanel extends JPanel implements KeyListener {
 
     public static final long serialVersionUID = 1;
-    private final List<BufferedImage> images;
-    private final GameController controller;
-    private final MeatBoy meatBoy;
+    private final transient List<BufferedImage> images;
+    private final transient GameController controller;
+    private final transient MeatBoy meatBoy;
 
     /**
      * Constructs a new GamePanel with the specified GameController.
@@ -61,13 +62,17 @@ public class GamePanel extends JPanel implements KeyListener {
     @Override
     public void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        final Graphics2D g2d = (Graphics2D) g;
-        for (int i = 0; i < this.images.size(); i++) {
-            if (i == 3) {
-                g2d.drawImage(Objects.requireNonNull(this.images.get(i)), (int) meatBoy.getX(), (int) meatBoy.getY(), this);
-            } else {
-                g2d.drawImage(Objects.requireNonNull(this.images.get(i)), 0, 0, this);
+        if (g instanceof Graphics2D) {
+            final Graphics2D g2d = (Graphics2D) g;
+            for (int i = 0; i < this.images.size(); i++) {
+                if (i == this.images.size() - 1) {
+                    g2d.drawImage(Objects.requireNonNull(this.images.get(i)), (int) meatBoy.getX(), (int) meatBoy.getY(), this);
+                } else {
+                    g2d.drawImage(Objects.requireNonNull(this.images.get(i)), 0, 0, this);
+                }
             }
+        } else {
+            return;
         }
     }
 
