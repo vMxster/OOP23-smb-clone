@@ -1,4 +1,4 @@
-package it.unibo.model.tiles.tileset;
+package it.unibo.model.documentextractor;
 
 /**
  * Enum representing different types of tags used in a tileset.
@@ -6,9 +6,34 @@ package it.unibo.model.tiles.tileset;
 public enum TagType {
 
     /**
+     * Represents the "name" tag.
+     */
+    NAME("name"),
+
+    /**
+     * Represents the "gid" tag.
+     */
+    GID("gid"),
+
+    /**
+     * Represents the "x" tag.
+     */
+    X("x"),
+
+    /**
+     * Represents the "y" tag.
+     */
+    Y("y"),
+
+    /**
      * Represents the "tileset" tag.
      */
     TILESET("tileset"),
+
+    /**
+     * Represents the "tile" tag.
+     */
+    TILE("tile"),
 
     /**
      * Represents the "image" tag.
@@ -29,6 +54,16 @@ public enum TagType {
      * Represents the "map" tag.
      */
     MAP("map"),
+
+    /**
+     * Represents the "objectgroup" tag.
+     */
+    OBJECTGROUP("objectgroup"),
+
+    /**
+     * Represents the "object" tag.
+     */
+    OBJECT("object"),
 
     /**
      * Represents the "source" tag.
