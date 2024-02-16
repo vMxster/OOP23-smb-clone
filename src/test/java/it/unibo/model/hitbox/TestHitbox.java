@@ -21,6 +21,10 @@ import it.unibo.model.entity.player.MeatBoyImpl;
 import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.entity.target.BandageGirlImpl;
 
+/**
+ * JUnit test class for testing the hitboxes of various game entities, including MeatBoy, BandageGirl,
+ * Platform, and CircularSaw.
+ */
 public class TestHitbox {
 
     private MeatBoy meatBoy;
@@ -28,6 +32,11 @@ public class TestHitbox {
     private BandageGirl bandageGirl;
     private CircularSaw saw;
 
+    /**
+     * Initializes instances of game entities for testing hitboxes.
+     *
+     * @throws MalformedURLException if there is an issue with URL creation.
+     */
     @BeforeEach 
     public void init() throws MalformedURLException {
         this.meatBoy = new MeatBoyImpl(0, 0);
@@ -40,6 +49,9 @@ public class TestHitbox {
         assertNotNull(this.saw);
     }
 
+    /**
+     * Tests the hitbox of the MeatBoy entity.
+     */
     @Test
     void testMeatBoyHitbox(){
         RectangleHitbox meatboyHitbox = this.meatBoy.getHitbox();
@@ -66,6 +78,9 @@ public class TestHitbox {
                 List.of(hitboxShapeMB.getWidth(), hitboxShapeMB.getHeight()));
     }
 
+    /**
+     * Tests the hitbox of the BandageGirl entity.
+     */
     @Test
     void testBandageGirlHitbox(){
         RectangleHitbox bandageGirlHitbox = this.bandageGirl.getHitbox();
@@ -92,6 +107,9 @@ public class TestHitbox {
                 List.of(hitboxShapeBG.getWidth(), hitboxShapeBG.getHeight()));
     }
 
+    /**
+     * Tests the hitbox of the Platform entity.
+     */
     @Test
     void testPlatformHitbox(){
         RectangleHitbox PlatformHitbox = this.platform.getHitbox();
@@ -114,6 +132,9 @@ public class TestHitbox {
                 List.of(hitboxShapeP.getWidth(), hitboxShapeP.getHeight()));
     }
 
+    /**
+     * Tests the hitbox of the CircularSaw entity.
+     */
     @Test
     void testSawHitbox(){
         CircularHitbox sawHitbox = this.saw.getHitbox();
