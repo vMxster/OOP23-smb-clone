@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.commons.Constants;
 import it.unibo.commons.Point2D;
 import it.unibo.model.GameModel;
@@ -129,6 +130,10 @@ public class GameControllerImpl implements GameController {
         return gameModel;
     }
 
+    @SuppressFBWarnings(
+        value = "UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR", 
+        justification = "The victory method is never called before start, " +
+                "so gameloop and gametimer will always be initialized correctly")
     @Override
     public final void victory() {
         this.statistic.updateRecord(centiSeconds);
@@ -159,6 +164,10 @@ public class GameControllerImpl implements GameController {
         return this.gameModel.getMeatBoyStartCoord();
     }
 
+    @SuppressFBWarnings(
+        value = "UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR", 
+        justification = "The esc method is never called before start, " +
+                "so gameloop and gametimer will always be initialized correctly")
     @Override
     public final void esc() {
         this.gameLoop.cancel();
@@ -166,6 +175,7 @@ public class GameControllerImpl implements GameController {
         this.gameWindow.switchPanel(PanelType.MENU);
     }
 
+    @SuppressFBWarnings("EI_EXPOSE_REP")
     @Override
     public final GameWindow getGameWindow() {
         return gameWindow;
