@@ -72,7 +72,7 @@ public class Scoreboard extends JPanel  {
     public void updateDeaths() {
         deaths = this.controller.getDeaths();
     }
-    
+
     /**
      * Update the time record every time the player ends the level with a better time than before.
      */
