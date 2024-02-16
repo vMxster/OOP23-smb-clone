@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.commons.Point2D;
 import it.unibo.controller.factory.GameControllerFactoryImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
@@ -37,7 +38,7 @@ public class TestGameController {
      */
     @Test
     public void testGetStationary() {
-        List<List<Optional<Tile>>> stationary = gameController.getStationary();
+        final List<List<Optional<Tile>>> stationary = gameController.getStationary();
         assertNotNull(stationary);
     }
 
@@ -46,7 +47,7 @@ public class TestGameController {
      */
     @Test
     public void testGetSaws() {
-        List<CircularSaw> saws = gameController.getSaws();
+        final List<CircularSaw> saws = gameController.getSaws();
         assertNotNull(saws);
     }
 
@@ -55,7 +56,7 @@ public class TestGameController {
      */
     @Test
     public void testGetPlatforms() {
-        List<Platform> platforms = gameController.getPlatforms();
+        final List<Platform> platforms = gameController.getPlatforms();
         assertNotNull(platforms);
     }
 
@@ -64,7 +65,7 @@ public class TestGameController {
      */
     @Test
     public void testGetNumRows() {
-        int numRows = gameController.getNumRows();
+        final int numRows = gameController.getNumRows();
         assertTrue(numRows > 0);
     }
 
@@ -73,7 +74,7 @@ public class TestGameController {
      */
     @Test
     public void testGetNumCols() {
-        int numCols = gameController.getNumCols();
+        final int numCols = gameController.getNumCols();
         assertTrue(numCols > 0);
     }
 
@@ -82,7 +83,7 @@ public class TestGameController {
      */
     @Test
     public void testGetBandageGirl() {
-        BandageGirl bandageGirl = gameController.getBandageGirl();
+        final BandageGirl bandageGirl = gameController.getBandageGirl();
         assertNotNull(bandageGirl);
     }
 
@@ -91,8 +92,17 @@ public class TestGameController {
      */
     @Test
     public void testGetMeatBoy() {
-        MeatBoy meatBoy = gameController.getMeatBoy();
+        final MeatBoy meatBoy = gameController.getMeatBoy();
         assertNotNull(meatBoy);
+    }
+
+    /**
+     * Tests the {@link GameControllerImpl#getMeatBoyStartCoord()} method.
+     */
+    @Test
+    public void testGetMeatBoyStartCoord() {
+        final Point2D<Double, Double> meatBoyStartCoord = gameController.getMeatBoyStartCoord();
+        assertNotNull(meatBoyStartCoord);
     }
 
 }
