@@ -29,54 +29,29 @@ public class EntityImpl<H extends Hitbox<?>> implements Entity<H> {
         this.hitbox = hitbox;
     }
 
-    /**
-     * Retrieves the x-coordinate of the entity.
-     *
-     * @return The x-coordinate of the entity.
-     */
     @Override
-    public double getX() {
+    public final double getX() {
         return this.x;
     }
 
-    /**
-     * Retrieves the y-coordinate of the entity.
-     *
-     * @return The y-coordinate of the entity.
-     */
     @Override
-    public double getY() {
+    public final double getY() {
         return this.y;
     }
 
-    /**
-     * Retrieves the hitbox of the entity.
-     *
-     * @return The hitbox of the entity.
-     */
     @Override
-    public H getHitbox() {
+    public final H getHitbox() {
         return this.hitbox;
     }
 
-    /**
-    * Sets the x-coordinate of the entity to the specified value.
-    *
-    * @param x The new x-coordinate of the entity.
-    */
     @Override
-    public void setX(final double x) {
+    public final void setX(final double x) {
         this.hitbox.updatePosition(x, this.y);
         this.x = x;
     }
 
-    /**
-    * Sets the y-coordinate of the entity to the specified value.
-    *
-    * @param y The new y-coordinate of the entity.
-    */
     @Override
-    public void setY(final double y) {
+    public final void setY(final double y) {
         this.hitbox.updatePosition(this.x, y);
         this.y = y;
     }
