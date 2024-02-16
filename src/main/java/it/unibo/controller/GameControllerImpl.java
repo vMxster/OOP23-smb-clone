@@ -44,9 +44,16 @@ public class GameControllerImpl implements GameController {
     public GameControllerImpl() {
         this.gameModel = new GameModelImpl(Constants.SOURCE_MAP, this);
         this.gameWindow = new GameWindowFactoryImpl().createSwingGameWindow(this);
-        this.gameWindow.setPanelVisible();
         this.timer = new Timer();
         this.statistic = new StatisticImpl();
+    }
+
+    /**
+     * Starts the GameWindow.
+     */
+    @Override
+    public void startWindow() {
+        this.gameWindow.setPanelVisible();
     }
 
     /**
