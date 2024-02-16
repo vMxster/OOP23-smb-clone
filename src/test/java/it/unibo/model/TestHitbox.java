@@ -1,50 +1,70 @@
-// package it.unibo.model;
+package it.unibo.model;
 
-// import static org.junit.jupiter.api.Assertions.assertEquals;
-// import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-// import java.net.MalformedURLException;
-// import java.net.URL;
+import java.awt.Rectangle;
+import java.awt.geom.Ellipse2D;
+import java.net.MalformedURLException;
+import java.util.List;
 
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-// import it.unibo.model.collision.CollisionChecker;
-// import it.unibo.model.collision.CollisionCheckerImpl;
-// import it.unibo.model.collision.CollisionChecker.CollisionState;
-// import it.unibo.model.entity.player.MeatBoy;
-// import it.unibo.model.entity.player.MeatBoyImpl;
+import it.unibo.commons.Constants;
+import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.CircularSawImpl;
+import it.unibo.model.entity.obstacles.Platform;
+import it.unibo.model.entity.obstacles.PlatformImpl;
+import it.unibo.model.entity.player.MeatBoy;
+import it.unibo.model.entity.player.MeatBoyImpl;
+import it.unibo.model.entity.target.BandageGirl;
+import it.unibo.model.entity.target.BandageGirlImpl;
+import it.unibo.model.hitbox.CircularHitbox;
+import it.unibo.model.hitbox.RectangleHitbox;
 
-// public class TestHitbox {
+public class TestHitbox {
 
-//     private URL urlMap;
-//     private GameModel gameModel;
-//     private CollisionChecker collisionChecker;
-//     private MeatBoy meatBoy;
+    private MeatBoy meatBoy;
+    private Platform platform;
+    private BandageGirl bandageGirl;
+    private CircularSaw saw;
 
-//     @BeforeEach 
-//     public void init() throws MalformedURLException {
-//         this.urlMap = new URL("file:./src/main/resources/factory1.tmx");
-//         assertNotNull(this.urlMap);
-//         //this.gameModel = new GameModelImpl(urlMap);
-//         assertNotNull(this.gameModel);
-//         this.meatBoy = new MeatBoyImpl(0, 0);
-//         assertNotNull(this.meatBoy);
-//         this.collisionChecker = new CollisionCheckerImpl(gameModel);
-//         assertNotNull(this.collisionChecker);
-//     }
+    @BeforeEach 
+    public void init() throws MalformedURLException {
+        this.meatBoy = new MeatBoyImpl(0, 0);
+        assertNotNull(this.meatBoy);
+        this.bandageGirl = new BandageGirlImpl(0, 0);
+        assertNotNull(this.bandageGirl);
+        this.platform = new PlatformImpl(0, 0, 300, 100);
+        assertNotNull(this.platform);
+        this.saw = new CircularSawImpl(0, 0, 30);
+        assertNotNull(this.saw);
+    }
 
-//     @Test
-//     void testCollider(){
-//         assertEquals(CollisionState.GROUND, this.collisionChecker.isColliding());
-//         meatBoy.setX(660);
-//         meatBoy.setY(380);
-//         assertEquals(CollisionState.BANDAGE_GIRL, this.collisionChecker.isColliding());
-//         meatBoy.setX(150);
-//         meatBoy.setY(500);
-//         assertEquals(CollisionState.GROUND, this.collisionChecker.isColliding());
-//         meatBoy.setX(400);
-//         meatBoy.setY(250);
-//         assertEquals(CollisionState.SAW, this.collisionChecker.isColliding());
-//     }
-// }
+    @Test
+    void testMeatBoyHitbox(){
+        RectangleHitbox meatboyHitbox = this.meatBoy.getHitbox();
+        assertNotNull(meatboyHitbox);
+        Rectangle hitboxShapeMB = meatboyHitbox.getHitbox();
+        assertNotNull(hitboxShapeMB);
+        assertEquals(
+                List.of(this.meatBoy.getX(), this.meatBoy.getY()),
+                List.of(hitboxShapeMB.getX(), hitboxShapeMB.getY()));
+        assertEquals(
+                List.of(
+                    Math.floor(Constants.TILE_SIZE * Constants.SCALE_PROPORTION), 
+                    Math.floor(Constants.TILE_SIZE * Constants.SCALE_PROPORTION)),
+                List.of(hitboxShapeMB.getWidth(), hitboxShapeMB.getHeight()));
+        this.meatBoy.setX(100);
+        this.meatBoy.setY(100);
+        assertEquals(
+                List.of(this.meatBoy.getX(), this.meatBoy.getY()),
+                List.of(hitboxShapeMB.getX(), hitboxShapeMB.getY()));
+        assertEquals(
+                List.of(
+                    Math.floor(Constants.TILE_SIZE * Constants.SCALE_PROPORTION), 
+                    Math.floor(Constants.TILE_SIZE * Constants.SCALE_PROPORTION)),
+                List.of(hitboxShapeMB.getWidth(), hitboxShapeMB.getHeight()));
+    }
+}
