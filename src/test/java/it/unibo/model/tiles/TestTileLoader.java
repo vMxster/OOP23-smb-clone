@@ -23,43 +23,40 @@ import it.unibo.model.tiles.manager.factory.TileManagerFactoryImpl;
 /**
  * JUnit tests for the TileLoader class.
  */
-public class TestTileLoader {
+class TestTileLoader {
 
     private static final int NUM_ROWS = 30;
     private static final int NUM_COLUMNS = 36;
     private TileManager tileManager;
-    private DocumentExtractor documentExtractor;
     private TileLoaderManager tileLoaderManager;
-    private TileLoaderGameObjects tileLoaderGameObjects;
-    private TileLoaderStationary tileLoaderStationary;
 
     /**
      * Initializes the test environment before each test method is executed.
      */
     @BeforeEach
-    public void init() {
+    void init() {
         this.tileManager = new TileManagerFactoryImpl()
             .createTileManager(Constants.SOURCE_MAP);
         assertNotNull(this.tileManager);
         this.tileLoaderManager = new TileLoaderManagerFactoryImpl()
             .createTileLoaderManager(this.tileManager, Constants.SOURCE_MAP);
         assertNotNull(this.tileLoaderManager);
-        this.documentExtractor = new DocumentExtractorFactoryImpl()
+        final DocumentExtractor documentExtractor = new DocumentExtractorFactoryImpl()
             .createDocumentExtractor(Constants.SOURCE_MAP);
-        assertNotNull(this.documentExtractor);
-        this.tileLoaderGameObjects = new TileLoaderGameObjectsFactoryImpl()
-            .createTileLoaderGameObjects(this.tileLoaderManager, this.documentExtractor);
-        assertNotNull(this.tileLoaderGameObjects);
-        this.tileLoaderStationary = new TileLoaderStationaryFactoryImpl()
-            .createTileLoaderStationary(this.tileLoaderManager, this.documentExtractor);
-        assertNotNull(this.tileLoaderStationary);
+        assertNotNull(documentExtractor);
+        final TileLoaderGameObjects tileLoaderGameObjects = new TileLoaderGameObjectsFactoryImpl()
+            .createTileLoaderGameObjects(this.tileLoaderManager, documentExtractor);
+        assertNotNull(tileLoaderGameObjects);
+        final TileLoaderStationary tileLoaderStationary = new TileLoaderStationaryFactoryImpl()
+            .createTileLoaderStationary(this.tileLoaderManager, documentExtractor);
+        assertNotNull(tileLoaderStationary);
     }
 
     /**
      * Tests the {@link TileLoaderManager#load()} method.
      */
     @Test
-    public void testLoad() {
+    void testLoad() {
         this.tileLoaderManager.load();
         assertNotNull(this.tileLoaderManager.getStationary());
         assertFalse(this.tileLoaderManager.getStationary().isEmpty());
