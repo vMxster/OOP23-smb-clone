@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 /**
  * JUnit tests for the TileImpl class.
  */
-public class TestTile {
+class TestTile {
 
     private Tile tile;
 
@@ -16,7 +16,7 @@ public class TestTile {
      * Initializes the test environment before each test method is executed.
      */
     @BeforeEach
-    public void init() {
+    void init() {
         tile = new TileImpl(1, 2, "image.png");
     }
 
@@ -24,7 +24,7 @@ public class TestTile {
      * Tests the {@link TileImpl#getX()} method.
      */
     @Test
-    public void testGetX() {
+    void testGetX() {
         assertEquals(1, tile.getX());
     }
 
@@ -32,7 +32,7 @@ public class TestTile {
      * Tests the {@link TileImpl#getY()} method.
      */
     @Test
-    public void testGetY() {
+    void testGetY() {
         assertEquals(2, tile.getY());
     }
 
@@ -40,7 +40,7 @@ public class TestTile {
      * Tests the {@link TileImpl#getSrcImage()} method.
      */
     @Test
-    public void testGetSrcImage() {
+    void testGetSrcImage() {
         assertEquals("image.png", tile.getSrcImage());
     }
 

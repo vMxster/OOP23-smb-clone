@@ -19,7 +19,9 @@ public final class SuperMeatBoy {
      * @param args command-line arguments
      */
     public static void main(final String[] args) {
-        new GameControllerFactoryImpl().createGameController();
+        new GameControllerFactoryImpl()
+            .createGameController()
+            .startWindow();
     }
 
 }

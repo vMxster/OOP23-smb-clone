@@ -17,6 +17,6 @@ public interface TileLoaderManagerFactory {
      * @param tmx the Tile Map XML data representing the tile map.
      * @return a TileLoaderManager object created with the provided TileManager and TMX data.
      */
-    TileLoaderManager createTileLoaderManager(final TileManager tileManager, final String tmx);
+    TileLoaderManager createTileLoaderManager(TileManager tileManager, String tmx);
 
 }

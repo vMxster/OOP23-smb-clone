@@ -18,6 +18,11 @@ import it.unibo.view.window.GameWindow;
 public interface GameController {
 
     /**
+     * Starts the GameWindow.
+     */
+    void startWindow();
+
+    /**
      * Starts the game loop.
      */
     void start();

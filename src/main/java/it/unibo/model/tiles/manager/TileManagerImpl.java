@@ -8,7 +8,7 @@ import java.util.Optional;
 import it.unibo.commons.Constants;
 import it.unibo.commons.Point2D;
 import it.unibo.model.documentextractor.DocumentExtractor;
-import it.unibo.model.documentextractor.DocumentExtractorImpl;
+import it.unibo.model.documentextractor.factory.DocumentExtractorFactoryImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
@@ -47,7 +47,8 @@ public class TileManagerImpl implements TileManager {
             .createTileSet(tmx).read();
         this.meatBoy = new MeatBoyImpl(0, 0);
         this.bandageGirl = new BandageGirlImpl(0, 0);
-        final DocumentExtractor documentExtractor = new DocumentExtractorImpl(tmx);
+        final DocumentExtractor documentExtractor = new DocumentExtractorFactoryImpl()
+            .createDocumentExtractor(tmx);
         this.numRows = documentExtractor.getNumRows();
         this.numColumns = documentExtractor.getNumColumns();
         init();

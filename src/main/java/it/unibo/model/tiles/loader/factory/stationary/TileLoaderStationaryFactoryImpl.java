@@ -13,7 +13,8 @@ import it.unibo.model.tiles.loader.stationary.TileLoaderStationaryImpl;
 public class TileLoaderStationaryFactoryImpl implements TileLoaderStationaryFactory {
 
     @Override
-    public final TileLoaderStationary createTileLoaderStationary(final TileLoaderManager tileLoaderManager, final DocumentExtractor documentExtractor) {
+    public final TileLoaderStationary createTileLoaderStationary(
+            final TileLoaderManager tileLoaderManager, final DocumentExtractor documentExtractor) {
         return new TileLoaderStationaryImpl(tileLoaderManager, documentExtractor);
     }
 

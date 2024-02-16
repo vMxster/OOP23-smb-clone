@@ -10,6 +10,7 @@ import org.w3c.dom.NodeList;
 import it.unibo.commons.Constants;
 import it.unibo.commons.Point2D;
 import it.unibo.model.documentextractor.DocumentExtractor;
+import it.unibo.model.documentextractor.TagType;
 import it.unibo.model.tiles.loader.manager.TileLoaderManager;
 
 /**
@@ -52,7 +53,7 @@ public class TileLoaderStationaryImpl implements TileLoaderStationary {
      * Loads stationary tiles from the TMX file and populates the TileManager.
      */
     private void loadStationaryTiles() {
-        final NodeList tileNodeList = documentExtractor.getElements("tile");
+        final NodeList tileNodeList = documentExtractor.getElements(TagType.TILE);
 
         IntStream.range(0, this.numRows)
                 .forEach(
@@ -62,8 +63,10 @@ public class TileLoaderStationaryImpl implements TileLoaderStationary {
                             if (gidNumber < tileNodeList.getLength()) {
                                 final Element tilesetElement = (Element) Objects.requireNonNull(tileNodeList.item(gidNumber));
                                 final int idTile = Integer.parseInt(
-                                    tilesetElement.getAttributes().getNamedItem("gid").getTextContent());
-
+                                    tilesetElement
+                                        .getAttributes()
+                                        .getNamedItem(TagType.GID.toString())
+                                        .getTextContent());
                                 if (idTile > ID_TILE_NULL) {
                                     if (idTile == ID_TILE_BANDAGEGIRL) {
                                         this.tileLoaderManager.setBandageGirlCoord(
