@@ -17,8 +17,9 @@ public interface GameWindow {
      * This method is responsible for updating and rendering the content of the game window.
      * It should be called whenever the content needs to be refreshed or repainted.
      * @param centiSeconds Time in hundredths of a second.
+     * @param currentDeaths number of deaths in the current session.
      */
-    void paint(int centiSeconds);
+    void paint(int centiSeconds, int currentDeaths);
 
     /**
      * This method is responsible for showing a graphical message or UI elements
