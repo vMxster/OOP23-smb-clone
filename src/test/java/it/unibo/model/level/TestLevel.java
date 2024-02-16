@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +24,8 @@ import it.unibo.commons.Point2D;
  */
 public class TestLevel {
 
+    private static final int NUM_SAWS = 2;
+    private static final int NUM_PLATFORMS = 6;
     private static final int NUM_ROWS = 30;
     private static final int NUM_COLUMNS = 36;
     private Level level;
@@ -78,8 +79,8 @@ public class TestLevel {
     public void testGetStationary() {
         List<List<Optional<Tile>>> stationary = level.getStationary();
         assertNotNull(stationary);
-        assertTrue(stationary.size()==NUM_ROWS);
-        assertTrue(stationary.get(0).size()==NUM_COLUMNS);
+        assertEquals(NUM_ROWS, stationary.size());
+        assertEquals(NUM_COLUMNS, stationary.get(0).size());
     }
 
     /**
@@ -89,7 +90,7 @@ public class TestLevel {
     public void testGetPlatforms() {
         List<Platform> platforms = level.getPlatforms();
         assertNotNull(platforms);
-        assertEquals(6, platforms.size());
+        assertEquals(NUM_PLATFORMS, platforms.size());
     }
 
     /**
@@ -99,7 +100,7 @@ public class TestLevel {
     public void testGetSaws() {
         List<CircularSaw> saws = level.getSaws();
         assertNotNull(saws);
-        assertEquals(2, saws.size());
+        assertEquals(NUM_SAWS, saws.size());
     }
 
     /**
