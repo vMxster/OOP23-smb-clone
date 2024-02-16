@@ -93,4 +93,26 @@ public class TestHitbox {
                     Math.floor(Constants.TILE_SIZE * Constants.SCALE_PROPORTION)),
                 List.of(hitboxShapeBG.getWidth(), hitboxShapeBG.getHeight()));
     }
+
+    @Test
+    void testPlatformHitbox(){
+        RectangleHitbox PlatformHitbox = this.platform.getHitbox();
+        assertNotNull(PlatformHitbox);
+        Rectangle hitboxShapeP = PlatformHitbox.getHitbox();
+        assertNotNull(hitboxShapeP);
+        assertEquals(
+                List.of(this.platform.getX(), this.platform.getY()),
+                List.of(hitboxShapeP.getX(), hitboxShapeP.getY()));
+        assertEquals(
+                List.of(300.0, 100.0),
+                List.of(hitboxShapeP.getWidth(), hitboxShapeP.getHeight()));
+        this.platform.setX(100);
+        this.platform.setY(100);
+        assertEquals(
+                List.of(this.platform.getX(), this.platform.getY()),
+                List.of(hitboxShapeP.getX(), hitboxShapeP.getY()));
+        assertEquals(
+                List.of(300.0, 100.0),
+                List.of(hitboxShapeP.getWidth(), hitboxShapeP.getHeight()));
+    }
 }
