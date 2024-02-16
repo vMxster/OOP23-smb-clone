@@ -19,6 +19,10 @@ import it.unibo.model.tiles.manager.factory.TileManagerFactoryImpl;
  */
 public class TestTileManager {
 
+    private static final double MEATBOY_X = 100.8;
+    private static final double MEATBOY_Y = 772.8;
+    private static final double BANDAGEGIRL_X = 1108.8;
+    private static final double BANDAGEGIRL_Y = 638.4;
     private static final int NUM_TILES = 902;
     private static final int NUM_PLATFORMS = 6;
     private static final int NUM_SAWS = 2;
@@ -99,8 +103,8 @@ public class TestTileManager {
     @Test
     public void testMeatBoy() {
         assertNotNull(tileManager.getMeatBoy());
-        assertEquals(100.8, tileManager.getMeatBoy().getX());
-        assertEquals(772.8, tileManager.getMeatBoy().getY());
+        assertEquals(MEATBOY_X, tileManager.getMeatBoy().getX());
+        assertEquals(MEATBOY_Y, tileManager.getMeatBoy().getY());
     }
 
     /**
@@ -109,8 +113,8 @@ public class TestTileManager {
     @Test
     public void testBandageGirl() {
         assertNotNull(tileManager.getBandageGirl());
-        assertEquals(1108.8, tileManager.getBandageGirl().getX());
-        assertEquals(638.4, tileManager.getBandageGirl().getY());
+        assertEquals(BANDAGEGIRL_X, tileManager.getBandageGirl().getX());
+        assertEquals(BANDAGEGIRL_Y, tileManager.getBandageGirl().getY());
     }
 
     /**
@@ -119,7 +123,7 @@ public class TestTileManager {
     @Test
     public void testSetSaw() {
         tileManager.setSaw(new CircularSawImpl(0, 0, 0));
-        assertEquals(NUM_SAWS+1, tileManager.getSaws().size());
+        assertEquals(NUM_SAWS + 1, tileManager.getSaws().size());
     }
 
     /**
@@ -128,7 +132,7 @@ public class TestTileManager {
     @Test
     public void testSetPlatform() {
         tileManager.setPlatform(new PlatformImpl(0, 0, 0, 0));
-        assertEquals(NUM_PLATFORMS+1, tileManager.getPlatforms().size());
+        assertEquals(NUM_PLATFORMS + 1, tileManager.getPlatforms().size());
     }
 
     /**
@@ -136,7 +140,7 @@ public class TestTileManager {
      */
     @Test
     public void testSetMeatBoyCoord() {
-        tileManager.setMeatBoyCoord(new Point2D<Double,Double>(0.0, 0.0));
+        tileManager.setMeatBoyCoord(new Point2D<Double, Double>(0.0, 0.0));
         assertEquals(0, tileManager.getMeatBoy().getX());
         assertEquals(0, tileManager.getMeatBoy().getY());
     }
@@ -146,7 +150,7 @@ public class TestTileManager {
      */
     @Test
     public void testSetBandageGirlCoord() {
-        tileManager.setBandageGirlCoord(new Point2D<Double,Double>(0.0, 0.0));
+        tileManager.setBandageGirlCoord(new Point2D<Double, Double>(0.0, 0.0));
         assertEquals(0, tileManager.getBandageGirl().getX());
         assertEquals(0, tileManager.getBandageGirl().getY());
     }
