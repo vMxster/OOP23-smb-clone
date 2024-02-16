@@ -11,8 +11,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import it.unibo.model.tiles.tileset.TagType;
-
 /**
  * Implementation of the DocumentExtractor interface that extracts information from a TMX document.
  */

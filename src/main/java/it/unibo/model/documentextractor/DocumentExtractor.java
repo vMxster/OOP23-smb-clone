@@ -2,8 +2,6 @@ package it.unibo.model.documentextractor;
 
 import org.w3c.dom.NodeList;
 
-import it.unibo.model.tiles.tileset.TagType;
-
 /**
  * The DocumentExtractor interface declares methods to extract information about the structure of a document.
  * It provides methods to retrieve the number of rows and columns in the document.
