@@ -27,7 +27,6 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     private static final int TIMER_WIDTH = 100;
     private static final int TIMER_HEIGHT = 30;
     private static final int FONT_SIZE = 30;
-    private final GameController controller;
     private final ImageRendererManager renderer;
     private final GameMenu menu;
     private final JLabel timerField;
@@ -41,15 +40,14 @@ public class GameWindowSwing extends JFrame implements GameWindow {
      * @param controller the GameController associated with the window.
      */
     public GameWindowSwing(final GameController controller) {
-        this.controller = controller;
         this.renderer = new ImageRendererManagerFactoryImpl()
-            .createImageRendererManager(this.controller);
-        this.menu = new GameMenu(this.controller);
+            .createImageRendererManager(controller);
+        this.menu = new GameMenu(controller);
         this.timerField = new JLabel();
-        this.scoreboard = new Scoreboard(this.controller, this);
+        this.scoreboard = new Scoreboard(controller, this);
         this.imageResizer = new ImageResizerFactoryImpl()
             .createImageResizer();
-        this.gamePanel = new GamePanel(this.controller);
+        this.gamePanel = new GamePanel(controller);
         initializeGamePanel();
         setContentPane(menu);
         initializeWindowProperties();
