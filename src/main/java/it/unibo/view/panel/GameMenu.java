@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.GameController;
 import it.unibo.view.window.GameWindow.PanelType;
 
@@ -59,6 +60,7 @@ public class GameMenu extends JPanel {
         });
 
         quitButton.addActionListener(new ActionListener() {
+            @SuppressFBWarnings("DM_EXIT")
             @Override
             public void actionPerformed(final ActionEvent e) {
                 if (JOptionPane.showConfirmDialog(null, "Sei sicuro di volere uscire?", 
