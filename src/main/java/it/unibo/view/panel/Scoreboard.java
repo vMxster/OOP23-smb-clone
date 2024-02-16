@@ -66,11 +66,16 @@ public class Scoreboard extends JPanel  {
         this.add(backButton);
     }
 
-
+    /**
+     * Update the number of deaths every time the player die.
+     */
     public void updateDeaths() {
         deaths = this.controller.getDeaths();
     }
     
+    /**
+     * Update the time record every time the player ends the level with a better time than before.
+     */
     public void updateTimeRecord() {
         if (this.controller.getTimeRecord() != Integer.MAX_VALUE) {
             record = this.controller.getTimeRecord();
@@ -78,4 +83,5 @@ public class Scoreboard extends JPanel  {
             record = 0;
         }
     }
+
 }
