@@ -83,5 +83,4 @@ public class Scoreboard extends JPanel  {
             record = 0;
         }
     }
-
 }
