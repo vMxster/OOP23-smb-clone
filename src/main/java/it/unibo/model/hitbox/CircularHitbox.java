@@ -22,29 +22,18 @@ public class CircularHitbox implements Hitbox<Ellipse2D> {
         this.hitbox = new Ellipse2D.Double(x, y, radius, radius);
     }
 
-    /**
-     * Update the position of the circular shape hitbox.
-     */
     @Override
-    public void updatePosition(final double x, final double y) {
+    public final void updatePosition(final double x, final double y) {
         this.hitbox.setFrame(x, y, hitbox.getWidth(), hitbox.getHeight());
     }
 
-    /**
-     * Returns the Ellipse2D hitbox shape.
-     * 
-     * @return shape of the hitbox
-     */
     @Override
-    public Ellipse2D getHitbox() {
+    public final Ellipse2D getHitbox() {
         return this.hitbox;
     }
 
-    /**
-     * Draw the shape of the Hitbox.
-     */
     @Override
-    public void draw(final Graphics2D g) {
+    public final void draw(final Graphics2D g) {
         g.setColor(Color.MAGENTA);
         g.draw(hitbox);
     }

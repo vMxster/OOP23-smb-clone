@@ -35,6 +35,7 @@ public class GameControllerImpl implements GameController {
     private TimerTask gameLoop;
     private TimerTask gameTimer;
     private int centiSeconds;
+    private int currentDeaths;
 
 
     /**
@@ -48,49 +49,32 @@ public class GameControllerImpl implements GameController {
         this.statistic = new StatisticImpl();
     }
 
-    /**
-     * Starts the GameWindow.
-     */
     @Override
-    public void startWindow() {
+    public final void startWindow() {
         this.gameWindow.setPanelVisible();
     }
 
-    /**
-     * Starts the game loop.
-     */
     @Override
-    public void start() {
+    public final void start() {
         this.gameModel.initializeCoords();
         this.gameLoop = createGameLoopTask();
         this.gameTimer = createGameTimerTask();
         timer.schedule(gameLoop, INITIAL_DELAY, FRAME_RATE);
         timer.schedule(gameTimer, INITIAL_DELAY, 10);
+        this.newDeathsSession();
     }
 
-    /**
-     * Creates a TimerTask for the game loop.
-     * This method is responsible for creating a task that represents the game loop.
-     *
-     * @return A TimerTask representing the game loop task.
-     */
     private TimerTask createGameLoopTask() {
         return new TimerTask() {
             @Override
             public void run() {
                 gameModel.getCollisionHandler().updateMeatBoy();
                 gameModel.getCollisionHandler().check();
-                gameWindow.paint(centiSeconds);
+                gameWindow.paint(centiSeconds, currentDeaths);
             }
         };
     }
 
-    /**
-     * Creates a TimerTask for the game timer.
-     * This method is responsible for creating a task that handles game timing and updates.
-     *
-     * @return A TimerTask representing the game timer task.
-     */
     private TimerTask createGameTimerTask() {
         this.centiSeconds = 0;
         return new TimerTask() {
@@ -101,92 +85,52 @@ public class GameControllerImpl implements GameController {
         };
     }
 
-    /**
-     * Returns the list of stationary tiles.
-     *
-     * @return The list of stationary tiles.
-     */
+    private void newDeathsSession() {
+        this.currentDeaths = 0;
+    }
+
     @Override
-    public List<List<Optional<Tile>>> getStationary() {
+    public final List<List<Optional<Tile>>> getStationary() {
         return this.gameModel.getStationary();
     }
 
-    /**
-     * Returns the list of circular saws.
-     *
-     * @return The list of circular saws.
-     */
     @Override
-    public List<CircularSaw> getSaws() {
+    public final List<CircularSaw> getSaws() {
         return this.gameModel.getSaws();
     }
 
-    /**
-     * Returns the list of platforms.
-     *
-     * @return The list of platforms.
-     */
     @Override
-    public List<Platform> getPlatforms() {
+    public final List<Platform> getPlatforms() {
         return this.gameModel.getPlatforms();
     }
 
-    /**
-     * Returns the number of rows in the game.
-     *
-     * @return The number of rows.
-     */
     @Override
-    public int getNumRows() {
+    public final int getNumRows() {
         return this.gameModel.getNumRows();
     }
 
-    /**
-     * Returns the number of columns in the game.
-     *
-     * @return The number of columns.
-     */
     @Override
-    public int getNumCols() {
+    public final int getNumCols() {
         return this.gameModel.getNumCols();
     }
 
-    /**
-     * Returns the BandageGirl entity.
-     *
-     * @return The BandageGirl entity.
-     */
     @Override
-    public BandageGirl getBandageGirl() {
+    public final BandageGirl getBandageGirl() {
         return this.gameModel.getBandageGirl();
     }
 
-    /**
-     * Returns the MeatBoy entity.
-     *
-     * @return The MeatBoy entity.
-     */
     @Override
-    public MeatBoy getMeatBoy() {
+    public final MeatBoy getMeatBoy() {
         return this.gameModel.getMeatBoy();
     }
 
-    /**
-     * Returns the game model associated with this controller.
-     *
-     * @return The game model.
-     */
     @Override
-    public GameModel getGameModel() {
+    public final GameModel getGameModel() {
         return gameModel;
     }
 
-    /**
-     * Signals a victory event.
-     * This method is called to indicate that the game has been won.
-     */
     @Override
-    public void victory() {
+    public final void victory() {
         this.statistic.updateRecord(centiSeconds);
         this.gameLoop.cancel();
         this.gameTimer.cancel();
@@ -195,49 +139,45 @@ public class GameControllerImpl implements GameController {
     }
 
     @Override
-    public void isDead() {
+    public final void isDead() {
+        this.currentDeaths++;
         this.statistic.addDeaths();
     }
 
     @Override
-    public int getDeaths() {
+    public final int getDeaths() {
         return this.statistic.getDeaths();
     }
 
     @Override
-    public int getTimeRecord() {
+    public final int getTimeRecord() {
         return this.statistic.getRecordTime();
     }
-    
-    /**
-     * Returns the starting coordinates of the MeatBoy entity in the game.
-     *
-     * @return The starting coordinates of the MeatBoy entity.
-     */
+
     @Override
-    public Point2D<Double, Double> getMeatBoyStartCoord() {
+    public final Point2D<Double, Double> getMeatBoyStartCoord() {
         return this.gameModel.getMeatBoyStartCoord();
     }
 
     @Override
-    public void esc() {
-        this.statistic.updateRecord(centiSeconds);
+    public final void esc() {
         this.gameLoop.cancel();
         this.gameTimer.cancel();
         this.gameWindow.switchPanel(PanelType.MENU);
     }
 
-    public GameWindow getGameWindow() {
+    @Override
+    public final GameWindow getGameWindow() {
         return gameWindow;
     }
 
     @Override
-    public void stopMovingMeatBoy(int keyCode) {
+    public final void stopMovingMeatBoy(final int keyCode) {
         this.getGameModel().getCollisionHandler().stopMovingMeatBoy(keyCode);
     }
 
     @Override
-    public void moveMeatBoy(int keyCode) {
+    public final void moveMeatBoy(final int keyCode) {
         this.getGameModel().getCollisionHandler().moveMeatBoy(keyCode);
     }
 }

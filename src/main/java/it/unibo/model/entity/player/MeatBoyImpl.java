@@ -47,23 +47,13 @@ public class MeatBoyImpl extends EntityImpl<RectangleHitbox> implements MeatBoy 
         this.speedMul = 1;
     }
 
-    /**
-     * Retrieves the speed multiplier associated with this MeatBoy entity.
-     *
-     * @return The speed multiplier value.
-     */
     @Override
-    public double getSpeedMul() {
+    public final double getSpeedMul() {
         return this.speedMul;
     }
 
-    /**
-     * Sets the speed multiplier associated with this MeatBoy entity to the specified value.
-     *
-     * @param speedMul The new value for the speed multiplier.
-     */
     @Override
-    public void setSpeedMul(final double speedMul) {
+    public final void setSpeedMul(final double speedMul) {
         this.speedMul = speedMul;
     }
 }

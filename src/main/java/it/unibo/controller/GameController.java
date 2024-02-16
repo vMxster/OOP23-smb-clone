@@ -115,11 +115,34 @@ public interface GameController {
      */
     int getTimeRecord();
 
+    /**
+     * Retrieves the GameWindow associated with this object.
+     * This method returns the GameWindow instance associated with the current object.
+     *
+     * @return The GameWindow instance associated with this object.
+     */
     GameWindow getGameWindow();
 
+    /**
+     * Handles the escape action.
+     * This method is called when the escape key is pressed or when an escape action is triggered.
+     * It typically performs actions related to pausing the game, showing menus, or handling other escape-related functionality.
+     */
     void esc();
 
-    void stopMovingMeatBoy(int keyCode);
-
+    /**
+     * Moves the MeatBoy entity in the specified direction.
+     * This method is called when the corresponding key for the specified direction is pressed.
+     *
+     * @param keyCode The key code indicating the direction of movement.
+     */
     void moveMeatBoy(int keyCode);
+
+    /**
+     * Stops the movement of the MeatBoy entity in the specified direction.
+     * This method is called when the corresponding key for the specified direction is released.
+     *
+     * @param keyCode The key code indicating the direction of movement to stop.
+     */
+    void stopMovingMeatBoy(int keyCode);
 }

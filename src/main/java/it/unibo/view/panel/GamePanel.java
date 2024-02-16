@@ -74,12 +74,12 @@ public class GamePanel extends JPanel implements KeyListener {
      *
      * @param e The KeyEvent representing the key pressed event.
      */
+    @Override
     public void keyPressed(final KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            if (JOptionPane.showConfirmDialog(null, "Sei sicuro di volere uscire?", 
-            "Torna al menu", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                this.controller.esc();
-            }
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE
+            && JOptionPane.showConfirmDialog(null, "Sei sicuro di volere uscire?", "Torna al menu", JOptionPane.YES_NO_OPTION)
+            == JOptionPane.YES_OPTION) {
+            this.controller.esc();
         }
         this.controller.moveMeatBoy(e.getKeyCode());
     }
@@ -89,6 +89,7 @@ public class GamePanel extends JPanel implements KeyListener {
      *
      * @param e The KeyEvent representing the key released event.
      */
+    @Override
     public void keyReleased(final KeyEvent e) {
         this.controller.stopMovingMeatBoy(e.getKeyCode());
     }
