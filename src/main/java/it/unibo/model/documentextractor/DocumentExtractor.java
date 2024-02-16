@@ -2,6 +2,8 @@ package it.unibo.model.documentextractor;
 
 import org.w3c.dom.NodeList;
 
+import it.unibo.model.tiles.tileset.TagType;
+
 /**
  * The DocumentExtractor interface declares methods to extract information about the structure of a document.
  * It provides methods to retrieve the number of rows and columns in the document.
@@ -25,9 +27,9 @@ public interface DocumentExtractor {
     /**
      * Retrieves the elements associated with a given TagName.
      *
-     * @param tagName The name of the tag to search for.
+     * @param tagType The name of the tag to search for.
      * @return The elements associated with the specified tag name.
      */
-    NodeList getElements(String tagName);
+    NodeList getElements(TagType tagType);
 
 }
