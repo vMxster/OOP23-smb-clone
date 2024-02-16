@@ -17,15 +17,26 @@ import it.unibo.view.window.GameWindow.PanelType;
  */
 public class GameMenu extends JPanel {
 
+    /**
+     * Serial version UID for serialization/deserialization.
+     * This constant is used to ensure version compatibility of serialized objects.
+     */
     public static final long serialVersionUID = 1;
+    /**
+     * Represents the number of rows in a grid or matrix.
+     * This constant defines the total number of rows in the grid or matrix.
+     */
     public static final int ROWS = 3;
+    /**
+     * Represents the number of columns in a grid or matrix.
+     * This constant defines the total number of columns in the grid or matrix.
+     */
     public static final int COLS = 1;
 
     /**
      * Constructs a new instance of GameMenu with the specified GameController and GameWindowSwing.
      * 
      * @param controller the GameController associated with the window.
-     * @param window the GameWindowSwing that can switch to change panel.
      */
     public GameMenu(final GameController controller) {
         this.setLayout(new GridLayout(ROWS, COLS));
