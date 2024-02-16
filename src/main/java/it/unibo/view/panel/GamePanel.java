@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.GameController;
 import it.unibo.model.entity.player.MeatBoy;
 
@@ -31,6 +32,7 @@ public class GamePanel extends JPanel implements KeyListener {
      *
      * @param controller The GameController associated with the panel.
      */
+    @SuppressFBWarnings("MC_OVERRIDABLE_METHOD_CALL_IN_CONSTRUCTOR")
     public GamePanel(final GameController controller) {
         this.images = new ArrayList<>();
         this.controller = controller;
