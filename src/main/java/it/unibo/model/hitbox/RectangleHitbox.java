@@ -3,6 +3,8 @@ package it.unibo.model.hitbox;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * The RectangleHitbox rapresents the implementation of the Hitbox
  * with a rectangle shape.
@@ -27,6 +29,7 @@ public class RectangleHitbox implements Hitbox<Rectangle> {
         this.hitbox.setLocation((int) x, (int) y);
     }
 
+    @SuppressFBWarnings("EI_EXPOSE_REP")
     @Override
     public final Rectangle getHitbox() {
         return this.hitbox;
