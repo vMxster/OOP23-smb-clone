@@ -18,10 +18,9 @@ import it.unibo.model.collision.CollisionChecker.CollisionState;
  * JUnit test class for testing collision-related functionality in the game.
  * This class includes tests for MeatBoy's collision with obstacles and falling scenarios.
  */
-public class TestCollision {
+class TestCollision {
 
     private GameModel gameModel;
-    private CollisionHandler collisionHandler;
     private CollisionChecker collisionChecker;
 
     private static final int SAW_X = 500;
@@ -37,9 +36,9 @@ public class TestCollision {
     void init() {
         this.gameModel = new GameModelImpl(Constants.SOURCE_MAP, new GameControllerImpl());
         assertNotNull(this.gameModel);
-        this.collisionHandler = new CollisionHandlerImpl(this.gameModel);
+        final CollisionHandler collisionHandler = new CollisionHandlerImpl(this.gameModel);
         assertNotNull(collisionHandler);
-        this.collisionChecker = new CollisionCheckerImpl(this.collisionHandler);
+        this.collisionChecker = new CollisionCheckerImpl(collisionHandler);
         assertNotNull(collisionChecker);
     }
 
