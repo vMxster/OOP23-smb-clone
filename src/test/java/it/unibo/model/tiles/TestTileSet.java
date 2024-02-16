@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.commons.Constants;
+import it.unibo.model.tiles.tileset.TileSet;
+import it.unibo.model.tiles.tileset.TileSetImpl;
 
 /**
  * JUnit tests for the TileSet class.
