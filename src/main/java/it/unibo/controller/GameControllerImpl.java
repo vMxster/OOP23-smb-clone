@@ -132,8 +132,8 @@ public class GameControllerImpl implements GameController {
 
     @SuppressFBWarnings(
         value = "UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR", 
-        justification = "The victory method is never called before start, " +
-                "so gameloop and gametimer will always be initialized correctly")
+        justification = "The victory method is never called before start, "
+                + "so gameloop and gametimer will always be initialized correctly")
     @Override
     public final void victory() {
         this.statistic.updateRecord(centiSeconds);
@@ -166,8 +166,8 @@ public class GameControllerImpl implements GameController {
 
     @SuppressFBWarnings(
         value = "UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR", 
-        justification = "The esc method is never called before start, " +
-                "so gameloop and gametimer will always be initialized correctly")
+        justification = "The esc method is never called before start, "
+                + "so gameloop and gametimer will always be initialized correctly")
     @Override
     public final void esc() {
         this.gameLoop.cancel();
