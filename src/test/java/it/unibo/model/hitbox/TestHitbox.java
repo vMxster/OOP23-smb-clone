@@ -25,7 +25,7 @@ import it.unibo.model.entity.target.BandageGirlImpl;
  * JUnit test class for testing the hitboxes of various game entities, including MeatBoy, BandageGirl,
  * Platform, and CircularSaw.
  */
-public class TestHitbox {
+class TestHitbox {
 
     private MeatBoy meatBoy;
     private Platform platform;
@@ -57,9 +57,9 @@ public class TestHitbox {
      */
     @Test
     void testMeatBoyHitbox() {
-        RectangleHitbox meatboyHitbox = this.meatBoy.getHitbox();
+        final RectangleHitbox meatboyHitbox = this.meatBoy.getHitbox();
         assertNotNull(meatboyHitbox);
-        Rectangle hitboxShapeMB = meatboyHitbox.getHitbox();
+        final Rectangle hitboxShapeMB = meatboyHitbox.getHitbox();
         assertNotNull(hitboxShapeMB);
         assertEquals(
                 List.of(this.meatBoy.getX(), this.meatBoy.getY()),
@@ -86,9 +86,9 @@ public class TestHitbox {
      */
     @Test
     void testBandageGirlHitbox() {
-        RectangleHitbox bandageGirlHitbox = this.bandageGirl.getHitbox();
+        final RectangleHitbox bandageGirlHitbox = this.bandageGirl.getHitbox();
         assertNotNull(bandageGirlHitbox);
-        Rectangle hitboxShapeBG = bandageGirlHitbox.getHitbox();
+        final Rectangle hitboxShapeBG = bandageGirlHitbox.getHitbox();
         assertNotNull(hitboxShapeBG);
         assertEquals(
                 List.of(this.bandageGirl.getX(), this.bandageGirl.getY()),
@@ -115,9 +115,9 @@ public class TestHitbox {
      */
     @Test
     void testPlatformHitbox() {
-        RectangleHitbox platformHitbox = this.platform.getHitbox();
+        final RectangleHitbox platformHitbox = this.platform.getHitbox();
         assertNotNull(platformHitbox);
-        Rectangle hitboxShapeP = platformHitbox.getHitbox();
+        final Rectangle hitboxShapeP = platformHitbox.getHitbox();
         assertNotNull(hitboxShapeP);
         assertEquals(
                 List.of(this.platform.getX(), this.platform.getY()),
@@ -140,9 +140,9 @@ public class TestHitbox {
      */
     @Test
     void testSawHitbox() {
-        CircularHitbox sawHitbox = this.saw.getHitbox();
+        final CircularHitbox sawHitbox = this.saw.getHitbox();
         assertNotNull(sawHitbox);
-        Ellipse2D hitboxShapeS = sawHitbox.getHitbox();
+        final Ellipse2D hitboxShapeS = sawHitbox.getHitbox();
         assertNotNull(hitboxShapeS);
         assertEquals(
                 List.of(this.saw.getX(), this.saw.getY()),
