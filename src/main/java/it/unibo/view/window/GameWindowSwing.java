@@ -100,7 +100,8 @@ public class GameWindowSwing extends JFrame implements GameWindow {
         this.timerField.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
         this.timerField.setBounds(INITIAL_TIMER_POSITION, INITIAL_TIMER_POSITION, TIMER_WIDTH, TIMER_HEIGHT);
         this.deathsField.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
-        this.deathsField.setBounds(INITIAL_DEATHSFIELD_POSITIONX, INITIAL_DEATHSFIELD_POSITIONY, DEATHSFIELD_WIDTH, DEATHSFIELD_HEIGHT);
+        this.deathsField.setBounds(INITIAL_DEATHSFIELD_POSITIONX,
+            INITIAL_DEATHSFIELD_POSITIONY, DEATHSFIELD_WIDTH, DEATHSFIELD_HEIGHT);
         this.gamePanel.add(timerField);
         this.gamePanel.add(deathsField);
     }
