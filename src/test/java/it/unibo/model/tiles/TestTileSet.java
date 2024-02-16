@@ -1,6 +1,7 @@
 package it.unibo.model.tiles;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.List;
@@ -12,12 +13,14 @@ import org.junit.jupiter.api.Test;
 import it.unibo.commons.Constants;
 import it.unibo.model.tiles.tileset.TileSet;
 import it.unibo.model.tiles.tileset.TileSetImpl;
+import it.unibo.model.tiles.tileset.factory.TileSetFactoryImpl;
 
 /**
  * JUnit tests for the TileSet class.
  */
 public class TestTileSet {
 
+    private static final int NUM_TILES = 902;
     private TileSet tileSet;
 
     /**
@@ -25,7 +28,8 @@ public class TestTileSet {
      */
     @BeforeEach
     public void init() {
-        this.tileSet = new TileSetImpl(Constants.SOURCE_MAP);
+        this.tileSet = new TileSetFactoryImpl()
+            .createTileSet(Constants.SOURCE_MAP);
         assertNotNull(this.tileSet);
     }
 
@@ -34,9 +38,10 @@ public class TestTileSet {
      */
     @Test
     public void testRead() {
-        List<Tile> list = tileSet.read();
-        assertNotNull(list);
-        assertFalse(list.isEmpty());
+        List<Tile> tiles = this.tileSet.read();
+        assertNotNull(tiles);
+        assertFalse(tiles.isEmpty());
+        assertEquals(NUM_TILES, tiles.size());
     }
 
 }

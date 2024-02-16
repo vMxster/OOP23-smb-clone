@@ -33,11 +33,19 @@ public class DocumentExtractorImpl implements DocumentExtractor {
 
     private void extractDocument() {
         try {
-            this.document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(this.tmx);
-            final NodeList mapAttributes = this.document.getElementsByTagName("map");
+            this.document = DocumentBuilderFactory
+                .newInstance()
+                .newDocumentBuilder()
+                .parse(this.tmx);
+            final NodeList mapAttributes = this.document
+                .getElementsByTagName(TagType.MAP.toString());
             if (mapAttributes.getLength() > 0) {
-                this.numRows = Integer.parseInt(((Element) mapAttributes.item(0)).getAttribute("height"));
-                this.numColumns = Integer.parseInt(((Element) mapAttributes.item(0)).getAttribute("width"));
+                this.numRows = Integer.parseInt(
+                    ((Element) mapAttributes.item(0))
+                    .getAttribute(TagType.HEIGHT.toString()));
+                this.numColumns = Integer.parseInt(
+                    ((Element) mapAttributes.item(0))
+                    .getAttribute(TagType.WIDTH.toString()));
             }
         } catch (SAXException | IOException | ParserConfigurationException e) {
             Logger.getLogger(DocumentExtractorImpl.class.getName())
@@ -48,12 +56,12 @@ public class DocumentExtractorImpl implements DocumentExtractor {
     /**
      * Retrieves the elements associated with a given TagName.
      *
-     * @param tagName The name of the tag to search for.
+     * @param tagType The name of the tag to search for.
      * @return The elements associated with the specified tag name.
      */
     @Override
-    public NodeList getElements(final String tagName) {
-        return this.document.getElementsByTagName(tagName);
+    public NodeList getElements(final TagType tagType) {
+        return this.document.getElementsByTagName(tagType.toString());
     }
 
     /**

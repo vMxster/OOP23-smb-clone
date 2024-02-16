@@ -5,11 +5,9 @@ import java.util.Optional;
 
 import it.unibo.commons.Point2D;
 import it.unibo.model.documentextractor.DocumentExtractor;
-import it.unibo.model.documentextractor.DocumentExtractorImpl;
+import it.unibo.model.documentextractor.factory.DocumentExtractorFactoryImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
-import it.unibo.model.entity.player.MeatBoy;
-import it.unibo.model.entity.target.BandageGirl;
 import it.unibo.model.tiles.Tile;
 import it.unibo.model.tiles.loader.factory.gameobjects.TileLoaderGameObjectsFactoryImpl;
 import it.unibo.model.tiles.loader.factory.stationary.TileLoaderStationaryFactoryImpl;
@@ -34,7 +32,8 @@ public class TileLoaderManagerImpl implements TileLoaderManager {
      */
     public TileLoaderManagerImpl(final TileManager tileManager, final String tmx) {
         this.tileManager = tileManager;
-        final DocumentExtractor documentExtractor = new DocumentExtractorImpl(tmx);
+        final DocumentExtractor documentExtractor = new DocumentExtractorFactoryImpl()
+            .createDocumentExtractor(tmx);
         this.tileLoaderGameObjects = new TileLoaderGameObjectsFactoryImpl()
             .createTileLoaderGameObjects(this, documentExtractor);
         this.tileLoaderStationary = new TileLoaderStationaryFactoryImpl()
@@ -53,26 +52,6 @@ public class TileLoaderManagerImpl implements TileLoaderManager {
     @Override
     public final String trim(final String s) {
         return s.contains(".") ? s.replaceAll("\\s+", "") : s;
-    }
-
-    @Override
-    public final List<Platform> getPlatforms() {
-        return this.tileManager.getPlatforms();
-    }
-
-    @Override
-    public final List<CircularSaw> getSaws() {
-        return this.tileManager.getSaws();
-    }
-
-    @Override
-    public final MeatBoy getMeatBoy() {
-        return this.tileManager.getMeatBoy();
-    }
-
-    @Override
-    public final BandageGirl getBandageGirl() {
-        return this.tileManager.getBandageGirl();
     }
 
     @Override

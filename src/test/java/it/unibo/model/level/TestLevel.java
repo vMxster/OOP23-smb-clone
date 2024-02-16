@@ -2,6 +2,9 @@ package it.unibo.model.level;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -12,6 +15,7 @@ import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
+import it.unibo.model.level.factory.LevelFactoryImpl;
 import it.unibo.model.tiles.Tile;
 import it.unibo.commons.Constants;
 import it.unibo.commons.Point2D;
@@ -21,6 +25,8 @@ import it.unibo.commons.Point2D;
  */
 public class TestLevel {
 
+    private static final int NUM_ROWS = 30;
+    private static final int NUM_COLUMNS = 36;
     private Level level;
 
     /**
@@ -28,7 +34,7 @@ public class TestLevel {
      */
     @BeforeEach
     public void setUp() {
-        level = new LevelImpl(Constants.SOURCE_MAP);
+        level = new LevelFactoryImpl().createLevel(Constants.SOURCE_MAP);
         assertNotNull(level);
     }
 
@@ -39,6 +45,8 @@ public class TestLevel {
     public void testGetMeatBoy() {
         MeatBoy meatBoy = level.getMeatBoy();
         assertNotNull(meatBoy);
+        assertNotEquals(0, meatBoy.getX());
+        assertNotEquals(0, meatBoy.getY());
     }
 
     /**
@@ -48,6 +56,8 @@ public class TestLevel {
     public void testGetMeatBoyStartCoord() {
         Point2D<Double, Double> startCoord = level.getMeatBoyStartCoord();
         assertNotNull(startCoord);
+        assertNotEquals(0, startCoord.getX());
+        assertNotEquals(0, startCoord.getY());
     }
 
     /**
@@ -57,6 +67,8 @@ public class TestLevel {
     public void testGetBandageGirl() {
         BandageGirl bandageGirl = level.getBandageGirl();
         assertNotNull(bandageGirl);
+        assertNotEquals(0, bandageGirl.getX());
+        assertNotEquals(0, bandageGirl.getY());
     }
 
     /**
@@ -66,6 +78,8 @@ public class TestLevel {
     public void testGetStationary() {
         List<List<Optional<Tile>>> stationary = level.getStationary();
         assertNotNull(stationary);
+        assertTrue(stationary.size()==NUM_ROWS);
+        assertTrue(stationary.get(0).size()==NUM_COLUMNS);
     }
 
     /**
@@ -75,6 +89,7 @@ public class TestLevel {
     public void testGetPlatforms() {
         List<Platform> platforms = level.getPlatforms();
         assertNotNull(platforms);
+        assertEquals(6, platforms.size());
     }
 
     /**
@@ -84,6 +99,7 @@ public class TestLevel {
     public void testGetSaws() {
         List<CircularSaw> saws = level.getSaws();
         assertNotNull(saws);
+        assertEquals(2, saws.size());
     }
 
     /**
@@ -91,8 +107,7 @@ public class TestLevel {
      */
     @Test
     public void testGetNumCols() {
-        int numCols = level.getNumCols();
-        assertTrue(numCols > 0);
+        assertEquals(NUM_COLUMNS, level.getNumCols());
     }
 
     /**
@@ -100,8 +115,7 @@ public class TestLevel {
      */
     @Test
     public void testGetNumRows() {
-        int numRows = level.getNumRows();
-        assertTrue(numRows > 0);
+        assertEquals(NUM_ROWS, level.getNumRows());
     }
 
 }
