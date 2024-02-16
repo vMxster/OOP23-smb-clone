@@ -36,14 +36,22 @@ public class TileLoaderStationaryImpl implements TileLoaderStationary {
      * @param documentExtractor The document extractor.
      */
     @SuppressFBWarnings(value = "EI2", justification =
-                "Justification for Suppressing SpotBugs Warning:\r\n" + //
-                "The SpotBugs warning \"EI2\" indicates that a mutable object (tileLoaderManager)\r\n" + //
-                "is being stored without defensively copying its contents. In this context, the\r\n" + //
-                "tileLoaderManager object is used solely for internal use within the\r\n" + //
-                "TileLoaderStationaryImpl class and for initializing its internal state. It's not\r\n" + //
-                "exposed to external code, and no modifications are made to it after initialization.\r\n" + //
-                "Therefore, there's no risk of unintended modification by external code or concurrent\r\n" + //
-                "access issues. Suppressing this warning is justified as it accurately reflects the\r\n" + //
+                "Justification for Suppressing SpotBugs Warning:\r\n"
+                + //
+                "The SpotBugs warning \"EI2\" indicates that a mutable object (tileLoaderManager)\r\n"
+                + //
+                "is being stored without defensively copying its contents. In this context, the\r\n"
+                + //
+                "tileLoaderManager object is used solely for internal use within the\r\n"
+                + //
+                "TileLoaderStationaryImpl class and for initializing its internal state. It's not\r\n"
+                + //
+                "exposed to external code, and no modifications are made to it after initialization.\r\n"
+                + //
+                "Therefore, there's no risk of unintended modification by external code or concurrent\r\n"
+                + //
+                "access issues. Suppressing this warning is justified as it accurately reflects the\r\n"
+                + //
                 "intentional design and usage of the tileLoaderManager object within this class.")
     public TileLoaderStationaryImpl(final TileLoaderManager tileLoaderManager, final DocumentExtractor documentExtractor) {
         this.tileLoaderManager = tileLoaderManager;
