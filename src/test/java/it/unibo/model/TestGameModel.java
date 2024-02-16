@@ -23,7 +23,7 @@ import it.unibo.controller.GameControllerImpl;
 /**
  * JUnit tests for the GameModel class.
  */
-public class TestGameModel {
+class TestGameModel {
 
     private static final int MAP_ROWS = 30;
     private static final int MAP_COLUMNS = 36;
@@ -33,7 +33,7 @@ public class TestGameModel {
      * Initializes the test environment before each test method is executed.
      */
     @BeforeEach
-    public void init() {
+    void init() {
         this.gameModel = new GameModelImpl(Constants.SOURCE_MAP, new GameControllerImpl());
         assertNotNull(this.gameModel);
     }
@@ -42,8 +42,8 @@ public class TestGameModel {
      * Tests the {@link GameModel#getStationary()} method.
      */
     @Test
-    public void testGetStationary() {
-        List<List<Optional<Tile>>> stationary = gameModel.getStationary();
+    void testGetStationary() {
+        final List<List<Optional<Tile>>> stationary = gameModel.getStationary();
         assertNotNull(stationary);
         assertFalse(stationary.isEmpty());
     }
@@ -52,8 +52,8 @@ public class TestGameModel {
      * Tests the {@link GameModel#getSaws()} method.
      */
     @Test
-    public void testGetSaws() {
-        List<CircularSaw> saws = gameModel.getSaws();
+    void testGetSaws() {
+        final List<CircularSaw> saws = gameModel.getSaws();
         assertNotNull(saws);
         assertFalse(saws.isEmpty());
     }
@@ -62,8 +62,8 @@ public class TestGameModel {
      * Tests the {@link GameModel#getPlatforms()} method.
      */
     @Test
-    public void testGetPlatforms() {
-        List<Platform> platforms = gameModel.getPlatforms();
+    void testGetPlatforms() {
+        final List<Platform> platforms = gameModel.getPlatforms();
         assertNotNull(platforms);
         assertFalse(platforms.isEmpty());
     }
@@ -72,8 +72,8 @@ public class TestGameModel {
      * Tests the {@link GameModel#getBandageGirl()} method.
      */
     @Test
-    public void testGetBandageGirl() {
-        BandageGirl bandageGirl = gameModel.getBandageGirl();
+    void testGetBandageGirl() {
+        final BandageGirl bandageGirl = gameModel.getBandageGirl();
         assertNotNull(bandageGirl);
     }
 
@@ -81,8 +81,8 @@ public class TestGameModel {
      * Tests the {@link GameModel#getMeatBoy()} method.
      */
     @Test
-    public void testGetMeatBoy() {
-        MeatBoy meatBoy = gameModel.getMeatBoy();
+    void testGetMeatBoy() {
+        final MeatBoy meatBoy = gameModel.getMeatBoy();
         assertNotNull(meatBoy);
     }
 
@@ -90,8 +90,8 @@ public class TestGameModel {
      * Tests the {@link GameModel#getMeatBoyStartCoord()} method.
      */
     @Test
-    public void testGetMeatBoyStartCoord() {
-        Point2D<Double, Double> startCoord = gameModel.getMeatBoyStartCoord();
+    void testGetMeatBoyStartCoord() {
+        final Point2D<Double, Double> startCoord = gameModel.getMeatBoyStartCoord();
         assertNotNull(startCoord);
     }
 
@@ -99,8 +99,8 @@ public class TestGameModel {
      * Tests the {@link GameModel#getNumRows()} method.
      */
     @Test
-    public void testGetNumRows() {
-        int numRows = gameModel.getNumRows();
+    void testGetNumRows() {
+        final int numRows = gameModel.getNumRows();
         assertEquals(MAP_ROWS, numRows);
     }
 
@@ -108,8 +108,8 @@ public class TestGameModel {
      * Tests the {@link GameModel#getNumCols()} method.
      */
     @Test
-    public void testGetNumCols() {
-        int numCols = gameModel.getNumCols();
+    void testGetNumCols() {
+        final int numCols = gameModel.getNumCols();
         assertEquals(MAP_COLUMNS, numCols);
     }
 
@@ -117,8 +117,8 @@ public class TestGameModel {
      * Tests the {@link GameModel#getCollisionHandler()} method.
      */
     @Test
-    public void testGetCollisionHandler() {
-        CollisionHandler collisionHandler = gameModel.getCollisionHandler();
+    void testGetCollisionHandler() {
+        final CollisionHandler collisionHandler = gameModel.getCollisionHandler();
         assertNotNull(collisionHandler);
     }
 
