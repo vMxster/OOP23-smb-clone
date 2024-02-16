@@ -20,7 +20,7 @@ public class Scoreboard extends JPanel  {
     public static final long serialVersionUID = 1;
     private static final int ROWS = 5;
     private static final int COLS = 1;
-    private  final GameController controller;
+    private final transient GameController controller;
     private int deaths;
     private int record;
 
