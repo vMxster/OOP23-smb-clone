@@ -227,17 +227,18 @@ public class GameControllerImpl implements GameController {
         this.gameWindow.switchPanel(PanelType.MENU);
     }
 
+    @Override
     public GameWindow getGameWindow() {
         return gameWindow;
     }
 
     @Override
-    public void stopMovingMeatBoy(int keyCode) {
+    public void stopMovingMeatBoy(final int keyCode) {
         this.getGameModel().getCollisionHandler().stopMovingMeatBoy(keyCode);
     }
 
     @Override
-    public void moveMeatBoy(int keyCode) {
+    public void moveMeatBoy(final int keyCode) {
         this.getGameModel().getCollisionHandler().moveMeatBoy(keyCode);
     }
 }
