@@ -35,9 +35,9 @@ public class TestDocumentExtractor {
      */
     @Test
     public void testGetElements() throws ParserConfigurationException {
-        assertNotNull(this.documentExtractor.getElements("object"));
-        assertNotNull(this.documentExtractor.getElements("objectgroup"));
-        assertNotNull(this.documentExtractor.getElements("tile"));
+        assertNotNull(this.documentExtractor.getElements(TagType.OBJECT));
+        assertNotNull(this.documentExtractor.getElements(TagType.OBJECTGROUP));
+        assertNotNull(this.documentExtractor.getElements(TagType.TILE));
     }
 
     /**
