@@ -43,7 +43,12 @@ public class MeatBoyImpl extends EntityImpl<RectangleHitbox> implements MeatBoy 
      * @param y The y-coordinate of the MeatBoy.
      */
     public MeatBoyImpl(final double x, final double y) {
-        super(x, y, new RectangleHitbox(x, y, (int)(Constants.TILE_SIZE * Constants.SCALE_PROPORTION), (int) (Constants.TILE_SIZE * Constants.SCALE_PROPORTION))); 
+        super(x, y, 
+            new RectangleHitbox(
+                x, 
+                y, 
+                (int) (Constants.TILE_SIZE * Constants.SCALE_PROPORTION), 
+                (int) (Constants.TILE_SIZE * Constants.SCALE_PROPORTION))); 
         this.speedMul = 1;
     }
 
