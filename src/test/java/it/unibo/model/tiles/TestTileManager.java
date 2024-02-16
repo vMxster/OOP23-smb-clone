@@ -17,7 +17,7 @@ import it.unibo.model.tiles.manager.factory.TileManagerFactoryImpl;
 /**
  * JUnit tests for the TileManager class.
  */
-public class TestTileManager {
+class TestTileManager {
 
     private static final double MEATBOY_X = 100.8;
     private static final double MEATBOY_Y = 772.8;
@@ -34,7 +34,7 @@ public class TestTileManager {
      * Initializes the test environment before each test method is executed.
      */
     @BeforeEach
-    public void init() {
+    void init() {
         this.tileManager = new TileManagerFactoryImpl()
             .createTileManager(Constants.SOURCE_MAP);
         assertNotNull(this.tileManager);
@@ -55,7 +55,7 @@ public class TestTileManager {
      * Tests the {@link TileManagerImpl#getNumCols()} and {@link TileManagerImpl#getNumRows()} methods.
      */
     @Test
-    public void testGetNumColsAndRows() {
+    void testGetNumColsAndRows() {
         assertEquals(MAP_COLUMNS, tileManager.getNumCols());
         assertEquals(MAP_ROWS, tileManager.getNumRows());
     }
@@ -64,7 +64,7 @@ public class TestTileManager {
      * Tests the {@link TileManagerImpl#getPlatforms()} method.
      */
     @Test
-    public void testGetPlatforms() {
+    void testGetPlatforms() {
         assertNotNull(tileManager.getPlatforms());
         assertEquals(NUM_PLATFORMS, tileManager.getPlatforms().size());
     }
@@ -73,7 +73,7 @@ public class TestTileManager {
      * Tests the {@link TileManagerImpl#getSaws()} method.
      */
     @Test
-    public void testGetSaws() {
+    void testGetSaws() {
         assertNotNull(tileManager.getSaws());
         assertEquals(NUM_SAWS, tileManager.getSaws().size());
     }
@@ -82,7 +82,7 @@ public class TestTileManager {
      * Tests the {@link TileManagerImpl#getStationary()} method.
      */
     @Test
-    public void testGetStationary() {
+    void testGetStationary() {
         assertNotNull(tileManager.getStationary());
         assertEquals(MAP_ROWS, tileManager.getStationary().size());
         assertEquals(MAP_COLUMNS, tileManager.getStationary().get(0).size());
@@ -92,7 +92,7 @@ public class TestTileManager {
      * Tests the {@link TileManagerImpl#getTiles()} method.
      */
     @Test
-    public void testTiles() {
+    void testTiles() {
         assertNotNull(tileManager.getTiles());
         assertEquals(NUM_TILES, tileManager.getTiles().size());
     }
@@ -101,7 +101,7 @@ public class TestTileManager {
      * Tests the {@link TileManagerImpl#getMeatBoy()} method.
      */
     @Test
-    public void testMeatBoy() {
+    void testMeatBoy() {
         assertNotNull(tileManager.getMeatBoy());
         assertEquals(MEATBOY_X, tileManager.getMeatBoy().getX());
         assertEquals(MEATBOY_Y, tileManager.getMeatBoy().getY());
@@ -111,7 +111,7 @@ public class TestTileManager {
      * Tests the {@link TileManagerImpl#getBandageGirl()} method.
      */
     @Test
-    public void testBandageGirl() {
+    void testBandageGirl() {
         assertNotNull(tileManager.getBandageGirl());
         assertEquals(BANDAGEGIRL_X, tileManager.getBandageGirl().getX());
         assertEquals(BANDAGEGIRL_Y, tileManager.getBandageGirl().getY());
@@ -121,7 +121,7 @@ public class TestTileManager {
      * Tests the {@link TileManagerImpl#setSaw()} method.
      */
     @Test
-    public void testSetSaw() {
+    void testSetSaw() {
         tileManager.setSaw(new CircularSawImpl(0, 0, 0));
         assertEquals(NUM_SAWS + 1, tileManager.getSaws().size());
     }
@@ -130,7 +130,7 @@ public class TestTileManager {
      * Tests the {@link TileManagerImpl#setPlatform()} method.
      */
     @Test
-    public void testSetPlatform() {
+    void testSetPlatform() {
         tileManager.setPlatform(new PlatformImpl(0, 0, 0, 0));
         assertEquals(NUM_PLATFORMS + 1, tileManager.getPlatforms().size());
     }
@@ -139,7 +139,7 @@ public class TestTileManager {
      * Tests the {@link TileManagerImpl#setMeatBoyCoord()} method.
      */
     @Test
-    public void testSetMeatBoyCoord() {
+    void testSetMeatBoyCoord() {
         tileManager.setMeatBoyCoord(new Point2D<Double, Double>(0.0, 0.0));
         assertEquals(0, tileManager.getMeatBoy().getX());
         assertEquals(0, tileManager.getMeatBoy().getY());
@@ -149,7 +149,7 @@ public class TestTileManager {
      * Tests the {@link TileManagerImpl#setBandageGirlCoord()} method.
      */
     @Test
-    public void testSetBandageGirlCoord() {
+    void testSetBandageGirlCoord() {
         tileManager.setBandageGirlCoord(new Point2D<Double, Double>(0.0, 0.0));
         assertEquals(0, tileManager.getBandageGirl().getX());
         assertEquals(0, tileManager.getBandageGirl().getY());
