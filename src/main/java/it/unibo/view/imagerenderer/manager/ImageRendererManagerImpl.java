@@ -35,7 +35,7 @@ public class ImageRendererManagerImpl implements ImageRendererManager {
         this.imageRendererStationary = new ImageRendererStationaryFactoryImpl()
             .createImageRendererStationary(
                 this.gameController.getNumRows(),
-                this.gameController.getNumCols());   
+                this.gameController.getNumCols());
         this.imageLoader = new ImageLoaderFactoryImpl()
             .createImageLoader();
     }

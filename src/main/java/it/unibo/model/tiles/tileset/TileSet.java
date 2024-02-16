@@ -1,6 +1,8 @@
-package it.unibo.model.tiles;
+package it.unibo.model.tiles.tileset;
 
 import java.util.List;
+
+import it.unibo.model.tiles.Tile;
 
 /**
  * An interface representing a collection of tiles obtained from a TMX file.

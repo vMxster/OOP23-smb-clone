@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import it.unibo.commons.Constants;
+import it.unibo.commons.Point2D;
 import it.unibo.model.documentextractor.DocumentExtractor;
 import it.unibo.model.tiles.loader.manager.TileLoaderManager;
 
@@ -65,18 +66,20 @@ public class TileLoaderStationaryImpl implements TileLoaderStationary {
 
                                 if (idTile > ID_TILE_NULL) {
                                     if (idTile == ID_TILE_BANDAGEGIRL) {
-                                        this.tileLoaderManager.getBandageGirl().setX(
-                                            Double.valueOf(column * Constants.TILE_SIZE));
-                                        this.tileLoaderManager.getBandageGirl().setY(
-                                            Double.valueOf(row * Constants.TILE_SIZE));
+                                        this.tileLoaderManager.setBandageGirlCoord(
+                                            new Point2D<Double, Double>(
+                                                Double.valueOf(column * Constants.TILE_SIZE),
+                                                Double.valueOf(row * Constants.TILE_SIZE))
+                                        );
                                         this.tileLoaderManager.getStationary().get(row)
-                                            .set(column, 
+                                            .set(column,
                                                 Optional.of(this.tileLoaderManager.getTiles().get(idTile - 1)));
                                     } else if (idTile == ID_TILE_MEATBOY) {
-                                        this.tileLoaderManager.getMeatBoy().setX(
-                                            Double.valueOf(column * Constants.TILE_SIZE));
-                                        this.tileLoaderManager.getMeatBoy().setY(
-                                            Double.valueOf(row * Constants.TILE_SIZE));
+                                        this.tileLoaderManager.setMeatBoyCoord(
+                                            new Point2D<Double, Double>(
+                                                Double.valueOf(column * Constants.TILE_SIZE),
+                                                Double.valueOf(row * Constants.TILE_SIZE))
+                                            );
                                     } else {
                                         this.tileLoaderManager.getStationary().get(row)
                                             .set(column,

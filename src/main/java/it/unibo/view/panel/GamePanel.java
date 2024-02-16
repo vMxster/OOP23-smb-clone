@@ -81,7 +81,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 this.controller.esc();
             }
         }
-        this.controller.getGameModel().getCollisionHandler().moveMeatBoy(e.getKeyCode());
+        this.controller.moveMeatBoy(e.getKeyCode());
     }
 
     /**
@@ -90,11 +90,11 @@ public class GamePanel extends JPanel implements KeyListener {
      * @param e The KeyEvent representing the key released event.
      */
     public void keyReleased(final KeyEvent e) {
-        this.controller.getGameModel().getCollisionHandler().stopMovingMeatBoy(e.getKeyCode());
+        this.controller.stopMovingMeatBoy(e.getKeyCode());
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(final KeyEvent e) {
     }
 }
 

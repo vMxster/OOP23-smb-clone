@@ -14,12 +14,14 @@ public final class Constants {
     public static final int SW = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 0.70);
 
     /** The height of the screen. */
-    public static final int SH = ( SW/4 ) * 3;
+    public static final int SH = (SW / 4) * 3;
 
     /** The source map file path. */
     public static final String SOURCE_MAP = "file:./src/main/resources/factory1.tmx";
 
+    /** The proportion by which the application is scaled based on the screen width. */
     public static final double SCALE_PROPORTION = (double) Constants.SW / 800;
+
     /**
      * Private constructor to prevent instantiation.
      * Utility classes should not be instantiated.

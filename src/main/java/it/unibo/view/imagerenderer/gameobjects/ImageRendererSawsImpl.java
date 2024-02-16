@@ -64,10 +64,10 @@ public class ImageRendererSawsImpl implements ImageRendererSaws {
                     try {
                         g.drawImage(
                                 ImageIO.read(new File("./src/main/resources/buzzsaw2.png")),
-                                (int) saw.getX(),
-                                (int) saw.getY(),
-                                (int) saw.getHitbox().getHitbox().getWidth(),
-                                (int) saw.getHitbox().getHitbox().getHeight(),
+                                (int) (saw.getX() / Constants.SCALE_PROPORTION),
+                                (int) (saw.getY() / Constants.SCALE_PROPORTION),
+                                (int) (saw.getHitbox().getHitbox().getWidth() / Constants.SCALE_PROPORTION),
+                                (int) (saw.getHitbox().getHitbox().getHeight() / Constants.SCALE_PROPORTION),
                                 null);
                     } catch (IOException e) {
                         Logger.getLogger(ImageRendererSawsImpl.class.getName())

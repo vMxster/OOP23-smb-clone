@@ -3,6 +3,7 @@ package it.unibo.model.tiles.manager;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.commons.Point2D;
 import it.unibo.model.entity.obstacles.CircularSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
@@ -71,5 +72,33 @@ public interface TileManager {
      * @return A list containing all tiles in the game.
      */
     List<Tile> getTiles();
+
+    /**
+     * Sets a CircularSaw in the TileMap.
+     *
+     * @param circularSaw The CircularSaw to set.
+     */
+    void setSaw(CircularSaw circularSaw);
+
+    /**
+     * Sets a Platform in the TileMap.
+     *
+     * @param platform The Platform to set.
+     */
+    void setPlatform(Platform platform);
+
+    /**
+     * Sets the coordinates of MeatBoy in the TileMap.
+     *
+     * @param coord The coordinates to set for MeatBoy.
+     */
+    void setMeatBoyCoord(Point2D<Double, Double> coord);
+
+    /**
+     * Sets the coordinates of BandageGirl in the TileMap.
+     *
+     * @param coord The coordinates to set for BandageGirl.
+     */
+    void setBandageGirlCoord(Point2D<Double, Double> coord);
 
 }
