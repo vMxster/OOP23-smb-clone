@@ -1,6 +1,8 @@
 package it.unibo.view.window;
 
 import java.awt.Font;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -46,6 +48,7 @@ public class GameWindowSwing extends JFrame implements GameWindow {
      * @param controller the GameController associated with the window.
      */
     public GameWindowSwing(final GameController controller) {
+        this.setIconImage(new ImageIcon("./src/main/resources/meatboy.png").getImage());
         this.renderer = new ImageRendererManagerFactoryImpl()
             .createImageRendererManager(controller);
         this.menu = new GameMenu(controller);
