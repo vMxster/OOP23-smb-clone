@@ -22,8 +22,8 @@ public class Scoreboard extends JPanel  {
     private static final int ROWS = 4;
     private static final int COLS = 1;
     private final transient GameController controller;
-    private JLabel deathsField;
-    private JLabel timeRecordField;
+    private final JLabel deathsField;
+    private final JLabel timeRecordField;
 
     /**
      * Constructs a new instance of Scoreboard with the GameController and GameWindowSwing.
@@ -32,7 +32,7 @@ public class Scoreboard extends JPanel  {
      * @param window the GameWindowSwing that can switch to change panel.
      */
     public Scoreboard(final GameController controller, final GameWindowSwing window) {
-        this.setLayout(new GridLayout(ROWS, COLS, 0 , GameMenu.VERTICAL_GAP));
+        this.setLayout(new GridLayout(ROWS, COLS, 0, GameMenu.VERTICAL_GAP));
         this.controller = controller;
         final JLabel levelLabel = new JLabel("LEVEL 1");
         deathsField = new JLabel("TOTAL DEATHS: " + this.controller.getDeaths());
@@ -85,6 +85,9 @@ public class Scoreboard extends JPanel  {
             this.controller.getTimeRecord() / 100, this.controller.getTimeRecord() % 100));
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public void addNotify() {
         super.addNotify();
