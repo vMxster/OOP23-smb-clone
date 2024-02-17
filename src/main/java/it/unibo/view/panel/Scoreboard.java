@@ -21,7 +21,7 @@ public class Scoreboard extends JPanel  {
     public static final long serialVersionUID = 1;
     private static final int ROWS = 5;
     private static final int COLS = 1;
-    private  final GameController controller;
+    private final transient GameController controller;
     private int deaths;
     private int record;
 
@@ -90,7 +90,7 @@ public class Scoreboard extends JPanel  {
     public void updateDeaths() {
         deaths = this.controller.getDeaths();
     }
-    
+
     /**
      * Update the time record every time the player ends the level with a better time than before.
      */
@@ -101,5 +101,4 @@ public class Scoreboard extends JPanel  {
             record = 0;
         }
     }
-
 }

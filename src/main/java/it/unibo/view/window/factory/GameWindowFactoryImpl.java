@@ -10,14 +10,8 @@ import it.unibo.view.window.GameWindowSwing;
  */
 public class GameWindowFactoryImpl implements GameWindowFactory {
 
-    /**
-     * Creates a Swing-based GameWindow instance.
-     *
-     * @param controller The GameController associated with the window.
-     * @return A GameWindowSwing instance.
-     */
     @Override
-    public GameWindow createSwingGameWindow(final GameController controller) {
+    public final GameWindow createSwingGameWindow(final GameController controller) {
         return new GameWindowSwing(controller);
     }
 

@@ -25,9 +25,9 @@ public interface DocumentExtractor {
     /**
      * Retrieves the elements associated with a given TagName.
      *
-     * @param tagName The name of the tag to search for.
+     * @param tagType The name of the tag to search for.
      * @return The elements associated with the specified tag name.
      */
-    NodeList getElements(String tagName);
+    NodeList getElements(TagType tagType);
 
 }

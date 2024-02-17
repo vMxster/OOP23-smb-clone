@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.GameController;
 import it.unibo.view.window.GameWindow.PanelType;
 
@@ -21,8 +22,20 @@ import it.unibo.view.window.GameWindow.PanelType;
  */
 public class GameMenu extends JPanel {
 
+    /**
+     * Serial version UID for serialization/deserialization.
+     * This constant is used to ensure version compatibility of serialized objects.
+     */
     public static final long serialVersionUID = 1;
-    public static final int ROWS = 4;
+    /**
+     * Represents the number of rows in a grid or matrix.
+     * This constant defines the total number of rows in the grid or matrix.
+     */
+    public static final int ROWS = 3;
+    /**
+     * Represents the number of columns in a grid or matrix.
+     * This constant defines the total number of columns in the grid or matrix.
+     */
     public static final int COLS = 1;
     public static final int TITLE_FONT_SIZE = 50;
     public static final int FONT_SIZE = 30;
@@ -34,7 +47,6 @@ public class GameMenu extends JPanel {
      * Constructs a new instance of GameMenu with the specified GameController and GameWindowSwing.
      * 
      * @param controller the GameController associated with the window.
-     * @param window the GameWindowSwing that can switch to change panel.
      */
     public GameMenu(final GameController controller) {
         this.setLayout(new GridLayout(ROWS, COLS));
@@ -58,6 +70,7 @@ public class GameMenu extends JPanel {
         });
 
         quitButton.addActionListener(new ActionListener() {
+            @SuppressFBWarnings("DM_EXIT")
             @Override
             public void actionPerformed(final ActionEvent e) {
                 if (JOptionPane.showConfirmDialog(null, "Sei sicuro di volere uscire?", 

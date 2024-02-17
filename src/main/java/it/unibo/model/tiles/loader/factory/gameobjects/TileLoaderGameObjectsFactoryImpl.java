@@ -13,7 +13,8 @@ import it.unibo.model.tiles.loader.manager.TileLoaderManager;
 public class TileLoaderGameObjectsFactoryImpl implements TileLoaderGameObjectsFactory {
 
     @Override
-    public final TileLoaderGameObjects createTileLoaderGameObjects(final TileLoaderManager tileLoaderManager, final DocumentExtractor documentExtractor) {
+    public final TileLoaderGameObjects createTileLoaderGameObjects(
+            final TileLoaderManager tileLoaderManager, final DocumentExtractor documentExtractor) {
         return new TileLoaderGameObjectsImpl(tileLoaderManager, documentExtractor);
     }
 

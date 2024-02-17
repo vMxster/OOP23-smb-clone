@@ -27,5 +27,4 @@ public interface Statistic {
      * @return the best time record.
      */
     int getRecordTime();
-    
 }

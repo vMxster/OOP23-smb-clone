@@ -43,27 +43,22 @@ public class MeatBoyImpl extends EntityImpl<RectangleHitbox> implements MeatBoy 
      * @param y The y-coordinate of the MeatBoy.
      */
     public MeatBoyImpl(final double x, final double y) {
-        super(x, y, new RectangleHitbox(x, y, (int)(Constants.TILE_SIZE * Constants.SCALE_PROPORTION), (int) (Constants.TILE_SIZE * Constants.SCALE_PROPORTION))); 
+        super(x, y, 
+            new RectangleHitbox(
+                x, 
+                y, 
+                (int) (Constants.TILE_SIZE * Constants.SCALE_PROPORTION), 
+                (int) (Constants.TILE_SIZE * Constants.SCALE_PROPORTION))); 
         this.speedMul = 1;
     }
 
-    /**
-     * Retrieves the speed multiplier associated with this MeatBoy entity.
-     *
-     * @return The speed multiplier value.
-     */
     @Override
-    public double getSpeedMul() {
+    public final double getSpeedMul() {
         return this.speedMul;
     }
 
-    /**
-     * Sets the speed multiplier associated with this MeatBoy entity to the specified value.
-     *
-     * @param speedMul The new value for the speed multiplier.
-     */
     @Override
-    public void setSpeedMul(final double speedMul) {
+    public final void setSpeedMul(final double speedMul) {
         this.speedMul = speedMul;
     }
 }
