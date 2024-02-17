@@ -44,10 +44,10 @@ public class GameControllerImpl implements GameController {
      * Initializes the game model and the game window.
      */
     public GameControllerImpl() {
-        this.gameModel = new GameModelImpl(Constants.SOURCE_MAP, this);
-        this.gameWindow = new GameWindowFactoryImpl().createSwingGameWindow(this);
         this.timer = new Timer();
         this.statistic = new StatisticImpl();
+        this.gameModel = new GameModelImpl(Constants.SOURCE_MAP, this);
+        this.gameWindow = new GameWindowFactoryImpl().createSwingGameWindow(this);
     }
 
     @Override
