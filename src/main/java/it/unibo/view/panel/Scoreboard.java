@@ -1,5 +1,6 @@
 package it.unibo.view.panel;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -59,11 +60,28 @@ public class Scoreboard extends JPanel  {
             }
         });
 
+        this.setBackground(Color.BLACK);
         this.add(levelLabel);
-        this.add(deathsField);
-        this.add(timeRecordField);
-        this.add(refreshButton);
-        this.add(backButton);
+        levelLabel.setHorizontalAlignment((int) CENTER_ALIGNMENT);
+        levelLabel.setFont(GameMenu.TITLE_TEXT_FONT);
+        levelLabel.setForeground(Color.WHITE);
+        setupLable(deathsField);
+        setupLable(timeRecordField);
+        setupButton(refreshButton);
+        setupButton(backButton);
+    }
+
+    private void setupButton(final JButton button) {
+        this.add(button);
+        button.setFont(GameMenu.TEXT_FONT);
+        button.setBackground(GameMenu.BUTTON_COLOR);
+        button.setForeground(Color.BLACK);
+    }
+
+    private void setupLable(final JLabel label) {
+        this.add(label);
+        label.setFont(GameMenu.TEXT_FONT);
+        label.setForeground(Color.WHITE);
     }
 
     /**
