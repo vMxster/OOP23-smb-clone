@@ -21,7 +21,11 @@ import it.unibo.view.window.GameWindow.PanelType;
  * It extends JPanel and provides buttons to switch to the GamePanel, check the scoreboard after a level and quit the application.
  */
 public class GameMenu extends JPanel {
-
+    
+    /**
+     * Gap between Jbutton
+     */
+    public static final int VERTICAL_GAP = 50;
     /**
      * Serial version UID for serialization/deserialization.
      * This constant is used to ensure version compatibility of serialized objects.
@@ -49,7 +53,7 @@ public class GameMenu extends JPanel {
      * @param controller the GameController associated with the window.
      */
     public GameMenu(final GameController controller) {
-        this.setLayout(new GridLayout(ROWS, COLS));
+        this.setLayout(new GridLayout(ROWS, COLS, 0, VERTICAL_GAP));
         final JLabel title = new JLabel(new ImageIcon("./src/main/resources/supermeatboyintro.png"));
         final JButton startButton = new JButton("START");
         final JButton scoreboardButton = new JButton("SCOREBOARD");
@@ -87,11 +91,11 @@ public class GameMenu extends JPanel {
         setupButton(quitButton);
     }
 
-    private void setupButton(final JButton component) {
-        this.add(component);
-        component.setFont(TEXT_FONT);
-        component.setBackground(BUTTON_COLOR);
-        component.setForeground(Color.BLACK);
+    private void setupButton(final JButton button) {
+        button.setFont(TEXT_FONT);
+        button.setBackground(BUTTON_COLOR);
+        button.setForeground(Color.BLACK);
+        this.add(button);
     }
     
 }
