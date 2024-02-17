@@ -13,7 +13,7 @@ public class StatisticImpl implements Statistic {
      */
     public StatisticImpl() {
         this.deaths = 0;
-        this.recordTime = Integer.MAX_VALUE;
+        this.recordTime = 0;
     }
 
     /**
@@ -29,7 +29,7 @@ public class StatisticImpl implements Statistic {
      */
     @Override
     public void updateRecord(final int time) {
-        if (time < this.recordTime) {
+        if (recordTime == 0 || time < this.recordTime) {
             this.recordTime = time;
         }
     }
