@@ -31,7 +31,7 @@ public class GameMenu extends JPanel {
      * Represents the number of rows in a grid or matrix.
      * This constant defines the total number of rows in the grid or matrix.
      */
-    public static final int ROWS = 3;
+    public static final int ROWS = 4;
     /**
      * Represents the number of columns in a grid or matrix.
      * This constant defines the total number of columns in the grid or matrix.
