@@ -108,6 +108,7 @@ public class GameModelImpl implements GameModel {
      */
     @Override
     public void died() {
+        initializeCoords();
         this.gameController.isDead();
     }
 
