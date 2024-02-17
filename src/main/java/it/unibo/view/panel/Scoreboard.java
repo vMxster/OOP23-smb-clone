@@ -32,11 +32,12 @@ public class Scoreboard extends JPanel  {
      * @param window the GameWindowSwing that can switch to change panel.
      */
     public Scoreboard(final GameController controller, final GameWindowSwing window) {
-        this.setLayout(new GridLayout(ROWS, COLS));
+        this.setLayout(new GridLayout(ROWS, COLS, 0 , GameMenu.VERTICAL_GAP));
         this.controller = controller;
         final JLabel levelLabel = new JLabel("LEVEL 1");
         deathsField = new JLabel("TOTAL DEATHS: " + this.controller.getDeaths());
-        timeRecordField = new JLabel(String.format("BEST TIME RECORD: %d:%02d", this.controller.getTimeRecord() / 100, this.controller.getTimeRecord() % 100));
+        timeRecordField = new JLabel(String.format("BEST TIME RECORD: %d:%02d",
+            this.controller.getTimeRecord() / 100, this.controller.getTimeRecord() % 100));
         final JButton backButton = new JButton("BACK");
 
         backButton.addActionListener(new ActionListener() {
@@ -57,16 +58,16 @@ public class Scoreboard extends JPanel  {
     }
 
     private void setupButton(final JButton button) {
-        this.add(button);
         button.setFont(GameMenu.TEXT_FONT);
         button.setBackground(GameMenu.BUTTON_COLOR);
         button.setForeground(Color.BLACK);
+        this.add(button);
     }
 
     private void setupLable(final JLabel label) {
-        this.add(label);
         label.setFont(GameMenu.TEXT_FONT);
         label.setForeground(Color.WHITE);
+        this.add(label);
     }
 
     /**
@@ -80,7 +81,8 @@ public class Scoreboard extends JPanel  {
      * Update the time record every time the player ends the level with a better time than before.
      */
     public void updateTimeRecord() {
-        this.timeRecordField.setText(String.format("BEST TIME RECORD: %d:%02d", this.controller.getTimeRecord() / 100, this.controller.getTimeRecord() % 100));
+        this.timeRecordField.setText(String.format("BEST TIME RECORD: %d:%02d",
+            this.controller.getTimeRecord() / 100, this.controller.getTimeRecord() % 100));
     }
 
     @Override
