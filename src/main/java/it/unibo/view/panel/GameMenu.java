@@ -21,9 +21,9 @@ import it.unibo.view.window.GameWindow.PanelType;
  * It extends JPanel and provides buttons to switch to the GamePanel, check the scoreboard after a level and quit the application.
  */
 public class GameMenu extends JPanel {
-    
+
     /**
-     * Gap between Jbutton
+     * Gap between JButton.
      */
     public static final int VERTICAL_GAP = 50;
     /**
@@ -41,11 +41,18 @@ public class GameMenu extends JPanel {
      * This constant defines the total number of columns in the grid or matrix.
      */
     public static final int COLS = 1;
-    public static final int TITLE_FONT_SIZE = 50;
-    public static final int FONT_SIZE = 30;
-    public static final Color BUTTON_COLOR = new Color(214,47,55);
-    public static final Font TITLE_TEXT_FONT = new Font("Arial", Font.BOLD, TITLE_FONT_SIZE);
-    public static final Font TEXT_FONT = new Font("Arial", Font.BOLD, FONT_SIZE);
+    /**
+     * Represents the color of the buttons.
+     */
+    public static final Color BUTTON_COLOR = new Color(214, 47, 55);
+    /**
+     * Represents the title text font size.
+     */
+    public static final Font TITLE_TEXT_FONT = new Font("Arial", Font.BOLD, 50);
+    /**
+     * Represents the text font.
+     */
+    public static final Font TEXT_FONT = new Font("Arial", Font.BOLD, 30);
 
     /**
      * Constructs a new instance of GameMenu with the specified GameController and GameWindowSwing.
@@ -97,5 +104,4 @@ public class GameMenu extends JPanel {
         button.setForeground(Color.BLACK);
         this.add(button);
     }
-    
 }
