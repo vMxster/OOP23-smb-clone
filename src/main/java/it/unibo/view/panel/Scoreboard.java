@@ -19,11 +19,11 @@ import it.unibo.view.window.GameWindow.PanelType;
 public class Scoreboard extends JPanel  {
 
     public static final long serialVersionUID = 1;
-    private static final int ROWS = 5;
+    private static final int ROWS = 4;
     private static final int COLS = 1;
     private final transient GameController controller;
-    private int deaths;
-    private int record;
+    private JLabel deathsField;
+    private JLabel timeRecordField;
 
     /**
      * Constructs a new instance of Scoreboard with the GameController and GameWindowSwing.
@@ -34,29 +34,15 @@ public class Scoreboard extends JPanel  {
     public Scoreboard(final GameController controller, final GameWindowSwing window) {
         this.setLayout(new GridLayout(ROWS, COLS));
         this.controller = controller;
-        this.deaths = 0;
-        this.record = 0;
         final JLabel levelLabel = new JLabel("LEVEL 1");
-        final JLabel deathsField = new JLabel("TOTAL DEATHS: " + deaths);
-        final JLabel timeRecordField = new JLabel(String.format("BEST TIME RECORD: %d:%02d", record / 100, record % 100));
-        final JButton refreshButton = new JButton("REFRESH");
+        deathsField = new JLabel("TOTAL DEATHS: " + this.controller.getDeaths());
+        timeRecordField = new JLabel(String.format("BEST TIME RECORD: %d:%02d", this.controller.getTimeRecord() / 100, this.controller.getTimeRecord() % 100));
         final JButton backButton = new JButton("BACK");
 
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 window.switchPanel(PanelType.MENU);
-            }
-        });
-
-        refreshButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                updateDeaths();
-                updateTimeRecord();
-                deathsField.setText("TOTAL DEATHS: " + deaths);
-                timeRecordField.setText(String.format("BEST TIME RECORD: %d:%02d", record / 100, record % 100));
-                repaint();
             }
         });
 
@@ -67,7 +53,6 @@ public class Scoreboard extends JPanel  {
         levelLabel.setForeground(Color.WHITE);
         setupLable(deathsField);
         setupLable(timeRecordField);
-        setupButton(refreshButton);
         setupButton(backButton);
     }
 
@@ -88,17 +73,22 @@ public class Scoreboard extends JPanel  {
      * Update the number of deaths every time the player die.
      */
     public void updateDeaths() {
-        deaths = this.controller.getDeaths();
+        this.deathsField.setText("TOTAL DEATHS: " + this.controller.getDeaths());
     }
 
     /**
      * Update the time record every time the player ends the level with a better time than before.
      */
     public void updateTimeRecord() {
-        if (this.controller.getTimeRecord() != Integer.MAX_VALUE) {
-            record = this.controller.getTimeRecord();
-        } else {
-            record = 0;
-        }
+        this.timeRecordField.setText(String.format("BEST TIME RECORD: %d:%02d", this.controller.getTimeRecord() / 100, this.controller.getTimeRecord() % 100));
     }
+
+    @Override
+    public void addNotify() {
+        super.addNotify();
+        updateDeaths();
+        updateTimeRecord();
+        repaint();
+    }
+
 }
