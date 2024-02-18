@@ -76,8 +76,8 @@ public class GameMenu extends JPanel {
         setupButton(quitButton);
     }
 
-    private JButton createButton(String text, ActionListener actionListener) {
-        JButton button = new JButton(text);
+    private JButton createButton(final String text, final ActionListener actionListener) {
+        final JButton button = new JButton(text);
         button.addActionListener(actionListener);
         return button;
     }
