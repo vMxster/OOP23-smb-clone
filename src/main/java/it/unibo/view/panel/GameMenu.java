@@ -3,7 +3,6 @@ package it.unibo.view.panel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
@@ -12,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.GameController;
 import it.unibo.view.window.GameWindow.PanelType;
 
@@ -62,32 +60,20 @@ public class GameMenu extends JPanel {
     public GameMenu(final GameController controller) {
         this.setLayout(new GridLayout(ROWS, COLS, 0, VERTICAL_GAP));
         final JLabel title = new JLabel(new ImageIcon("./src/main/resources/supermeatboyintro.png"));
-        final JButton startButton = new JButton("START");
-        final JButton scoreboardButton = new JButton("SCOREBOARD");
-        final JButton quitButton = new JButton("QUIT");
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                controller.start();
-                controller.getGameWindow().switchPanel(PanelType.GAME);
-            }
+
+        final JButton startButton = createButton("START", e -> {
+            controller.start();
+            controller.getGameWindow().switchPanel(PanelType.GAME);
         });
 
-        scoreboardButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
+        final JButton scoreboardButton = createButton("SCOREBOARD", e -> {
                 controller.getGameWindow().switchPanel(PanelType.SCOREBOARD);
-            }
         });
 
-        quitButton.addActionListener(new ActionListener() {
-            @SuppressFBWarnings("DM_EXIT")
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                if (JOptionPane.showConfirmDialog(null, "Sei sicuro di volere uscire?", 
-            "Esci dal gioco", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        final JButton quitButton = createButton("QUIT", e -> {
+            if (JOptionPane.showConfirmDialog(null, "Sei sicuro di volere uscire?",
+                    "Esci dal gioco", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 System.exit(0);
-                }
             }
         });
 
@@ -96,6 +82,12 @@ public class GameMenu extends JPanel {
         setupButton(startButton);
         setupButton(scoreboardButton);
         setupButton(quitButton);
+    }
+
+    private JButton createButton(String text, ActionListener actionListener) {
+        JButton button = new JButton(text);
+        button.addActionListener(actionListener);
+        return button;
     }
 
     private void setupButton(final JButton button) {
