@@ -29,7 +29,9 @@ public class StatisticImpl implements Statistic {
      */
     @Override
     public void updateRecord(final int time) {
-        this.recordTime = (recordTime == 0 || time < this.recordTime) ? time : recordTime;
+        if (recordTime == 0 || time < this.recordTime) {
+            this.recordTime = time;
+        }
     }
     /**
      * Returns the total number of deaths.
