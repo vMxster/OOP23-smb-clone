@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import it.unibo.view.window.GameWindowSwing;
+import it.unibo.view.window.GameWindow;
 import it.unibo.controller.GameController;
 import it.unibo.view.window.GameWindow.PanelType;
 /**
@@ -25,12 +25,12 @@ public class Scoreboard extends JPanel  {
     private final JLabel timeRecordField;
 
     /**
-     * Constructs a new instance of Scoreboard with the GameController and GameWindowSwing.
+     * Constructs a new instance of Scoreboard with the GameController and GameWindow.
      * 
      * @param controller the GameController associated with the window.
      * @param window the GameWindowSwing that can switch to change panel.
      */
-    public Scoreboard(final GameController controller, final GameWindowSwing window) {
+    public Scoreboard(final GameController controller, final GameWindow window) {
         this.setLayout(new GridLayout(ROWS, COLS, 0, GameMenu.VERTICAL_GAP));
         this.controller = controller;
         final JLabel levelLabel = new JLabel("LEVEL 1");
