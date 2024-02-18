@@ -30,16 +30,6 @@ public class GameMenu extends JPanel {
      */
     public static final long serialVersionUID = 1;
     /**
-     * Represents the number of rows in a grid or matrix.
-     * This constant defines the total number of rows in the grid or matrix.
-     */
-    public static final int ROWS = 4;
-    /**
-     * Represents the number of columns in a grid or matrix.
-     * This constant defines the total number of columns in the grid or matrix.
-     */
-    public static final int COLS = 1;
-    /**
      * Represents the color of the buttons.
      */
     public static final Color BUTTON_COLOR = new Color(214, 47, 55);
@@ -51,6 +41,8 @@ public class GameMenu extends JPanel {
      * Represents the text font.
      */
     public static final Font TEXT_FONT = new Font("Arial", Font.BOLD, 30);
+    private static final int ROWS = 4;
+    private static final int COLS = 1;
 
     /**
      * Constructs a new instance of GameMenu with the specified GameController and GameWindowSwing.
