@@ -28,7 +28,7 @@ public class Scoreboard extends JPanel  {
      * Constructs a new instance of Scoreboard with the GameController and GameWindow.
      * 
      * @param controller the GameController associated with the window.
-     * @param window the GameWindowSwing that can switch to change panel.
+     * @param window the GameWindow that can switch to change panel.
      */
     public Scoreboard(final GameController controller, final GameWindow window) {
         this.setLayout(new GridLayout(ROWS, COLS, 0, GameMenu.VERTICAL_GAP));
