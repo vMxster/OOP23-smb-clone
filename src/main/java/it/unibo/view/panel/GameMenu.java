@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.GameController;
 import it.unibo.view.window.GameWindow.PanelType;
 
@@ -18,6 +19,7 @@ import it.unibo.view.window.GameWindow.PanelType;
  * The GameMenu class represents the panel of the main menu of the game.
  * It extends JPanel and provides buttons to switch to the GamePanel, check the scoreboard after a level and quit the application.
  */
+@SuppressFBWarnings("DM_EXIT")
 public class GameMenu extends JPanel {
 
     /**
@@ -64,7 +66,7 @@ public class GameMenu extends JPanel {
 
         final JButton quitButton = createButton("QUIT", e -> {
             if (JOptionPane.showConfirmDialog(null, "Sei sicuro di volere uscire?",
-                    "Esci dal gioco", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            "Esci dal gioco", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 System.exit(0);
             }
         });
