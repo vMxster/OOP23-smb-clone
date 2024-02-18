@@ -38,14 +38,8 @@ public class Scoreboard extends JPanel  {
         deathsField = new JLabel("TOTAL DEATHS: " + this.controller.getDeaths());
         timeRecordField = new JLabel(String.format("BEST TIME RECORD: %d:%02d",
             this.controller.getTimeRecord() / 100, this.controller.getTimeRecord() % 100));
-        final JButton backButton = new JButton("BACK");
 
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                window.switchPanel(PanelType.MENU);
-            }
-        });
+        final JButton backButton = createButton("BACK", e -> window.switchPanel(PanelType.MENU));
 
         this.setBackground(Color.BLACK);
         this.add(levelLabel);
@@ -96,4 +90,9 @@ public class Scoreboard extends JPanel  {
         repaint();
     }
 
+    private JButton createButton(String text, ActionListener actionListener) {
+        JButton button = new JButton(text);
+        button.addActionListener(actionListener);
+        return button;
+    }
 }
