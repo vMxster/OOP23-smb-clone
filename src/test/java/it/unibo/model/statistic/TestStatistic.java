@@ -10,7 +10,8 @@ import org.junit.jupiter.api.Test;
  * JUnit tests for the Statistic class.
  */
 class TestStatistic {
-    
+
+    private static final int TIME = 30;
     private Statistic statistic;
 
     /** assertEquals(30, statistic.getRecordTime());
@@ -41,10 +42,10 @@ class TestStatistic {
     @Test
     void testRecordUpdate() {
         assertEquals(0, statistic.getRecordTime());
-        this.statistic.updateRecord(30);
-        this.statistic.updateRecord(60);
-        assertEquals(30, statistic.getRecordTime());
-        this.statistic.updateRecord(15);
-        assertEquals(15, statistic.getRecordTime());
+        this.statistic.updateRecord(TIME);
+        this.statistic.updateRecord(TIME * 2);
+        assertEquals(TIME, statistic.getRecordTime());
+        this.statistic.updateRecord(TIME / 2);
+        assertEquals(TIME / 2, statistic.getRecordTime());
     }
 }
