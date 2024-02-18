@@ -27,7 +27,7 @@ public class GameWindowSwing extends JFrame implements GameWindow {
     public static final long serialVersionUID = 3;
     private static final int INITIAL_TIMER_POSITIONX = (int) (Constants.SW * 0.01);
     private static final int INITIAL_TIMER_POSITIONY = (int) (Constants.SH * 0.01);
-    private static final int TIMER_WIDTH = (int) (Constants.SW * 0.05);
+    private static final int TIMER_WIDTH = (int) (Constants.SW * 0.08);
     private static final int TIMER_HEIGHT = (int) (Constants.SH * 0.03);
     private static final int INITIAL_DEATHSFIELD_POSITIONX = (int) (Constants.SW * 0.96);
     private static final int INITIAL_DEATHSFIELD_POSITIONY = (int) (Constants.SH * 0.01);
