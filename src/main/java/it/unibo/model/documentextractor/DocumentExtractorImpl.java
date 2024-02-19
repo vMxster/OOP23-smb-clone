@@ -36,7 +36,9 @@ public class DocumentExtractorImpl implements DocumentExtractor {
             this.document = DocumentBuilderFactory
                 .newInstance()
                 .newDocumentBuilder()
-                .parse(this.tmx);
+                .parse(getClass()
+                    .getClassLoader()
+                    .getResourceAsStream(this.tmx));
             final NodeList mapAttributes = this.document
                 .getElementsByTagName(TagType.MAP.toString());
             if (mapAttributes.getLength() > 0) {

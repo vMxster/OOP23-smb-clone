@@ -1,7 +1,6 @@
 package it.unibo.view.imagerenderer.loader;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -39,7 +38,9 @@ public class ImageLoaderImpl implements ImageLoader {
      * @throws IOException if an I/O error occurs.
      */
     private BufferedImage getImage(final ImageType imageType) throws IOException {
-        return ImageIO.read(new File("./src/main/resources/" + imageType));
+        return ImageIO.read(getClass()
+            .getClassLoader()
+            .getResourceAsStream(imageType.toString()));
     }
 
 }

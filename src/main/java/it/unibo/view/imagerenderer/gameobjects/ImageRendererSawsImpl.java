@@ -2,7 +2,6 @@ package it.unibo.view.imagerenderer.gameobjects;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -63,7 +62,9 @@ public class ImageRendererSawsImpl implements ImageRendererSaws {
                 .forEach(saw -> {
                     try {
                         g.drawImage(
-                                ImageIO.read(new File("./src/main/resources/buzzsaw2.png")),
+                                ImageIO.read(getClass()
+                                    .getClassLoader()
+                                    .getResourceAsStream("buzzsaw2.png")),
                                 (int) (saw.getX() / Constants.SCALE_PROPORTION),
                                 (int) (saw.getY() / Constants.SCALE_PROPORTION),
                                 (int) (saw.getHitbox().getHitbox().getWidth() / Constants.SCALE_PROPORTION),

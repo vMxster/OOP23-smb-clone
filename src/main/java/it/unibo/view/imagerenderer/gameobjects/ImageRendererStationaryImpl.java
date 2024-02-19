@@ -2,7 +2,6 @@ package it.unibo.view.imagerenderer.gameobjects;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -65,7 +64,9 @@ public class ImageRendererStationaryImpl implements ImageRendererStationary {
                     tile.ifPresent(t -> {
                         try {
                             g.drawImage(
-                                    getSubImage(ImageIO.read(new File("./src/main/resources/" + t.getSrcImage())), t),
+                                    getSubImage(ImageIO.read(getClass()
+                                        .getClassLoader()
+                                        .getResourceAsStream(t.getSrcImage())), t),
                                     column * Constants.TILE_SIZE,
                                     row * Constants.TILE_SIZE,
                                     Constants.TILE_SIZE,

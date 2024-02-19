@@ -53,8 +53,9 @@ public class GameMenu extends JPanel {
      */
     public GameMenu(final GameController controller) {
         this.setLayout(new GridLayout(ROWS, COLS, 0, VERTICAL_GAP));
-        final JLabel title = new JLabel(new ImageIcon("./src/main/resources/supermeatboyintro.png"));
-
+        final JLabel title = new JLabel(new ImageIcon(getClass()
+            .getClassLoader()
+            .getResource("supermeatboyintro.png")));
         final JButton startButton = createButton("START", e -> {
             controller.start();
             controller.getGameWindow().switchPanel(PanelType.GAME);
