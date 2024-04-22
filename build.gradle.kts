@@ -45,7 +45,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("it.unibo.SuperMeatBoy")
+    mainClass.set("it.unibo.smb.SuperMeatBoy")
 }
 
 tasks.test {
