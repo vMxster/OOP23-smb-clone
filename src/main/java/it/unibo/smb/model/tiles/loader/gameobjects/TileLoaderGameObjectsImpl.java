@@ -1,8 +1,8 @@
 package it.unibo.smb.model.tiles.loader.gameobjects;
 
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import it.unibo.smb.model.entity.obstacles.LavaPoolImpl;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -61,6 +61,7 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
     public void load() {
         this.loadObjects(GameObjectType.SAWS);
         this.loadObjects(GameObjectType.PLATFORMS);
+        this.loadObjects(GameObjectType.LAVAPOOL);
     }
 
     /**
@@ -72,7 +73,7 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
         final NodeList objects = documentExtractor.getElements(TagType.OBJECTGROUP);
         IntStream.range(0, objects.getLength())
             .mapToObj(i -> (Element) objects.item(i))
-            .collect(Collectors.toList()).stream()
+            .toList().stream()
                 .filter(node -> nameObjects.toString()
                     .equals(((Element) node).getAttribute(TagType.NAME.toString())))
                 .findFirst()
@@ -81,7 +82,7 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
                         .getElementsByTagName(TagType.OBJECT.toString());
                     IntStream.range(0, objectsInGroup.getLength())
                         .mapToObj(i -> (Element) objectsInGroup.item(i))
-                        .collect(Collectors.toList()).stream()
+                        .toList().stream()
                             .map(objectNode -> (Element) objectNode)
                             .forEach(objectElement -> {
                                 final int x = Integer.parseInt(
@@ -96,23 +97,33 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
                                     this.tileLoaderManager.trim(
                                         objectElement
                                             .getAttribute(TagType.WIDTH.toString())));
-                                if (GameObjectType.SAWS.equals(nameObjects)) {
-                                    this.tileLoaderManager.setSaw(new CircularSawImpl(
-                                        x * Constants.SCALE_PROPORTION,
-                                        y * Constants.SCALE_PROPORTION,
-                                        (int) (width * Constants.SCALE_PROPORTION)));
-                                } else {
-                                    this.tileLoaderManager.setPlatform(new PlatformImpl(
-                                        x * Constants.SCALE_PROPORTION,
-                                        y * Constants.SCALE_PROPORTION,
-                                        (int) (width * Constants.SCALE_PROPORTION),
-                                        (int) (Integer.parseInt(
-                                            this.tileLoaderManager.trim(
-                                                objectElement
-                                                    .getAttribute(TagType.HEIGHT.toString()))) * Constants.SCALE_PROPORTION)));
-                                }
+                                final int height = Integer.parseInt(
+                                    this.tileLoaderManager.trim(objectElement
+                                            .getAttribute(TagType.HEIGHT.toString())));
+                                addGameObject(nameObjects, x, y, width, height);
                             });
                 });
+    }
+
+    private void addGameObject(final GameObjectType nameObjects, final int x, final int y, final int width, final int height) {
+        if (GameObjectType.SAWS.equals(nameObjects)) {
+            this.tileLoaderManager.setSaw(new CircularSawImpl(
+                    x * Constants.SCALE_PROPORTION,
+                    y * Constants.SCALE_PROPORTION,
+                    (int) (width * Constants.SCALE_PROPORTION)));
+        } else if (GameObjectType.LAVAPOOL.equals(nameObjects)) {
+            this.tileLoaderManager.setLavaPool(new LavaPoolImpl(
+                    x * Constants.SCALE_PROPORTION,
+                    y * Constants.SCALE_PROPORTION,
+                    (int) (width * Constants.SCALE_PROPORTION),
+                    (int) (height * Constants.SCALE_PROPORTION)));
+        } else {
+            this.tileLoaderManager.setPlatform(new PlatformImpl(
+                    x * Constants.SCALE_PROPORTION,
+                    y * Constants.SCALE_PROPORTION,
+                    (int) (width * Constants.SCALE_PROPORTION),
+                    (int) (height * Constants.SCALE_PROPORTION)));
+        }
     }
 
 }
