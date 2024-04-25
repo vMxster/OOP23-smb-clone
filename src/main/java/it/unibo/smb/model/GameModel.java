@@ -6,6 +6,7 @@ import java.util.Optional;
 import it.unibo.smb.commons.Point2D;
 import it.unibo.smb.model.collision.CollisionHandler;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
+import it.unibo.smb.model.entity.obstacles.LaserBarrier;
 import it.unibo.smb.model.entity.obstacles.LavaPool;
 import it.unibo.smb.model.entity.obstacles.Platform;
 import it.unibo.smb.model.entity.player.MeatBoy;
@@ -112,4 +113,11 @@ public interface GameModel {
      * This method is called to indicate that the player collides with an obstacles or fall from the map and died.
      */
     void died();
+
+    /**
+     * Returns the List of LaserBarriers parsed from the TMX file.
+     *
+     * @return The List of LaserBarriers parsed from the TMX file.
+     */
+    List<LaserBarrier> getLaserBarriers();
 }

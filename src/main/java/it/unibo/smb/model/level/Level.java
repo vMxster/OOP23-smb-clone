@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import it.unibo.smb.commons.Point2D;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
+import it.unibo.smb.model.entity.obstacles.LaserBarrier;
 import it.unibo.smb.model.entity.obstacles.LavaPool;
 import it.unibo.smb.model.entity.obstacles.Platform;
 import it.unibo.smb.model.entity.player.MeatBoy;
@@ -36,6 +37,13 @@ public interface Level {
      * @return A List of Saws.
      */
     List<CircularSaw> getSaws();
+
+    /**
+     * Retrieves a list of LaserBarriers.
+     *
+     * @return A List of LaserBarriers.
+     */
+    List<LaserBarrier> getLaserBarriers();
 
     /**
      * Retrieves the bandage girl.
