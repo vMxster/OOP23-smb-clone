@@ -3,6 +3,7 @@ package it.unibo.smb.model.collision;
 import java.util.List;
 
 import it.unibo.smb.commons.Constants;
+import it.unibo.smb.model.entity.Entity;
 import it.unibo.smb.model.entity.player.MeatBoy;
 import it.unibo.smb.model.entity.player.MeatBoyImpl;
 import it.unibo.smb.model.hitbox.CircularHitbox;
@@ -20,6 +21,7 @@ public class CollisionCheckerImpl implements CollisionChecker {
     private final List<RectangleHitbox> platformsHitboxs;
     private final RectangleHitbox bandageGirlHitbox;
     private final MeatBoy meatBoy;
+    private final List<RectangleHitbox> lavaPoolsHitboxs;
 
     private boolean moveLeft;
     private boolean moveRight;
@@ -38,11 +40,14 @@ public class CollisionCheckerImpl implements CollisionChecker {
      * @param collisionHandler the handler of the collision checker
      */
     public CollisionCheckerImpl(final CollisionHandler collisionHandler) {
+        this.lavaPoolsHitboxs = collisionHandler.getGameModel().getLavaPools().stream()
+                .map(Entity::getHitbox)
+                .toList();
         this.sawsHitboxs = collisionHandler.getGameModel().getSaws().stream()
-                .map(t -> t.getHitbox())
+                .map(Entity::getHitbox)
                 .toList();
         this.platformsHitboxs = collisionHandler.getGameModel().getPlatforms().stream()
-                .map(t -> t.getHitbox())
+                .map(Entity::getHitbox)
                 .toList();
         this.bandageGirlHitbox = collisionHandler.getGameModel().getBandageGirl().getHitbox();
         this.meatBoy = collisionHandler.getGameModel().getMeatBoy();
@@ -55,18 +60,20 @@ public class CollisionCheckerImpl implements CollisionChecker {
     @Override
     public void isColliding() {
         if (this.platformsHitboxs.stream()
-                .map(h -> h.getHitbox())
-                .filter(h -> h.intersects(meatBoy.getHitbox().getHitbox()))
-                .count() > 0) {
+                .map(RectangleHitbox::getHitbox)
+                .anyMatch(h -> h.intersects(meatBoy.getHitbox().getHitbox()))) {
             state = CollisionState.GROUND;
         } else {
             state = CollisionState.AIR;
         }
         if (this.sawsHitboxs.stream()
-                .map(h -> h.getHitbox())
-                .filter(h -> h.intersects(meatBoy.getHitbox().getHitbox()))
-                .count() > 0) {
+                .map(CircularHitbox::getHitbox)
+                .anyMatch(h -> h.intersects(meatBoy.getHitbox().getHitbox()))) {
             state = CollisionState.SAW;
+        } else if (this.lavaPoolsHitboxs.stream()
+                .map(RectangleHitbox::getHitbox)
+                .anyMatch(h -> h.intersects(meatBoy.getHitbox().getHitbox()))) {
+            state = CollisionState.LAVAPOOL;
         }
         if (this.bandageGirlHitbox.getHitbox().intersects(meatBoy.getHitbox().getHitbox())) {
             state = CollisionState.BANDAGE_GIRL;
