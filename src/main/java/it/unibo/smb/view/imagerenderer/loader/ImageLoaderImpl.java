@@ -2,6 +2,7 @@ package it.unibo.smb.view.imagerenderer.loader;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
@@ -38,9 +39,9 @@ public class ImageLoaderImpl implements ImageLoader {
      * @throws IOException if an I/O error occurs.
      */
     private BufferedImage getImage(final ImageType imageType) throws IOException {
-        return ImageIO.read(getClass()
-            .getClassLoader()
-            .getResourceAsStream(imageType.toString()));
+        return ImageIO.read(Objects.requireNonNull(getClass()
+                .getClassLoader()
+                .getResourceAsStream(imageType.toString())));
     }
 
 }
