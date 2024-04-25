@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import it.unibo.smb.model.entity.obstacles.LavaPool;
 import it.unibo.smb.model.tiles.Tile;
 import it.unibo.smb.model.tiles.manager.TileManager;
 import it.unibo.smb.model.tiles.manager.factory.TileManagerFactoryImpl;
@@ -63,6 +64,11 @@ public class LevelImpl implements Level {
     @Override
     public final Point2D<Double, Double> getMeatBoyStartCoord() {
         return this.meatBoyStartCoord.copy();
+    }
+
+    @Override
+    public final List<LavaPool> getLavaPools() {
+        return this.tileManager.getLavaPools();
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.util.Optional;
 import it.unibo.smb.commons.Point2D;
 import it.unibo.smb.model.collision.CollisionHandler;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
+import it.unibo.smb.model.entity.obstacles.LavaPool;
 import it.unibo.smb.model.entity.obstacles.Platform;
 import it.unibo.smb.model.entity.player.MeatBoy;
 import it.unibo.smb.model.entity.target.BandageGirl;
@@ -45,6 +46,13 @@ public interface GameModel {
      * @return The List of Platforms parsed from the TMX file.
      */
     List<Platform> getPlatforms();
+
+    /**
+     * Returns the List of LavaPools parsed from the TMX file.
+     *
+     * @return The List of LavaPools parsed from the TMX file.
+     */
+    List<LavaPool> getLavaPools();
 
     /**
      * Returns the BandageGirl parsed from the TMX file.

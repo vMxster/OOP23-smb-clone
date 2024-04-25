@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import it.unibo.smb.commons.Point2D;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
+import it.unibo.smb.model.entity.obstacles.LavaPool;
 import it.unibo.smb.model.entity.obstacles.Platform;
 import it.unibo.smb.model.entity.player.MeatBoy;
 import it.unibo.smb.model.entity.target.BandageGirl;
@@ -71,4 +72,10 @@ public interface Level {
      */
     Point2D<Double, Double> getMeatBoyStartCoord();
 
+    /**
+     * Retrieves a list of LavaPools.
+     *
+     * @return A List of LavaPools.
+     */
+    List<LavaPool> getLavaPools();
 }

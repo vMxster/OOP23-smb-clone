@@ -8,6 +8,7 @@ import it.unibo.smb.controller.GameController;
 import it.unibo.smb.model.collision.CollisionHandler;
 import it.unibo.smb.model.collision.CollisionHandlerImpl;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
+import it.unibo.smb.model.entity.obstacles.LavaPool;
 import it.unibo.smb.model.entity.obstacles.Platform;
 import it.unibo.smb.model.entity.player.MeatBoy;
 import it.unibo.smb.model.entity.target.BandageGirl;
@@ -51,6 +52,11 @@ public class GameModelImpl implements GameModel {
     @Override
     public final List<Platform> getPlatforms() {
         return this.level.getPlatforms();
+    }
+
+    @Override
+    public final List<LavaPool> getLavaPools() {
+        return this.level.getLavaPools();
     }
 
     @Override
