@@ -8,6 +8,7 @@ import it.unibo.smb.commons.Point2D;
 import it.unibo.smb.model.documentextractor.DocumentExtractor;
 import it.unibo.smb.model.documentextractor.factory.DocumentExtractorFactoryImpl;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
+import it.unibo.smb.model.entity.obstacles.LavaPool;
 import it.unibo.smb.model.entity.obstacles.Platform;
 import it.unibo.smb.model.tiles.Tile;
 import it.unibo.smb.model.tiles.loader.factory.gameobjects.TileLoaderGameObjectsFactoryImpl;
@@ -103,4 +104,8 @@ public class TileLoaderManagerImpl implements TileLoaderManager {
         this.tileManager.setBandageGirlCoord(coord);
     }
 
+    @Override
+    public final void setLavaPool(final LavaPool lavaPool) {
+        this.tileManager.setLavaPool(lavaPool);
+    }
 }
