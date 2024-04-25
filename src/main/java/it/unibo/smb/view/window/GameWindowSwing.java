@@ -1,6 +1,7 @@
 package it.unibo.smb.view.window;
 
 import java.awt.Font;
+import java.util.Objects;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -10,6 +11,7 @@ import javax.swing.JLabel;
 
 import it.unibo.smb.commons.Constants;
 import it.unibo.smb.controller.GameController;
+import it.unibo.smb.view.imagerenderer.manager.ImageType;
 import it.unibo.smb.view.panel.GameMenu;
 import it.unibo.smb.view.imagerenderer.factory.manager.ImageRendererManagerFactoryImpl;
 import it.unibo.smb.view.imagerenderer.manager.ImageRendererManager;
@@ -48,9 +50,9 @@ public class GameWindowSwing extends JFrame implements GameWindow {
      * @param controller the GameController associated with the window.
      */
     public GameWindowSwing(final GameController controller) {
-        this.setIconImage(new ImageIcon(getClass()
-            .getClassLoader()
-            .getResource("meatboy.png")).getImage());
+        this.setIconImage(new ImageIcon(Objects.requireNonNull(getClass()
+                .getClassLoader()
+                .getResource(ImageType.MEAT_BOY.toString()))).getImage());
         this.renderer = new ImageRendererManagerFactoryImpl()
             .createImageRendererManager(controller);
         this.menu = new GameMenu(controller);
