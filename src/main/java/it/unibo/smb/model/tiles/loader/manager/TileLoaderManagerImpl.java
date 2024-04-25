@@ -8,6 +8,7 @@ import it.unibo.smb.commons.Point2D;
 import it.unibo.smb.model.documentextractor.DocumentExtractor;
 import it.unibo.smb.model.documentextractor.factory.DocumentExtractorFactoryImpl;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
+import it.unibo.smb.model.entity.obstacles.LaserBarrier;
 import it.unibo.smb.model.entity.obstacles.LavaPool;
 import it.unibo.smb.model.entity.obstacles.Platform;
 import it.unibo.smb.model.tiles.Tile;
@@ -107,5 +108,10 @@ public class TileLoaderManagerImpl implements TileLoaderManager {
     @Override
     public final void setLavaPool(final LavaPool lavaPool) {
         this.tileManager.setLavaPool(lavaPool);
+    }
+
+    @Override
+    public final void setLaserBarrier(final LaserBarrier laserBarrier) {
+        this.tileManager.setLaserBarrier(laserBarrier);
     }
 }

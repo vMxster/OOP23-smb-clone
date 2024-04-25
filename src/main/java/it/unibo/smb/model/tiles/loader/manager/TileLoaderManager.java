@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import it.unibo.smb.commons.Point2D;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
+import it.unibo.smb.model.entity.obstacles.LaserBarrier;
 import it.unibo.smb.model.entity.obstacles.LavaPool;
 import it.unibo.smb.model.entity.obstacles.Platform;
 import it.unibo.smb.model.tiles.Tile;
@@ -78,4 +79,11 @@ public interface TileLoaderManager {
      * @param lavaPool The LavaPool to set.
      */
     void setLavaPool(LavaPool lavaPool);
+
+    /**
+     * Sets a LaserBarrier in the TileMap.
+     *
+     * @param laserBarrier The LaserBarrier to set.
+     */
+    void setLaserBarrier(LaserBarrier laserBarrier);
 }
