@@ -2,7 +2,10 @@ package it.unibo.smb.model.tiles.loader.gameobjects;
 
 import java.util.stream.IntStream;
 
+import it.unibo.smb.model.entity.obstacles.CircularSawImpl;
+import it.unibo.smb.model.entity.obstacles.LaserBarrierImpl;
 import it.unibo.smb.model.entity.obstacles.LavaPoolImpl;
+import it.unibo.smb.model.entity.obstacles.PlatformImpl;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -10,8 +13,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.smb.commons.Constants;
 import it.unibo.smb.model.documentextractor.DocumentExtractor;
 import it.unibo.smb.model.documentextractor.TagType;
-import it.unibo.smb.model.entity.obstacles.CircularSawImpl;
-import it.unibo.smb.model.entity.obstacles.PlatformImpl;
 import it.unibo.smb.model.tiles.loader.manager.GameObjectType;
 import it.unibo.smb.model.tiles.loader.manager.TileLoaderManager;
 
@@ -62,6 +63,7 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
         this.loadObjects(GameObjectType.SAWS);
         this.loadObjects(GameObjectType.PLATFORMS);
         this.loadObjects(GameObjectType.LAVAPOOL);
+        this.loadObjects(GameObjectType.LASERBARRIER);
     }
 
     /**
@@ -113,6 +115,12 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
                     (int) (width * Constants.SCALE_PROPORTION)));
         } else if (GameObjectType.LAVAPOOL.equals(nameObjects)) {
             this.tileLoaderManager.setLavaPool(new LavaPoolImpl(
+                    x * Constants.SCALE_PROPORTION,
+                    y * Constants.SCALE_PROPORTION,
+                    (int) (width * Constants.SCALE_PROPORTION),
+                    (int) (height * Constants.SCALE_PROPORTION)));
+        } else if (GameObjectType.LASERBARRIER.equals(nameObjects)) {
+            this.tileLoaderManager.setLaserBarrier(new LaserBarrierImpl(
                     x * Constants.SCALE_PROPORTION,
                     y * Constants.SCALE_PROPORTION,
                     (int) (width * Constants.SCALE_PROPORTION),
