@@ -22,6 +22,7 @@ public class CollisionCheckerImpl implements CollisionChecker {
     private final RectangleHitbox bandageGirlHitbox;
     private final MeatBoy meatBoy;
     private final List<RectangleHitbox> lavaPoolsHitboxs;
+    private final List<RectangleHitbox> laserBarriersHitboxs;
 
     private boolean moveLeft;
     private boolean moveRight;
@@ -41,6 +42,9 @@ public class CollisionCheckerImpl implements CollisionChecker {
      */
     public CollisionCheckerImpl(final CollisionHandler collisionHandler) {
         this.lavaPoolsHitboxs = collisionHandler.getGameModel().getLavaPools().stream()
+                .map(Entity::getHitbox)
+                .toList();
+        this.laserBarriersHitboxs = collisionHandler.getGameModel().getLaserBarriers().stream()
                 .map(Entity::getHitbox)
                 .toList();
         this.sawsHitboxs = collisionHandler.getGameModel().getSaws().stream()
@@ -74,6 +78,10 @@ public class CollisionCheckerImpl implements CollisionChecker {
                 .map(RectangleHitbox::getHitbox)
                 .anyMatch(h -> h.intersects(meatBoy.getHitbox().getHitbox()))) {
             state = CollisionState.LAVAPOOL;
+        } else if (this.laserBarriersHitboxs.stream()
+                .map(RectangleHitbox::getHitbox)
+                .anyMatch(h -> h.intersects(meatBoy.getHitbox().getHitbox()))) {
+            state = CollisionState.LASERBARRIER;
         }
         if (this.bandageGirlHitbox.getHitbox().intersects(meatBoy.getHitbox().getHitbox())) {
             state = CollisionState.BANDAGE_GIRL;
@@ -132,7 +140,7 @@ public class CollisionCheckerImpl implements CollisionChecker {
             if (state.equals(CollisionState.GROUND)) {
                 this.meatBoy.setY(this.meatBoy.getY() + MeatBoyImpl.JUMP_SPEED);
             }
-            jumpHeight += MeatBoyImpl.JUMP_SPEED;
+            jumpHeight += (int) MeatBoyImpl.JUMP_SPEED;
             // fall
         } else if (state.equals(CollisionState.AIR) || state.equals(CollisionState.WALL)) {
             if (state.equals(CollisionState.AIR)) {
