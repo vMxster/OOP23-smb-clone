@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 
 import it.unibo.smb.commons.Constants;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
+import it.unibo.smb.view.imagerenderer.manager.ImageType;
 
 /**
  * An implementation of ImageRendererSaws that generates a BufferedImage representing
@@ -62,9 +63,9 @@ public class ImageRendererSawsImpl implements ImageRendererSaws {
                 .forEach(saw -> {
                     try {
                         g.drawImage(
-                                ImageIO.read(getClass()
-                                    .getClassLoader()
-                                    .getResourceAsStream("buzzsaw2.png")),
+                                ImageIO.read(Objects.requireNonNull(getClass()
+                                        .getClassLoader()
+                                        .getResourceAsStream(ImageType.SAWS.toString()))),
                                 (int) (saw.getX() / Constants.SCALE_PROPORTION),
                                 (int) (saw.getY() / Constants.SCALE_PROPORTION),
                                 (int) (saw.getHitbox().getHitbox().getWidth() / Constants.SCALE_PROPORTION),
