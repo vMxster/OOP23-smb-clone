@@ -12,7 +12,12 @@ public enum ImageType {
     /**
      * Image representing the character Meat Boy.
      */
-    MEAT_BOY("meatboy.png");
+    MEAT_BOY("meatboy.png"),
+
+    /**
+     * Image representing the Saws.
+     */
+    SAWS("buzzsaw2.png");
 
     private final String imageName;
 
