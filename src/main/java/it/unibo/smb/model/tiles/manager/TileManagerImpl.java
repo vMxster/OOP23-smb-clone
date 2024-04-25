@@ -10,6 +10,7 @@ import it.unibo.smb.commons.Point2D;
 import it.unibo.smb.model.documentextractor.DocumentExtractor;
 import it.unibo.smb.model.documentextractor.factory.DocumentExtractorFactoryImpl;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
+import it.unibo.smb.model.entity.obstacles.LavaPool;
 import it.unibo.smb.model.entity.obstacles.Platform;
 import it.unibo.smb.model.entity.player.MeatBoy;
 import it.unibo.smb.model.entity.player.MeatBoyImpl;
@@ -28,6 +29,7 @@ public class TileManagerImpl implements TileManager {
     private final List<List<Optional<Tile>>> stationary;
     private final List<Platform> platforms;
     private final List<CircularSaw> circularSaws;
+    private final List<LavaPool> lavaPools;
     private final List<Tile> tiles;
     private final MeatBoy meatBoy;
     private final BandageGirl bandageGirl;
@@ -42,6 +44,7 @@ public class TileManagerImpl implements TileManager {
     public TileManagerImpl(final String tmx) {
         this.platforms = new ArrayList<>();
         this.circularSaws = new ArrayList<>();
+        this.lavaPools = new ArrayList<>();
         this.stationary = new ArrayList<>();
         this.tiles = new TileSetFactoryImpl()
             .createTileSet(tmx).read();
@@ -64,6 +67,11 @@ public class TileManagerImpl implements TileManager {
     @Override
     public final List<CircularSaw> getSaws() {
         return Collections.unmodifiableList(this.circularSaws);
+    }
+
+    @Override
+    public final List<LavaPool> getLavaPools() {
+        return Collections.unmodifiableList(this.lavaPools);
     }
 
     @Override
@@ -120,6 +128,11 @@ public class TileManagerImpl implements TileManager {
     public final void setBandageGirlCoord(final Point2D<Double, Double> coord) {
         this.bandageGirl.setX(coord.getX() * Constants.SCALE_PROPORTION);
         this.bandageGirl.setY(coord.getY() * Constants.SCALE_PROPORTION);
+    }
+
+    @Override
+    public final void setLavaPool(final LavaPool lavaPool) {
+        this.lavaPools.add(lavaPool);
     }
 
     /**

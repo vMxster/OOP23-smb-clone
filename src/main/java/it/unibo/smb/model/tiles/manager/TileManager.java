@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import it.unibo.smb.commons.Point2D;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
+import it.unibo.smb.model.entity.obstacles.LavaPool;
 import it.unibo.smb.model.entity.obstacles.Platform;
 import it.unibo.smb.model.entity.player.MeatBoy;
 import it.unibo.smb.model.entity.target.BandageGirl;
@@ -29,6 +30,13 @@ public interface TileManager {
      * @return The List of CircularSaws parsed from the TMX file.
      */
     List<CircularSaw> getSaws();
+
+    /**
+     * Returns the List of LavaPools parsed from the TMX file.
+     *
+     * @return The List of LavaPools parsed from the TMX file.
+     */
+    List<LavaPool> getLavaPools();
 
     /**
      * Returns the number of columns in the TileMap.
@@ -101,4 +109,10 @@ public interface TileManager {
      */
     void setBandageGirlCoord(Point2D<Double, Double> coord);
 
+    /**
+     * Sets a LavaPool in the TileMap.
+     *
+     * @param lavaPool The LavaPool to set.
+     */
+    void setLavaPool(LavaPool lavaPool);
 }
