@@ -13,7 +13,12 @@ public enum GameObjectType {
     /**
      * Object type: Platforms.
      */
-    PLATFORMS("rectangle");
+    PLATFORMS("rectangle"),
+
+    /**
+     * Object type: LavaPool.
+     */
+    LAVAPOOL("lavapool");
 
     /**
      * TagName of the objects.
