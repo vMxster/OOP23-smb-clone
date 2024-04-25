@@ -9,7 +9,7 @@ public interface CollisionChecker {
     /**
      * Enum with the possible interactions state of MeatBoy entity.
      */
-    enum CollisionState { GROUND, WALL, AIR, SAW, BANDAGE_GIRL, LAVAPOOL, FALL }
+    enum CollisionState { GROUND, WALL, AIR, SAW, BANDAGE_GIRL, LAVAPOOL, LASERBARRIER, FALL }
 
     /**
      * Check if MeatBoy collides with any obstacols in the level map.
