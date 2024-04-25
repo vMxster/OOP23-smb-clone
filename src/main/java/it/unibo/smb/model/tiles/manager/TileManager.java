@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import it.unibo.smb.commons.Point2D;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
+import it.unibo.smb.model.entity.obstacles.LaserBarrier;
 import it.unibo.smb.model.entity.obstacles.LavaPool;
 import it.unibo.smb.model.entity.obstacles.Platform;
 import it.unibo.smb.model.entity.player.MeatBoy;
@@ -37,6 +38,13 @@ public interface TileManager {
      * @return The List of LavaPools parsed from the TMX file.
      */
     List<LavaPool> getLavaPools();
+
+    /**
+     * Returns the List of LaserBarriers parsed from the TMX file.
+     *
+     * @return The List of LaserBarriers parsed from the TMX file.
+     */
+    List<LaserBarrier> getLaserBarriers();
 
     /**
      * Returns the number of columns in the TileMap.
@@ -115,4 +123,11 @@ public interface TileManager {
      * @param lavaPool The LavaPool to set.
      */
     void setLavaPool(LavaPool lavaPool);
+
+    /**
+     * Sets a LaserBarrier in the TileMap.
+     *
+     * @param laserBarrier The LaserBarrier to set.
+     */
+    void setLaserBarrier(LaserBarrier laserBarrier);
 }

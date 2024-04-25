@@ -10,6 +10,7 @@ import it.unibo.smb.commons.Point2D;
 import it.unibo.smb.model.documentextractor.DocumentExtractor;
 import it.unibo.smb.model.documentextractor.factory.DocumentExtractorFactoryImpl;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
+import it.unibo.smb.model.entity.obstacles.LaserBarrier;
 import it.unibo.smb.model.entity.obstacles.LavaPool;
 import it.unibo.smb.model.entity.obstacles.Platform;
 import it.unibo.smb.model.entity.player.MeatBoy;
@@ -30,6 +31,7 @@ public class TileManagerImpl implements TileManager {
     private final List<Platform> platforms;
     private final List<CircularSaw> circularSaws;
     private final List<LavaPool> lavaPools;
+    private final List<LaserBarrier> laserBarriers;
     private final List<Tile> tiles;
     private final MeatBoy meatBoy;
     private final BandageGirl bandageGirl;
@@ -45,6 +47,7 @@ public class TileManagerImpl implements TileManager {
         this.platforms = new ArrayList<>();
         this.circularSaws = new ArrayList<>();
         this.lavaPools = new ArrayList<>();
+        this.laserBarriers = new ArrayList<>();
         this.stationary = new ArrayList<>();
         this.tiles = new TileSetFactoryImpl()
             .createTileSet(tmx).read();
@@ -72,6 +75,11 @@ public class TileManagerImpl implements TileManager {
     @Override
     public final List<LavaPool> getLavaPools() {
         return Collections.unmodifiableList(this.lavaPools);
+    }
+
+    @Override
+    public final List<LaserBarrier> getLaserBarriers() {
+        return Collections.unmodifiableList(this.laserBarriers);
     }
 
     @Override
@@ -133,6 +141,11 @@ public class TileManagerImpl implements TileManager {
     @Override
     public final void setLavaPool(final LavaPool lavaPool) {
         this.lavaPools.add(lavaPool);
+    }
+
+    @Override
+    public final void setLaserBarrier(final LaserBarrier laserBarrier) {
+        this.laserBarriers.add(laserBarrier);
     }
 
     /**
