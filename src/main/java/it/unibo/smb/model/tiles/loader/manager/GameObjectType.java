@@ -18,7 +18,12 @@ public enum GameObjectType {
     /**
      * Object type: LavaPool.
      */
-    LAVAPOOL("lavapool");
+    LAVAPOOL("lavapool"),
+
+    /**
+     * Object type: LaserBarrier.
+     */
+    LASERBARRIER("laserbarrier");
 
     /**
      * TagName of the objects.
