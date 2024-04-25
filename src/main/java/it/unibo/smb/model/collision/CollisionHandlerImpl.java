@@ -41,7 +41,8 @@ public class CollisionHandlerImpl implements CollisionHandler {
             gameModel.died();
         } else {
             if (collisionChecker.getState().equals(CollisionChecker.CollisionState.SAW)
-                || collisionChecker.getState().equals(CollisionChecker.CollisionState.LAVAPOOL)) {
+                || collisionChecker.getState().equals(CollisionChecker.CollisionState.LAVAPOOL)
+                || collisionChecker.getState().equals(CollisionChecker.CollisionState.LASERBARRIER)) {
                 gameModel.getMeatBoy().setX(gameModel.getMeatBoyStartCoord().getX());
                 gameModel.getMeatBoy().setY(gameModel.getMeatBoyStartCoord().getY());
                 gameModel.died();
