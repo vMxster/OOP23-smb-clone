@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import it.unibo.smb.commons.Point2D;
 import it.unibo.smb.controller.GameController;
+import it.unibo.smb.controller.LevelType;
 import it.unibo.smb.model.collision.CollisionHandler;
 import it.unibo.smb.model.collision.CollisionHandlerImpl;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
@@ -26,6 +27,7 @@ public class GameModelImpl implements GameModel {
     private final Level level;
     private final CollisionHandlerImpl collisionHandler;
     private final GameController gameController;
+    private final String tmxMap;
 
     /**
      * Constructs a new instance of the GameModel.
@@ -35,6 +37,7 @@ public class GameModelImpl implements GameModel {
      * @param gameController The game controller.
      */
     public GameModelImpl(final String tmx, final GameController gameController) {
+        this.tmxMap = tmx;
         this.level = new LevelFactoryImpl().createLevel(tmx);
         this.collisionHandler = new CollisionHandlerImpl(this);
         this.gameController = gameController;
@@ -63,6 +66,16 @@ public class GameModelImpl implements GameModel {
     @Override
     public final List<LaserBarrier> getLaserBarriers() {
         return this.level.getLaserBarriers();
+    }
+
+    @Override
+    public final LevelType getLevelName() {
+        for (final LevelType level : LevelType.values()) {
+            if (level.getSourceMap().equals(this.tmxMap)) {
+                return level;
+            }
+        }
+        throw new IllegalArgumentException("Level doesn't Exist");
     }
 
     @Override

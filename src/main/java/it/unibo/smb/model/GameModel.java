@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import it.unibo.smb.commons.Point2D;
+import it.unibo.smb.controller.LevelType;
 import it.unibo.smb.model.collision.CollisionHandler;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
 import it.unibo.smb.model.entity.obstacles.LaserBarrier;
@@ -120,4 +121,11 @@ public interface GameModel {
      * @return The List of LaserBarriers parsed from the TMX file.
      */
     List<LaserBarrier> getLaserBarriers();
+
+    /**
+     * Retrieves the level type associated with the current game model.
+     *
+     * @return The level type of the game model, indicating the environment and level number.
+     */
+    LevelType getLevelName();
 }
