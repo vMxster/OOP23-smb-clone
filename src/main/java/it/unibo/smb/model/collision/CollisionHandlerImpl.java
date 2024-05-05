@@ -1,6 +1,7 @@
 package it.unibo.smb.model.collision;
 
 import it.unibo.smb.model.GameModel;
+import it.unibo.smb.model.collision.factory.CollisionCheckerFactoryImpl;
 
 /**
  * Implementation of the CollisionHandler interface responsible for handling collisions
@@ -17,7 +18,8 @@ public class CollisionHandlerImpl implements CollisionHandler {
      */
     public CollisionHandlerImpl(final GameModel gameModel) {
         this.gameModel = gameModel;
-        this.collisionChecker = new CollisionCheckerImpl(this);
+        this.collisionChecker = new CollisionCheckerFactoryImpl()
+                .createCollisionChecker(this);
     }
 
     /**
