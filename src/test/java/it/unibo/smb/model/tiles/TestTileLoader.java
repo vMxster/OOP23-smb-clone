@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import it.unibo.smb.controller.LevelType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.smb.commons.Constants;
 import it.unibo.smb.model.documentextractor.DocumentExtractor;
 import it.unibo.smb.model.documentextractor.factory.DocumentExtractorFactoryImpl;
 import it.unibo.smb.model.tiles.loader.factory.gameobjects.TileLoaderGameObjectsFactoryImpl;
@@ -36,13 +36,13 @@ class TestTileLoader {
     @BeforeEach
     void init() {
         this.tileManager = new TileManagerFactoryImpl()
-            .createTileManager(Constants.SOURCE_MAP);
+            .createTileManager(LevelType.FACTORY_LEVEL_1.getSourceMap());
         assertNotNull(this.tileManager);
         this.tileLoaderManager = new TileLoaderManagerFactoryImpl()
-            .createTileLoaderManager(this.tileManager, Constants.SOURCE_MAP);
+            .createTileLoaderManager(this.tileManager, LevelType.FACTORY_LEVEL_1.getSourceMap());
         assertNotNull(this.tileLoaderManager);
         final DocumentExtractor documentExtractor = new DocumentExtractorFactoryImpl()
-            .createDocumentExtractor(Constants.SOURCE_MAP);
+            .createDocumentExtractor(LevelType.FACTORY_LEVEL_1.getSourceMap());
         assertNotNull(documentExtractor);
         final TileLoaderGameObjects tileLoaderGameObjects = new TileLoaderGameObjectsFactoryImpl()
             .createTileLoaderGameObjects(this.tileLoaderManager, documentExtractor);

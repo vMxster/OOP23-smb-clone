@@ -3,6 +3,8 @@ package it.unibo.smb.model.collision;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import it.unibo.smb.controller.LevelType;
+import it.unibo.smb.model.collision.factory.CollisionCheckerFactoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,11 +36,14 @@ class TestCollision {
      */
     @BeforeEach
     void init() {
-        this.gameModel = new GameModelImpl(Constants.SOURCE_MAP, new GameControllerImpl());
+        this.gameModel = new GameModelImpl(
+                LevelType.FACTORY_LEVEL_1.getSourceMap(),
+                new GameControllerImpl());
         assertNotNull(this.gameModel);
         final CollisionHandler collisionHandler = new CollisionHandlerImpl(this.gameModel);
         assertNotNull(collisionHandler);
-        this.collisionChecker = new CollisionCheckerImpl(collisionHandler);
+        this.collisionChecker = new CollisionCheckerFactoryImpl()
+                .createCollisionChecker(collisionHandler);
         assertNotNull(collisionChecker);
     }
 
@@ -51,7 +56,7 @@ class TestCollision {
         assertEquals(
                 List.of(
                         this.gameModel.getMeatBoy().getX(), 
-                        this.gameModel.getMeatBoy().getY()), 
+                        this.gameModel.getMeatBoy().getY()),
                 List.of(
                         this.gameModel.getMeatBoyStartCoord().getX(), 
                         this.gameModel.getMeatBoyStartCoord().getY()));

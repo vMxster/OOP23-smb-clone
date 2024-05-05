@@ -1,5 +1,6 @@
 package it.unibo.smb.model.level;
 
+import it.unibo.smb.controller.LevelType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,6 @@ import it.unibo.smb.model.entity.player.MeatBoy;
 import it.unibo.smb.model.entity.target.BandageGirl;
 import it.unibo.smb.model.level.factory.LevelFactoryImpl;
 import it.unibo.smb.model.tiles.Tile;
-import it.unibo.smb.commons.Constants;
 import it.unibo.smb.commons.Point2D;
 
 /**
@@ -35,7 +35,8 @@ class TestLevel {
      */
     @BeforeEach
     void setUp() {
-        level = new LevelFactoryImpl().createLevel(Constants.SOURCE_MAP);
+        level = new LevelFactoryImpl()
+                .createLevel(LevelType.FACTORY_LEVEL_1.getSourceMap());
         assertNotNull(level);
     }
 

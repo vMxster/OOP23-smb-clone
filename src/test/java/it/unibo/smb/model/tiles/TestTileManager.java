@@ -3,6 +3,9 @@ package it.unibo.smb.model.tiles;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import it.unibo.smb.controller.LevelType;
+import it.unibo.smb.model.entity.obstacles.CircularSaw;
+import it.unibo.smb.model.entity.obstacles.Platform;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +39,7 @@ class TestTileManager {
     @BeforeEach
     void init() {
         this.tileManager = new TileManagerFactoryImpl()
-            .createTileManager(Constants.SOURCE_MAP);
+            .createTileManager(LevelType.FACTORY_LEVEL_1.getSourceMap());
         assertNotNull(this.tileManager);
     }
 
@@ -118,7 +121,7 @@ class TestTileManager {
     }
 
     /**
-     * Tests the {@link TileManagerImpl#setSaw()} method.
+     * Tests the {@link TileManagerImpl#setSaw(CircularSaw)} method.
      */
     @Test
     void testSetSaw() {
@@ -127,7 +130,7 @@ class TestTileManager {
     }
 
     /**
-     * Tests the {@link TileManagerImpl#setPlatform()} method.
+     * Tests the {@link TileManagerImpl#setPlatform(Platform)} method.
      */
     @Test
     void testSetPlatform() {
@@ -136,21 +139,21 @@ class TestTileManager {
     }
 
     /**
-     * Tests the {@link TileManagerImpl#setMeatBoyCoord()} method.
+     * Tests the {@link TileManagerImpl#setMeatBoyCoord(Point2D)} method.
      */
     @Test
     void testSetMeatBoyCoord() {
-        tileManager.setMeatBoyCoord(new Point2D<Double, Double>(0.0, 0.0));
+        tileManager.setMeatBoyCoord(new Point2D<>(0.0, 0.0));
         assertEquals(0, tileManager.getMeatBoy().getX());
         assertEquals(0, tileManager.getMeatBoy().getY());
     }
 
     /**
-     * Tests the {@link TileManagerImpl#setBandageGirlCoord()} method.
+     * Tests the {@link TileManagerImpl#setBandageGirlCoord(Point2D)} method.
      */
     @Test
     void testSetBandageGirlCoord() {
-        tileManager.setBandageGirlCoord(new Point2D<Double, Double>(0.0, 0.0));
+        tileManager.setBandageGirlCoord(new Point2D<>(0.0, 0.0));
         assertEquals(0, tileManager.getBandageGirl().getX());
         assertEquals(0, tileManager.getBandageGirl().getY());
     }

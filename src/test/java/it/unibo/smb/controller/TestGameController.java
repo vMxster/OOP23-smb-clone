@@ -31,6 +31,9 @@ class TestGameController {
         gameController = new GameControllerFactoryImpl()
             .createGameController();
         assertNotNull(this.gameController);
+        gameController.start(
+                LevelType.FACTORY_LEVEL_1.getEnvironment().getName(),
+                LevelType.FACTORY_LEVEL_1.getLevelNumber());
     }
 
     /**

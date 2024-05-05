@@ -7,10 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.util.List;
 
 
+import it.unibo.smb.controller.LevelType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.smb.commons.Constants;
 import it.unibo.smb.model.tiles.tileset.TileSet;
 import it.unibo.smb.model.tiles.tileset.TileSetImpl;
 import it.unibo.smb.model.tiles.tileset.factory.TileSetFactoryImpl;
@@ -29,7 +29,7 @@ class TestTileSet {
     @BeforeEach
     void init() {
         this.tileSet = new TileSetFactoryImpl()
-            .createTileSet(Constants.SOURCE_MAP);
+            .createTileSet(LevelType.FACTORY_LEVEL_1.getSourceMap());
         assertNotNull(this.tileSet);
     }
 

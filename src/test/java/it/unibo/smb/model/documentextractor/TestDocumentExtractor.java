@@ -1,9 +1,9 @@
 package it.unibo.smb.model.documentextractor;
 
+import it.unibo.smb.controller.LevelType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.smb.commons.Constants;
 import it.unibo.smb.model.documentextractor.factory.DocumentExtractorFactoryImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,12 +24,12 @@ class TestDocumentExtractor {
     @BeforeEach
     void init() {
         this.documentExtractor = new DocumentExtractorFactoryImpl()
-            .createDocumentExtractor(Constants.SOURCE_MAP);
+            .createDocumentExtractor(LevelType.FACTORY_LEVEL_1.getSourceMap());
         assertNotNull(this.documentExtractor);
     }
 
     /**
-     * Test the {@link DocumentExtractor#getElements()} method.
+     * Test the {@link DocumentExtractor#getElements(TagType)} method.
      */
     @Test
     void testGetElements() {

@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import it.unibo.smb.controller.LevelType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.smb.commons.Constants;
 import it.unibo.smb.model.collision.CollisionHandler;
 import it.unibo.smb.model.entity.obstacles.CircularSaw;
 import it.unibo.smb.model.entity.obstacles.Platform;
@@ -34,7 +34,9 @@ class TestGameModel {
      */
     @BeforeEach
     void init() {
-        this.gameModel = new GameModelImpl(Constants.SOURCE_MAP, new GameControllerImpl());
+        this.gameModel = new GameModelImpl(
+                LevelType.FACTORY_LEVEL_1.getSourceMap(),
+                new GameControllerImpl());
         assertNotNull(this.gameModel);
     }
 
