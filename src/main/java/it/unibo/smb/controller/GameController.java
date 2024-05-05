@@ -23,9 +23,12 @@ public interface GameController {
     void startWindow();
 
     /**
-     * Starts the game loop.
+     * Starts the game loop for the specified Level.
+     *
+     * @param sectionName The name of the section.
+     * @param levelNumber The level number.
      */
-    void start();
+    void start(String sectionName, int levelNumber);
 
     /**
      * Retrieves the grid of tiles representing the stationary object.
@@ -102,18 +105,20 @@ public interface GameController {
     void isDead();
 
     /**
-     * Retrieves the number of deaths of the player.
-     * 
-     * @return the number of deaths.
+     * Retrieves the number of deaths of the player for a specific level.
+     *
+     * @param level The level type.
+     * @return The number of deaths.
      */
-    int getDeaths();
+    int getDeaths(LevelType level);
 
     /**
      * Retrieves the time record of the level.
-     * 
-     * @return the time record of the level.
+     *
+     * @param level The level type.
+     * @return The time record of the level.
      */
-    int getTimeRecord();
+    int getTimeRecord(LevelType level);
 
     /**
      * Retrieves the GameWindow associated with this object.
