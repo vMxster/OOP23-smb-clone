@@ -3,6 +3,7 @@ package it.unibo.smb.view.imagerenderer.manager;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+import it.unibo.smb.controller.EnvironmentType;
 import it.unibo.smb.controller.GameController;
 import it.unibo.smb.view.imagerenderer.factory.gameobjects.ImageRendererSawsFactoryImpl;
 import it.unibo.smb.view.imagerenderer.factory.gameobjects.ImageRendererStationaryFactoryImpl;
@@ -46,9 +47,13 @@ public class ImageRendererManagerImpl implements ImageRendererManager {
      * @return A list of BufferedImages representing the rendered game elements.
      */
     @Override
-    public List<BufferedImage> render() {
+    public List<BufferedImage> render(final EnvironmentType environmentType) {
         return List.of(
-            this.imageLoader.load(ImageType.BACKGROUND),
+            this.imageLoader.load(
+                    switch (environmentType) {
+                        case FOREST -> ImageType.FORESTBG;
+                        case FACTORY -> ImageType.FACTORYBG;
+            }),
             this.imageRendererStationary.render(this.gameController.getStationary()),
             this.imageRendererSaws.render(this.gameController.getSaws()),
             this.imageLoader.load(ImageType.MEAT_BOY));
