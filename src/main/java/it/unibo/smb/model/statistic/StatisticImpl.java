@@ -1,55 +1,48 @@
 package it.unibo.smb.model.statistic;
+
+import it.unibo.smb.controller.LevelType;
+
 /**
- * The Statistic rappresents the implementation methods that 
- * update the total number of death 
- * and the time record of the player.
+ * Implementation of the Statistic representing game statistics for a specific level.
  */
 public class StatisticImpl implements Statistic {
+    private final LevelType level;
     private int deaths;
-    private int recordTime; 
+    private int recordTime;
 
     /**
-     * Constructs a new Statistic of the player.
+     * Constructs a new StatisticImpl object for the specified level.
+     *
+     * @param level The level type associated with the statistics.
      */
-    public StatisticImpl() {
-        this.deaths = 0;
-        this.recordTime = 0;
+    public StatisticImpl(final LevelType level) {
+        this.level = level;
     }
 
-    /**
-     * Add a death every time the player die.
-     */
     @Override
-    public void addDeaths() {
+    public final void addDeaths() {
         this.deaths++;
     }
-    /**
-     * Update the time record every time the player 
-     * makes a better time. 
-     */
+
     @Override
-    public void updateRecord(final int time) {
+    public final void updateRecord(final int time) {
         if (recordTime == 0 || time < this.recordTime) {
             this.recordTime = time;
         }
     }
-    /**
-     * Returns the total number of deaths.
-     * 
-     * @return total number of deaths.
-     */
+
     @Override
-    public int getDeaths() {
+    public final int getDeaths() {
         return this.deaths;
     }
-    /**
-     * Returns the best time record.
-     * 
-     * @return the best time record.
-     */
+
     @Override
-    public int getRecordTime() {
+    public final int getRecordTime() {
         return this.recordTime;
     }
 
+    @Override
+    public final LevelType getLevelName() {
+        return this.level;
+    }
 }
