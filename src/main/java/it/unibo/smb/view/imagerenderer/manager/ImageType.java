@@ -5,11 +5,6 @@ package it.unibo.smb.view.imagerenderer.manager;
  */
 public enum ImageType {
     /**
-     * Background image.
-     */
-    BACKGROUND("background.png"),
-
-    /**
      * Image representing the character Meat Boy.
      */
     MEAT_BOY("meatboy.png"),
@@ -17,7 +12,17 @@ public enum ImageType {
     /**
      * Image representing the Saws.
      */
-    SAWS("buzzsaw2.png");
+    SAWS("buzzsaw2.png"),
+
+    /**
+     * Image representing the Forest's Background.
+     */
+    FORESTBG("forestbg.png"),
+
+    /**
+     * Image representing the Factory's Background.
+     */
+    FACTORYBG("factorybg.png");
 
     private final String imageName;
 
