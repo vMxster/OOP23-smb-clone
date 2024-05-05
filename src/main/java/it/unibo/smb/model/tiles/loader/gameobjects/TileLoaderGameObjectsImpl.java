@@ -2,10 +2,10 @@ package it.unibo.smb.model.tiles.loader.gameobjects;
 
 import java.util.stream.IntStream;
 
-import it.unibo.smb.model.entity.obstacles.CircularSawImpl;
-import it.unibo.smb.model.entity.obstacles.LaserBarrierImpl;
-import it.unibo.smb.model.entity.obstacles.LavaPoolImpl;
-import it.unibo.smb.model.entity.obstacles.PlatformImpl;
+import it.unibo.smb.model.entity.obstacles.factory.circularsaw.CircularSawFactoryImpl;
+import it.unibo.smb.model.entity.obstacles.factory.laserbarrier.LaserBarrierFactoryImpl;
+import it.unibo.smb.model.entity.obstacles.factory.lavapool.LavaPoolFactoryImpl;
+import it.unibo.smb.model.entity.obstacles.factory.platform.PlatformFactoryImpl;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -17,8 +17,9 @@ import it.unibo.smb.model.tiles.loader.manager.GameObjectType;
 import it.unibo.smb.model.tiles.loader.manager.TileLoaderManager;
 
 /**
- * The TileLoaderGameObjects class is responsible for loading objects from the TMX file
- * and populating the TileLoaderManager with saws and platforms.
+ * The TileLoaderGameObjects class is responsible for loading various types of game objects
+ * from the TMX file and populating the TileLoaderManager with saws, platforms, lava pools,
+ * and laser barriers.
  */
 public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
 
@@ -56,7 +57,9 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
     }
 
     /**
-     * Loads platforms and circular saws from an XML document.
+     * Loads various types of game objects from the game map document into the game world.
+     * This method sequentially loads objects of different types, including saws, platforms, lava pools,
+     * and laser barriers, into the game world.
      */
     @Override
     public void load() {
@@ -67,9 +70,9 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
     }
 
     /**
-     * Loads objects from the TMX file and populates the TileManager.
+     * Loads objects of a specified type from the game map document and adds them to the game world.
      *
-     * @param nameObjects The name of the objects to load.
+     * @param nameObjects The type of game objects to be loaded.
      */
     private void loadObjects(final GameObjectType nameObjects) {
         final NodeList objects = documentExtractor.getElements(TagType.OBJECTGROUP);
@@ -77,15 +80,14 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
             .mapToObj(i -> (Element) objects.item(i))
             .toList().stream()
                 .filter(node -> nameObjects.toString()
-                    .equals(((Element) node).getAttribute(TagType.NAME.toString())))
+                    .equals(node.getAttribute(TagType.NAME.toString())))
                 .findFirst()
                 .ifPresent(objectGroupElement -> {
-                    final NodeList objectsInGroup = ((Element) objectGroupElement)
+                    final NodeList objectsInGroup = objectGroupElement
                         .getElementsByTagName(TagType.OBJECT.toString());
                     IntStream.range(0, objectsInGroup.getLength())
                         .mapToObj(i -> (Element) objectsInGroup.item(i))
-                        .toList().stream()
-                            .map(objectNode -> (Element) objectNode)
+                        .toList()
                             .forEach(objectElement -> {
                                 final int x = Integer.parseInt(
                                     this.tileLoaderManager.trim(
@@ -107,30 +109,43 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
                 });
     }
 
+    /**
+     * Adds a new game object to the game world.
+     *
+     * @param nameObjects The type of game object to be added.
+     * @param x The x-coordinate of the game object's position.
+     * @param y The y-coordinate of the game object's position.
+     * @param width The width of the game object.
+     * @param height The height of the game object.
+     */
     private void addGameObject(final GameObjectType nameObjects, final int x, final int y, final int width, final int height) {
         if (GameObjectType.SAWS.equals(nameObjects)) {
-            this.tileLoaderManager.setSaw(new CircularSawImpl(
-                    x * Constants.SCALE_PROPORTION,
-                    y * Constants.SCALE_PROPORTION,
-                    (int) (width * Constants.SCALE_PROPORTION)));
+            this.tileLoaderManager.setSaw(new CircularSawFactoryImpl()
+                    .createCircularSaw(
+                        x * Constants.SCALE_PROPORTION,
+                        y * Constants.SCALE_PROPORTION,
+                        (int) (width * Constants.SCALE_PROPORTION)));
         } else if (GameObjectType.LAVAPOOL.equals(nameObjects)) {
-            this.tileLoaderManager.setLavaPool(new LavaPoolImpl(
-                    x * Constants.SCALE_PROPORTION,
-                    y * Constants.SCALE_PROPORTION,
-                    (int) (width * Constants.SCALE_PROPORTION),
-                    (int) (height * Constants.SCALE_PROPORTION)));
+            this.tileLoaderManager.setLavaPool(new LavaPoolFactoryImpl()
+                    .createLavaPool(
+                        x * Constants.SCALE_PROPORTION,
+                        y * Constants.SCALE_PROPORTION,
+                        (int) (width * Constants.SCALE_PROPORTION),
+                        (int) (height * Constants.SCALE_PROPORTION)));
         } else if (GameObjectType.LASERBARRIER.equals(nameObjects)) {
-            this.tileLoaderManager.setLaserBarrier(new LaserBarrierImpl(
-                    x * Constants.SCALE_PROPORTION,
-                    y * Constants.SCALE_PROPORTION,
-                    (int) (width * Constants.SCALE_PROPORTION),
-                    (int) (height * Constants.SCALE_PROPORTION)));
+            this.tileLoaderManager.setLaserBarrier(new LaserBarrierFactoryImpl()
+                    .createLaserBarrier(
+                        x * Constants.SCALE_PROPORTION,
+                        y * Constants.SCALE_PROPORTION,
+                        (int) (width * Constants.SCALE_PROPORTION),
+                        (int) (height * Constants.SCALE_PROPORTION)));
         } else {
-            this.tileLoaderManager.setPlatform(new PlatformImpl(
-                    x * Constants.SCALE_PROPORTION,
-                    y * Constants.SCALE_PROPORTION,
-                    (int) (width * Constants.SCALE_PROPORTION),
-                    (int) (height * Constants.SCALE_PROPORTION)));
+            this.tileLoaderManager.setPlatform(new PlatformFactoryImpl()
+                    .createPlatform(
+                        x * Constants.SCALE_PROPORTION,
+                        y * Constants.SCALE_PROPORTION,
+                        (int) (width * Constants.SCALE_PROPORTION),
+                        (int) (height * Constants.SCALE_PROPORTION)));
         }
     }
 
